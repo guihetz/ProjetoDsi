@@ -176,6 +176,27 @@ public class ReservaDao {
         }finally{
             liberarRecursos(conn, ps, null);
         }
-        //comentario
+        
+    }
+    
+    public void excluirReserva(int reservaId){
+        PreparedStatement ps = null;
+        String sql = "delete from reservas where reserva_id = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, reservaId);
+            ps.executeUpdate();
+            conn.commit();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                throw new RuntimeException(ex1);
+            }
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, null);
+        }
     }
 }
