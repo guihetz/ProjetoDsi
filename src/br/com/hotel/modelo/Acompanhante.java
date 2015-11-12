@@ -13,7 +13,16 @@ public class Acompanhante {
     private int acompanhanteId;
     private String nome;
     private int idade;
+    private int reservaId;
 
+    public int getReservaId() {
+        return reservaId;
+    }
+
+    public void setReservaId(int reservaId) {
+        this.reservaId = reservaId;
+    }
+    
     public int getAcompanhanteId() {
         return acompanhanteId;
     }
