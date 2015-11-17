@@ -131,4 +131,48 @@ public class EntradaDao {
             liberarRecursos(conn, ps, rs);
         }
     }
+    
+    public void atualizarEntrada(Entrada e){
+        PreparedStatement ps = null;
+        String sql = "update entradas set data_chegada = ?, data_saida = ?, reserva_id = ? where entrada_id = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setDate(1, new Date(e.getDataChegada().getTimeInMillis()));
+            ps.setDate(2, new Date(e.getDataSaida().getTimeInMillis()));
+            ps.setInt(3, e.getReservaId());
+            ps.setInt(4, e.getEntradaId());
+            ps.executeUpdate();
+            conn.commit();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                throw new RuntimeException(ex1);
+            }
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, null);
+        }
+    }
+    
+    public void excluirEntrada(Entrada e){
+        PreparedStatement ps = null;
+        String sql = "delete from entradas where entrada_id = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, e.getEntradaId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                throw new RuntimeException(ex1);
+            }
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, null);
+        }
+    }
 }
