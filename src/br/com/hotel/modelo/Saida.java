@@ -20,6 +20,15 @@ public class Saida {
     private double desconto;
     private boolean estadiaPaga;
     private int tipoPagamentoId;
+    private int reservaId;
+
+    public int getReservaId() {
+        return reservaId;
+    }
+
+    public void setReservaId(int reservaId) {
+        this.reservaId = reservaId;
+    }
 
     public int getSaidaId() {
         return saidaId;
