@@ -127,6 +127,33 @@ public class TipoAcomodacaoDao {
         }
     }
     
+    public TipoAcomodacao buscarTipoAcomodacao(String descricao){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        TipoAcomodacao ta = null;
+        String sql = "select * from tipo_acomodacao where descricao = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, descricao);
+            ta = new TipoAcomodacao();
+            rs = ps.executeQuery();
+            while(rs.next()){
+                ta.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                ta.setDescricao(rs.getString("descricao"));
+                ta.setQtdeAcomodacoes(rs.getInt("qtde_acomodacoes"));
+                ta.setNumAdultos(rs.getInt("num_adultos"));
+                ta.setNumCriancas(rs.getInt("num_criancas"));
+                ta.setValorDiaria(rs.getDouble("valor_diaria"));
+            }
+            return ta;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public void atualizarTipoAcomodacao(TipoAcomodacao ta){
         PreparedStatement ps = null;
         String sql = "update tipo_acomodacao set descricao = ?, qtde_acomodacoes = ?, valor_diaria = ?, num_adultos = ?, num_criancas = ? where tipo_acomodacao_id = ?;";
