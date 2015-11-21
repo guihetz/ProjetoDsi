@@ -73,7 +73,7 @@ public class TelaEditarTipoAcomodacao extends javax.swing.JFrame {
 
         jLabel5.setText("Num Criança");
 
-        btnCadastrar.setText("Editar Acomodação");
+        btnCadastrar.setText("Salvar Alteração");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
