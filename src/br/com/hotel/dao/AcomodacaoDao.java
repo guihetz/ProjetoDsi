@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class AcomodacaoDao {
     private Connection conn;
@@ -49,7 +49,7 @@ public class AcomodacaoDao {
     
     public void inserirAcomodacao(Acomodacao a){
         PreparedStatement ps = null;
-        String sql = "insert into acomodacoes(num_acomodacao, andar, tipo_acomodacao_id, reservado) values(?,?,?,?);";
+        String sql = "INSERT INTO acomodacoes(num_acomodacao, andar, tipo_acomodacao_id, reservado) VALUES(?,?,?,?) ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class AcomodacaoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Acomodacao> acomodacoes = null;
-        String sql = "select * from acomodacoes;";
+        String sql = "SELECT * FROM acomodacoes ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -102,7 +102,7 @@ public class AcomodacaoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Acomodacao a = null;
-        String sql = "select * from acomodacoes where acomodacao_id = ?;";
+        String sql = "SELECT * FROM acomodacoes WHERE acomodacao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -126,7 +126,8 @@ public class AcomodacaoDao {
     
     public void atualizarAcomodacao(Acomodacao a){
         PreparedStatement ps = null;
-        String sql = "update acomodacoes set num_acomodacao = ?, andar = ?, tipo_acomodacao_id = ?, reservado = ? where acomodacao_id = ?;";
+        String sql = "UPDATE acomodacoes SET num_acomodacao = ?, andar = ?, tipo_acomodacao_id = ?, reservado = ? "
+                   + "WHERE acomodacao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -151,7 +152,7 @@ public class AcomodacaoDao {
     
     public void excluirAcomodacao(int acomodacaoId){
         PreparedStatement ps = null;
-        String sql = "delete from acomodacoes where acomodacao_id = ?;";
+        String sql = "DELETE FROM acomodacoes WHERE acomodacao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);

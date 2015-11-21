@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class HospedeDao {
     private Connection conn;
@@ -50,9 +50,9 @@ public class HospedeDao {
         }
     }
     
-    public void inserirHospede(Hospede h){
+    public boolean inserirHospede(Hospede h){
         PreparedStatement ps = null;
-        String sql = "insert into hospedes(cpf, nome, endereco, telefone, email, data_nascimento) values(?,?,?,?,?,?);";
+        String sql = "INSERT INTO hospedes(cpf, nome, endereco, telefone, email, data_nascimento) VALUES(?,?,?,?,?,?) ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -64,13 +64,16 @@ public class HospedeDao {
             ps.setDate(6, new Date(h.getDataNascimento().getTime()));
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }
@@ -80,7 +83,7 @@ public class HospedeDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Hospede> hospedes = null;
-        String sql = "select * from hospedes;";
+        String sql = "SELECT * FROM hospedes ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -108,7 +111,7 @@ public class HospedeDao {
     public Hospede buscarHospede(int hospedeId){
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select * from hospedes where hospede_id = ?;";
+        String sql = "SELECT * FROM hospedes WHERE hospede_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -134,7 +137,7 @@ public class HospedeDao {
     
     public void excluirHospede(int hospedeId){
         PreparedStatement ps = null;
-        String sql = "delete from hospedes where hospede_id = ?;";
+        String sql = "DELETE FROM hospedes WHERE hospede_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -153,9 +156,10 @@ public class HospedeDao {
         }
     }
     
-    public void atualizarHospede(Hospede h){
+    public boolean atualizarHospede(Hospede h){
         PreparedStatement ps = null;
-        String sql = "update hospedes set cpf = ?, nome = ?, endereco = ?, telefone = ?, email = ?, data_nascimento = ? where hospede_id = ?;";
+        String sql = "UPDATE hospedes SET cpf = ?, nome = ?, endereco = ?, telefone = ?, email = ?, data_nascimento = ? "
+                   + "WHERE hospede_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -168,13 +172,16 @@ public class HospedeDao {
             ps.setInt(7, h.getHospedeId());
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }

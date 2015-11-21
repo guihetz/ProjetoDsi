@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class ReservaDao {
     private Connection conn;
@@ -54,7 +54,8 @@ public class ReservaDao {
     
     public void inserirReserva(Reserva r){
         PreparedStatement ps = null;
-        String sql = "insert into reservas(data_chegada, data_saida, hospede_id, tipo_acomodacao_id, valor_diaria, taxa_multa, cartao_id, desconto) values(?,?,?,?,?,?,?,?);";
+        String sql = "INSERT INTO reservas(data_chegada, data_saida, hospede_id, tipo_acomodacao_id, valor_diaria, taxa_multa, cartao_id, desconto) "
+                   + "VALUES(?,?,?,?,?,?,?,?) ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -84,7 +85,7 @@ public class ReservaDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Reserva> reservas = null;
-        String sql = "select * from reservas;";
+        String sql = "SELECT * FROM reservas ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -118,7 +119,7 @@ public class ReservaDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Reserva> reservas = null;
-        String sql = "select * from reservas where hospede_id = ?;";
+        String sql = "SELECT * FROM reservas WHERE hospede_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -151,7 +152,8 @@ public class ReservaDao {
     
     public void atualizarReserva(Reserva r){
         PreparedStatement ps = null;
-        String sql = "update reservas set data_chegada = ?, data_saida = ?, hospede_id =?, tipo_acomodacao_id = ?, valor_diaria = ?, taxa_multa = ?, cartao_id = ?, desconto = ? where reserva_id = ?;";
+        String sql = "UPDATE reservas SET data_chegada = ?, data_saida = ?, hospede_id =?, tipo_acomodacao_id = ?, valor_diaria = ?, taxa_multa = ?, cartao_id = ?, desconto = ? "
+                   + "WHERE reserva_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -181,7 +183,7 @@ public class ReservaDao {
     
     public void excluirReserva(int reservaId){
         PreparedStatement ps = null;
-        String sql = "delete from reservas where reserva_id = ?;";
+        String sql = "DELETE FROM reservas WHERE reserva_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);

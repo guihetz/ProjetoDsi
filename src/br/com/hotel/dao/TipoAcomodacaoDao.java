@@ -154,7 +154,7 @@ public class TipoAcomodacaoDao {
         }
     }
     
-    public void atualizarTipoAcomodacao(TipoAcomodacao ta){
+    public void atualizarTipoAcomodacao(TipoAcomodacao ta, int id){
         PreparedStatement ps = null;
         String sql = "update tipo_acomodacao set descricao = ?, qtde_acomodacoes = ?, valor_diaria = ?, num_adultos = ?, num_criancas = ? where tipo_acomodacao_id = ?;";
         
@@ -165,6 +165,7 @@ public class TipoAcomodacaoDao {
             ps.setDouble(3, ta.getValorDiaria());
             ps.setInt(4, ta.getNumAdultos());
             ps.setInt(5, ta.getNumCriancas());
+            ps.setInt(6, id);
             ps.executeUpdate();
             conn.commit();
         } catch (SQLException ex) {

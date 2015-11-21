@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class ConnectionFactory {
     public Connection getConnection(){
@@ -19,7 +19,6 @@ public class ConnectionFactory {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/HOTEL", "root", "root");
             conn.setAutoCommit(false);
             return  conn;
-            
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }

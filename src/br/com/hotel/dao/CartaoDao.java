@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class CartaoDao {
     private Connection conn;
@@ -49,7 +49,7 @@ public class CartaoDao {
     
     public void inserirCartao(Cartao c){
         PreparedStatement ps = null;
-        String sql = "insert into cartoes(numero_cartao, bandeira, hospede_id) values(?,?,?);";
+        String sql = "INSERT INTO cartoes(numero_cartao, bandeira, hospede_id) VALUES(?,?,?) ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -74,7 +74,7 @@ public class CartaoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Cartao> cartoes = null;
-        String sql = "select * from cartoes;";
+        String sql = "SELECT * FROM cartoes ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -100,7 +100,7 @@ public class CartaoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Cartao> cartoes = null;
-        String sql = "select * from cartoes where hospede_id = ?;";
+        String sql = "SELECT * FROM cartoes WHERE hospede_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -127,7 +127,7 @@ public class CartaoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         Cartao c = null;
-        String sql = "select * from cartoes where cartao_id = ?;";
+        String sql = "SELECT * FROM cartoes WHERE cartao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -150,7 +150,7 @@ public class CartaoDao {
     
     public void atualizarCartao(Cartao c){
         PreparedStatement ps = null;
-        String sql = "update cartoes set numero_cartao = ?, bandeira = ?, hospede_id = ? where cartao_id = ?;";
+        String sql = "UPDATE cartoes SET numero_cartao = ?, bandeira = ?, hospede_id = ? WHERE cartao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -174,7 +174,7 @@ public class CartaoDao {
     
     public void excluirCartao(int cartaoId){
         PreparedStatement ps = null;
-        String sql = "delete from cartoes where cartao_id = ?;";
+        String sql = "DELETE FROM cartoes WHERE cartao_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);

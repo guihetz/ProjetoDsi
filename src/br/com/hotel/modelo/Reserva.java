@@ -5,6 +5,7 @@
  */
 package br.com.hotel.modelo;
 
+import java.sql.Timestamp;
 import java.util.GregorianCalendar;
 
 /**

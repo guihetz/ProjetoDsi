@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class CategoriaDao {
     private Connection conn;
@@ -47,31 +47,34 @@ public class CategoriaDao {
         }
     }
     
-    public void inserirCategoria(Categoria c){
+    public boolean inserirCategoria(Categoria c){
         PreparedStatement ps = null;
-        String sql = "insert into categorias(nome_categoria) values(?);";
+        String sql = "INSERT INTO categorias(nome_categoria) VALUES(?) ";
         
         try {
             ps = conn.prepareStatement(sql);
             ps.setString(1, c.getNomeCategoria());
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }
         
     }
     
-    public void alterarCategoria(Categoria c){
+    public boolean alterarCategoria(Categoria c){
         PreparedStatement ps = null;
-        String sql = "update categorias set nome_categoria = ? where categoria_id = ?;";
+        String sql = "UPDATE categorias SET nome_categoria = ? WHERE categoria_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -79,13 +82,16 @@ public class CategoriaDao {
             ps.setInt(2, c.getCategoriaId());
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }
@@ -94,7 +100,7 @@ public class CategoriaDao {
     public Categoria buscarCategoria(int categoriaId){
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = "select * from categorias where categoria_id = ?;";
+        String sql = "SELECT * FROM categorias WHERE categoria_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -117,7 +123,7 @@ public class CategoriaDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<Categoria> categorias = null;
-        String sql = "selet * from categorias;";
+        String sql = "SELECT * FROM categorias ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -139,7 +145,7 @@ public class CategoriaDao {
     
     public void excluirCategoria(int categoriaId){
         PreparedStatement ps = null;
-        String sql = "delete from categorias where categoria_id = ?;";
+        String sql = "DELETE FROM categorias WHERE categoria_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author guilherme
+ * @author Daylton e Guilherme
  */
 public class ItemConsumoDao {
     private Connection conn;
@@ -47,9 +47,9 @@ public class ItemConsumoDao {
         }
     }
     
-    public void inserirItemConsumo(ItemConsumo ic){
+    public boolean inserirItemConsumo(ItemConsumo ic){
         PreparedStatement ps = null;
-        String sql = "insert into itens_consumo(descricao, valor, categoria_id) values(?,?,?);";
+        String sql = "INSERT INTO itens_consumo(descricao, valor, categoria_id) VALUES(?,?,?) ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -58,13 +58,16 @@ public class ItemConsumoDao {
             ps.setInt(3, ic.getCategoriaId());
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }
@@ -75,7 +78,7 @@ public class ItemConsumoDao {
         PreparedStatement ps = null;
         ResultSet rs = null;
         ArrayList<ItemConsumo> itens = null;
-        String sql = "select * from itens_consumo;";
+        String sql = "SELECT * FROM itens_consumo ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -100,7 +103,7 @@ public class ItemConsumoDao {
     public ItemConsumo buscarItemConsumo(int itemConsumoId){
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String sql = " select * from itens_consumo where item_id = ?;";
+        String sql = " SELECT * FROM itens_consumo WHERE item_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -121,9 +124,9 @@ public class ItemConsumoDao {
         }
     }
     
-    public void atualizarItemConsumo(ItemConsumo ic){
+    public boolean atualizarItemConsumo(ItemConsumo ic){
         PreparedStatement ps = null;
-        String sql = "update itens_consumo set descricao = ?, valor = ?, categoria_id = ? where item_id = ?;";
+        String sql = "UPDATE itens_consumo SET descricao = ?, valor = ?, categoria_id = ? WHERE item_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
@@ -133,13 +136,16 @@ public class ItemConsumoDao {
             ps.setInt(4, ic.getItemId());
             ps.executeUpdate();
             conn.commit();
+            
+            return true;
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
                 throw new RuntimeException(ex1);
             }
-            throw new RuntimeException(ex);
+            return false;
+            //throw new RuntimeException(ex);
         }finally{
             liberarRecursos(conn, ps, null);
         }
@@ -147,7 +153,7 @@ public class ItemConsumoDao {
     
     public void excluirItemConsumo(int itemConsumoId){
         PreparedStatement ps = null;
-        String sql = "delete from itens_consumo where item_id = ?;";
+        String sql = "DELETE FROM itens_consumo WHERE item_id = ? ";
         
         try {
             ps = conn.prepareStatement(sql);
