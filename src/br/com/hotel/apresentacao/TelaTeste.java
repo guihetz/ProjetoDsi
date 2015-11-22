@@ -5,6 +5,7 @@
  */
 package br.com.hotel.apresentacao;
 
+import java.awt.BorderLayout;
 import teste.NewJPanel;
 /**
  *
@@ -19,10 +20,12 @@ public class TelaTeste extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         
-        NewJPanel painel = new NewJPanel();
-        painel.setLocation(224,6);
-        painel.setVisible(true);
-        this.getContentPane().add(painel);
+//        NewJPanel painel = new NewJPanel();
+//        painel.setLocation(224,6);
+//        painel.setVisible(true);
+//        this.getContentPane().add(painel, BorderLayout.WEST);
+        
+        
     }
     
     
@@ -40,6 +43,7 @@ public class TelaTeste extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,9 +55,19 @@ public class TelaTeste extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Hotel Motel", 0, 30)); // NOI18N
         jButton1.setText("Gerenciar Hotel");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Hotel Motel", 0, 30)); // NOI18N
         jButton2.setText("Gerenciar Hospedes");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setFont(new java.awt.Font("Hotel Motel", 0, 30)); // NOI18N
         jButton3.setText("Gerenciar Reservas");
@@ -88,28 +102,40 @@ public class TelaTeste extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(806, Short.MAX_VALUE))
+        getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 816, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 552, Short.MAX_VALUE)
         );
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        painel1 p1 = new painel1();
+        p1.setVisible(true);
+        this.add(p1, BorderLayout.CENTER);
+        this.getContentPane().revalidate();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        painel2 p2 = new painel2();
+        p2.setVisible(true);
+        this.add(p2, BorderLayout.CENTER);
+        this.getContentPane().revalidate();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,5 +179,6 @@ public class TelaTeste extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }
