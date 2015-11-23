@@ -224,7 +224,7 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
-        TelaItensConsumo form1 = new TelaItensConsumo();
+        TelaItensConsumo form1 = new TelaItensConsumo(this);
         form1.setAlwaysOnTop(true);
         form1.setVisible(true);
         form1.setLocationRelativeTo(null);

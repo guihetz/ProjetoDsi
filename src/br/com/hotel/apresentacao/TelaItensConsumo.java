@@ -214,6 +214,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
             }
         }catch(Exception e){
             lbMsg.setText("Erro: " + e.getMessage());
+            e.printStackTrace();
             lbMsg.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnInserirActionPerformed
