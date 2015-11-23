@@ -17,7 +17,6 @@ import javax.swing.table.AbstractTableModel;
 public class TableModelTipoAcomodacao extends AbstractTableModel{
     private String[] nomesColunas = {"DESCRIÇÃO", "QNT QUARTOS","VALOR DIARIA", "ADULTOS", "CRIANÇAS"};
     private ArrayList<TipoAcomodacao> tipoAcomodacoes;
-    SimpleDateFormat formatacaoData;
     
     public TableModelTipoAcomodacao(){
         tipoAcomodacoes = new ArrayList<>();

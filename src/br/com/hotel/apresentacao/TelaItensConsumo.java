@@ -11,13 +11,15 @@ import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import teste.JpanelGerenciarHotel;
 
 /**
  *
  * @author daylton
  */
 public class TelaItensConsumo extends javax.swing.JFrame {
-
+    private JpanelGerenciarHotel pnGerenciarHotel;
     /**
      * Creates new form TelaItensConsumo
      */
@@ -28,6 +30,16 @@ public class TelaItensConsumo extends javax.swing.JFrame {
             cbCategoria.addItem(c);
         }
         
+    }
+    
+    public TelaItensConsumo(javax.swing.JPanel form){
+        this();
+        pnGerenciarHotel = (JpanelGerenciarHotel) form;
+    }
+    
+    public void preencherMsg(String s, Color c){
+        lbMsg.setText(s);
+        lbMsg.setForeground(c);               
     }
 
     /**
@@ -51,7 +63,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Itens de Consumo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 36))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Itens de Consumo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Motel", 0, 36))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel1.setText("Descrição");
@@ -70,7 +82,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
         cbCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "--------------" }));
 
         btnAdicionarCategoria.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
-        btnAdicionarCategoria.setText("+");
+        btnAdicionarCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
         btnAdicionarCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarCategoriaActionPerformed(evt);
@@ -78,14 +90,14 @@ public class TelaItensConsumo extends javax.swing.JFrame {
         });
 
         btnRemoverCategoria.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
-        btnRemoverCategoria.setText("-");
+        btnRemoverCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
         btnRemoverCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoverCategoriaActionPerformed(evt);
             }
         });
 
-        btnInserir.setFont(new java.awt.Font("Hotel Oriental", 1, 24)); // NOI18N
+        btnInserir.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         btnInserir.setText("Inserir Item");
         btnInserir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,11 +113,11 @@ public class TelaItensConsumo extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lbMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnInserir, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
@@ -124,8 +136,9 @@ public class TelaItensConsumo extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnAdicionarCategoria)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRemoverCategoria)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnRemoverCategoria)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,13 +188,18 @@ public class TelaItensConsumo extends javax.swing.JFrame {
                 if(!"".equals(tfValor.getText()) && Double.valueOf(tfValor.getText()) > 0){
                    if(cbCategoria.getSelectedIndex() > 0){
                        ItemConsumo ic = new ItemConsumo();
+                       Categoria c = (Categoria) cbCategoria.getSelectedItem();
                        
                        ic.setDescricao(tfDescricao.getText());
                        ic.setValor(Double.valueOf(tfValor.getText()));
-                       ic.setCategoriaId(cbCategoria.getSelectedIndex());
+                       ic.setCategoriaId(c.getCategoriaId());
                        
                        ItemConsumoDao dao = new ItemConsumoDao(new ConnectionFactory().getConnection());
-                       dao.inserirItemConsumo(ic);                       
+                       dao.inserirItemConsumo(ic);
+                       
+                       pnGerenciarHotel.preencherMsg("Item Adicionado", Color.green);
+                       
+                       this.dispose();
                    }else{
                         lbMsg.setText("Erro: Categoria Inválida!");
                         lbMsg.setForeground(Color.red);
@@ -208,9 +226,20 @@ public class TelaItensConsumo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAdicionarCategoriaActionPerformed
 
     private void btnRemoverCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverCategoriaActionPerformed
-        CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
-        Categoria c = (Categoria) cbCategoria.getSelectedItem();
-        dao.excluirCategoria(c.getCategoriaId());
+        if(cbCategoria.getSelectedIndex()> 0){
+            CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
+            Categoria c = (Categoria) cbCategoria.getSelectedItem();
+            
+            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            
+            if(r == 0){
+                    dao.excluirCategoria(c.getCategoriaId());
+                    preencherMsg("Categoria Excluida!", Color.red);
+            }          
+                        
+        }else{
+            preencherMsg("Categoria Invalida!", Color.red);
+        }        
     }//GEN-LAST:event_btnRemoverCategoriaActionPerformed
 
     /**

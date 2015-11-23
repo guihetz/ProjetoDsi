@@ -100,6 +100,30 @@ public class ItemConsumoDao {
         }
     }
     
+    public String getCategoria(int categoria_id){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String categoria = null;
+        String sql = "SELECT nome_categoria "
+                   + "FROM itens_consumo i JOIN categorias c "
+                   + "ON i.categoria_id = c.categoria_id "
+                   + "WHERE i.categoria_id = ? ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, categoria_id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                categoria = rs.getString("nome_categoria");             
+            }
+            return categoria;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public ItemConsumo buscarItemConsumo(int itemConsumoId){
         PreparedStatement ps = null;
         ResultSet rs = null;
