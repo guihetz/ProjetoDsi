@@ -356,8 +356,6 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnAdicionar1;
     private javax.swing.JButton btnAdicionarAcomodacao;
     private javax.swing.JButton btnAdicionarItem;
     private javax.swing.JButton btnEditarAcomodacao;

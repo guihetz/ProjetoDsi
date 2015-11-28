@@ -200,7 +200,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
                        dao.inserirItemConsumo(ic);
                        
                        pnGerenciarHotel.preencherMsg("Item Adicionado", Color.green);
-                       
+                       pnGerenciarHotel.preencherTabelaItensConsumo();
                        this.dispose();
                    }else{
                         lbMsg.setText("Erro: Categoria Inválida!");
