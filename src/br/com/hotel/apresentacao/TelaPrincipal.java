@@ -5,8 +5,6 @@
  */
 package br.com.hotel.apresentacao;
 
-import br.com.hotel.dao.ConnectionFactory;
-import br.com.hotel.dao.ItemConsumoDao;
 import java.awt.BorderLayout;
 import teste.JpanelGerenciarHotel;
 /**
@@ -40,7 +38,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1185, 550));
+        setPreferredSize(new java.awt.Dimension(1225, 550));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
@@ -141,6 +139,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

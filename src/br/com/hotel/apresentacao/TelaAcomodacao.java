@@ -181,20 +181,20 @@ public final class TelaAcomodacao extends javax.swing.JFrame {
         if(tbTipoAcomodacao.getSelectedRow() >= 0){
             TipoAcomodacao tpa = modelo.retornarObjetoSelecionado(tbTipoAcomodacao.getSelectedRow());
 
-            TelaEditarTipoAcomodacao form1 = new TelaEditarTipoAcomodacao(tpa, this);
-            form1.setAlwaysOnTop(true);
-            form1.setVisible(true);
-            form1.setLocationRelativeTo(null);  
+//            TelaEditarTipoAcomodacao form1 = new TelaEditarTipoAcomodacao(tpa, this);
+//            form1.setAlwaysOnTop(true);
+//            form1.setVisible(true);
+//            form1.setLocationRelativeTo(null);  
         }else{
             preecherMsg("Nenhuma Acomodação Selecionada", Color.RED);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        TelaTipoAcomodacao form2 = new TelaTipoAcomodacao(this);
-        form2.setAlwaysOnTop(true);
-        form2.setVisible(true);
-        form2.setLocationRelativeTo(null);
+//        TelaTipoAcomodacao form2 = new TelaTipoAcomodacao(this);
+//        form2.setAlwaysOnTop(true);
+//        form2.setVisible(true);
+//        form2.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
