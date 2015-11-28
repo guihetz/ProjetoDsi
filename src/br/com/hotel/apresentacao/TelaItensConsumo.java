@@ -25,11 +25,13 @@ public class TelaItensConsumo extends javax.swing.JFrame {
      */
     public TelaItensConsumo() {
         initComponents();
-        
+        preencherComboCategorias();
+    }
+    public void preencherComboCategorias(){
+        cbCategoria.removeAllItems();
         for(Categoria c: new CategoriaDao(new ConnectionFactory().getConnection()).listarCategorias()){
             cbCategoria.addItem(c);
         }
-        
     }
     
     public TelaItensConsumo(javax.swing.JPanel form){
@@ -220,7 +222,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnAdicionarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarCategoriaActionPerformed
-        TelaCategoria form1 = new TelaCategoria();
+        TelaCategoria form1 = new TelaCategoria(this);
         form1.setAlwaysOnTop(true);
         form1.setVisible(true);
         form1.setLocationRelativeTo(null);

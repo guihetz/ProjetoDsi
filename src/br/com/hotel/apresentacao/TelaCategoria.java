@@ -15,7 +15,7 @@ import java.awt.Color;
  * @author daylton
  */
 public class TelaCategoria extends javax.swing.JFrame {
-    private TelaCategoria telaCategoria;
+    private TelaItensConsumo tic;
     /**
      * Creates new form TelaCategoria
      */
@@ -25,7 +25,7 @@ public class TelaCategoria extends javax.swing.JFrame {
     
     public TelaCategoria(javax.swing.JFrame form){
         this();
-        telaCategoria = (TelaCategoria) form;
+        tic = (TelaItensConsumo) form;
     }
 
     /**
@@ -117,7 +117,9 @@ public class TelaCategoria extends javax.swing.JFrame {
                 c.setNomeCategoria(tfNomeCategoria.getText());
                 
                 CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
-                dao.inserirCategoria(c);                                
+                dao.inserirCategoria(c); 
+                tic.preencherComboCategorias();
+                this.dispose();
             }else{
                 lbMsg.setText("Nome da Categoria Invalida!");
                 lbMsg.setForeground(Color.red);
