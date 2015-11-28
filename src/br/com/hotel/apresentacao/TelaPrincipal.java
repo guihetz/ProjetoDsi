@@ -5,6 +5,7 @@
  */
 package br.com.hotel.apresentacao;
 
+import br.com.hotel.painel.PainelCadastroHospede;
 import br.com.hotel.painel.JpanelGerenciarHotel;
 import java.awt.BorderLayout;
 import java.awt.Frame;
