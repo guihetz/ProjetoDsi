@@ -6,6 +6,7 @@
 package br.com.hotel.apresentacao;
 
 import java.awt.BorderLayout;
+import javax.swing.JPanel;
 import teste.JpanelGerenciarHotel;
 /**
  *
@@ -111,7 +112,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
+        PainelCadastroHospede pch = new PainelCadastroHospede();
+        pch.setVisible(true);
+        this.add(new JPanel(), BorderLayout.CENTER);
+        this.getContentPane().revalidate();
+        this.add(pch, BorderLayout.CENTER);
+        this.getContentPane().revalidate();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
