@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package teste;
+package br.com.hotel.painel;
 
 import br.com.hotel.apresentacao.TelaEditarItensConsumo;
 import br.com.hotel.apresentacao.TelaEditarTipoAcomodacao;
@@ -21,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
 
 /**
@@ -58,6 +59,14 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
         tbItensConsumo.getColumnModel().getColumn(1).setPreferredWidth(125);
         tbItensConsumo.getColumnModel().getColumn(2).setPreferredWidth(79);
                 
+        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
+        centerRender.setHorizontalAlignment(JLabel.CENTER);
+        tbItensConsumo.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        tbItensConsumo.getColumnModel().getColumn(1).setCellRenderer(centerRender);
+        tbItensConsumo.getColumnModel().getColumn(2).setCellRenderer(centerRender);
+        
+        ((DefaultTableCellRenderer) tbItensConsumo.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
+        
         tbItensConsumo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
@@ -74,12 +83,15 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
         tbAcomodacoes.getColumnModel().getColumn(3).setPreferredWidth(70);
         tbAcomodacoes.getColumnModel().getColumn(4).setPreferredWidth(70);
         
-        DefaultTableCellRenderer rigthRender = new DefaultTableCellRenderer();
-        rigthRender.setHorizontalAlignment(JLabel.CENTER);
-        tbAcomodacoes.getColumnModel().getColumn(1).setCellRenderer(rigthRender);
-        tbAcomodacoes.getColumnModel().getColumn(2).setCellRenderer(rigthRender);
-        tbAcomodacoes.getColumnModel().getColumn(3).setCellRenderer(rigthRender);
-        tbAcomodacoes.getColumnModel().getColumn(4).setCellRenderer(rigthRender);
+        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
+        centerRender.setHorizontalAlignment(JLabel.CENTER);
+        tbAcomodacoes.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        tbAcomodacoes.getColumnModel().getColumn(1).setCellRenderer(centerRender);
+        tbAcomodacoes.getColumnModel().getColumn(2).setCellRenderer(centerRender);
+        tbAcomodacoes.getColumnModel().getColumn(3).setCellRenderer(centerRender);
+        tbAcomodacoes.getColumnModel().getColumn(4).setCellRenderer(centerRender);
+        
+        ((DefaultTableCellRenderer) tbAcomodacoes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
                 
         tbAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }

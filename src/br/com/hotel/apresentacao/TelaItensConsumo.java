@@ -10,9 +10,9 @@ import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
+import br.com.hotel.painel.JpanelGerenciarHotel;
 import java.awt.Color;
 import javax.swing.JOptionPane;
-import teste.JpanelGerenciarHotel;
 
 /**
  *

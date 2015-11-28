@@ -8,8 +8,8 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.TipoAcomodacao;
+import br.com.hotel.painel.JpanelGerenciarHotel;
 import java.awt.Color;
-import teste.JpanelGerenciarHotel;
 
 /**
  *

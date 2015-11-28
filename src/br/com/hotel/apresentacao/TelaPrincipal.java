@@ -5,11 +5,11 @@
  */
 package br.com.hotel.apresentacao;
 
+import br.com.hotel.painel.JpanelGerenciarHotel;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import teste.JpanelGerenciarHotel;
 /**
  *
  * @author daylton

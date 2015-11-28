@@ -10,8 +10,8 @@ import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
+import br.com.hotel.painel.JpanelGerenciarHotel;
 import java.awt.Color;
-import teste.JpanelGerenciarHotel;
 
 /**
  *
@@ -60,7 +60,7 @@ public class TelaEditarItensConsumo extends javax.swing.JFrame {
         btnInserir = new javax.swing.JButton();
         lbMsg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Itens de Consumo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 36))); // NOI18N
 
