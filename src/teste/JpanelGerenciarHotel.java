@@ -229,10 +229,11 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnAdicionarAcomodacao)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnExcluirAcomodacao)))
+                        .addComponent(btnExcluirAcomodacao)
+                        .addGap(12, 12, 12)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(

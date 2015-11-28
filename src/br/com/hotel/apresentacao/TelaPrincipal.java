@@ -6,6 +6,8 @@
 package br.com.hotel.apresentacao;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import teste.JpanelGerenciarHotel;
 /**
@@ -19,8 +21,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        this.setLocationRelativeTo(null);
-                
+        this.setLocationRelativeTo(null);  
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
     
 
@@ -39,6 +41,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciador de Hotel");
         setPreferredSize(new java.awt.Dimension(1225, 550));
 
         painelLateral.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -96,7 +99,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(199, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
 
         getContentPane().add(painelLateral, java.awt.BorderLayout.WEST);
