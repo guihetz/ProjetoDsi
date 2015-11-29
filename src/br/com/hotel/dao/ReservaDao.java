@@ -115,6 +115,40 @@ public class ReservaDao {
         }
     }
     
+    public ArrayList<Reserva> listarReservasEncerradas(){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Reserva> reservas = null;
+        String sql = "SELECT * FROM reservas_encerradas ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            reservas = new ArrayList<>();
+            while(rs.next()){
+                Reserva r = new Reserva();
+                r.setReservaId(rs.getInt("reserva_id"));
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTime(rs.getDate("data_chegada"));
+                r.setDataChegada(gc);
+                gc.setTime(rs.getDate("data_saida"));
+                r.setDataSaida(gc);
+                r.setHospedeId(rs.getInt("hospede_id"));
+                r.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                r.setValorDiaria(rs.getDouble("valor_diaria"));
+                r.setTaxaMulta(rs.getDouble("taxa_multa"));
+                r.setCartaoId(rs.getInt("cartao_id"));
+                r.setDesconto(rs.getDouble("desconto"));
+                reservas.add(r);
+            }
+            return reservas;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public ArrayList<Reserva> listarReservasPorHospede(int hospedeId){
         PreparedStatement ps = null;
         ResultSet rs = null;

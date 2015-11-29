@@ -156,7 +156,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane2" alignment="0" pref="526" max="32767" attributes="0"/>
+                      <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="btnAdicionarAcomodacao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -213,7 +213,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/hotel/imagem/add.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Adicionar Acomoda&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="Adicionar Tipo de Acomoda&#xe7;&#xe3;o"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarAcomodacaoActionPerformed"/>
@@ -235,7 +235,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/hotel/imagem/delete.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Excluir Acomoda&#xe7;&#xe3;o"/>
+            <Property name="text" type="java.lang.String" value="Excluir Tipo de Acomoda&#xe7;&#xe3;o"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirAcomodacaoActionPerformed"/>

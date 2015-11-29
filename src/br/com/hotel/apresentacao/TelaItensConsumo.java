@@ -11,6 +11,7 @@ import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
 import br.com.hotel.painel.PainelGerenciarAcomodacoes;
+import br.com.hotel.painel.PainelGerenciarHotel;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author daylton
  */
 public class TelaItensConsumo extends javax.swing.JFrame {
-    private PainelGerenciarAcomodacoes pnGerenciarHotel;
+    private PainelGerenciarHotel pnGerenciarHotel;
     /**
      * Creates new form TelaItensConsumo
      */
@@ -36,7 +37,7 @@ public class TelaItensConsumo extends javax.swing.JFrame {
     
     public TelaItensConsumo(javax.swing.JPanel form){
         this();
-        pnGerenciarHotel = (PainelGerenciarAcomodacoes) form;
+        pnGerenciarHotel = (PainelGerenciarHotel) form;
     }
     
     public void preencherMsg(String s, Color c){

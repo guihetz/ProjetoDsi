@@ -98,6 +98,34 @@ public class AcomodacaoDao {
         }
     }
     
+    public ArrayList<Acomodacao> listarAcomodacoesPorTipo(int tipoAcomodacaoId){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Acomodacao> acomodacoes = null;
+        String sql = "SELECT * FROM acomodacoes where tipo_acomodacao_id = ? ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, tipoAcomodacaoId);
+            rs = ps.executeQuery();
+            acomodacoes = new ArrayList<>();
+            while(rs.next()){
+                Acomodacao a = new Acomodacao();
+                a.setAcomodacaoId(rs.getInt("acomodacao_id"));
+                a.setAndar(rs.getInt("andar"));
+                a.setNumAcomodacao(rs.getInt("num_acomodacao"));
+                a.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                a.setReservado(rs.getBoolean("reservado"));
+                acomodacoes.add(a);
+            }
+            return acomodacoes;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public Acomodacao buscarAcomodacao(int acomodacaoId){
         PreparedStatement ps = null;
         ResultSet rs = null;

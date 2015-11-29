@@ -6,13 +6,17 @@
 package br.com.hotel.painel;
 
 import br.com.hotel.apresentacao.TelaEditarHospede;
+import br.com.hotel.apresentacao.TelaSelecionarAcomodacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
+import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.tabela.TableModelHospedes;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import javax.swing.WindowConstants;
 
 /**
  *
@@ -25,6 +29,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
      */
     private TableModelHospedes tableModelHospedes;
     private Hospede h;
+    private Acomodacao acomodacaoEscolhida;
     public PainelCadastroReservas() {
         initComponents();
         this.preencherTabelaHospedes();
@@ -42,6 +47,9 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tabelaHospedes.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
 
+    public void setAcomodacao(Acomodacao acomodacaoEscolhida){
+        this.acomodacaoEscolhida = acomodacaoEscolhida;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -58,7 +66,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         dataChegada = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         dataSaida = new com.toedter.calendar.JDateChooser();
-        cbAcomodacoes = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfValorDiaria = new javax.swing.JTextField();
@@ -70,6 +77,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         lbNome = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHospedes = new javax.swing.JTable();
+        btnEscolherAcomodacao = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
 
@@ -84,9 +92,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
         jLabel2.setText("Data Saída:");
 
-        cbAcomodacoes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel3.setText("Tipo de Acomodação:");
+        jLabel3.setText("Selecionar Acomodação:");
 
         jLabel4.setText("Valor da Diária:");
 
@@ -110,6 +116,13 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
             }
         ));
         jScrollPane1.setViewportView(tabelaHospedes);
+
+        btnEscolherAcomodacao.setText("Escolher");
+        btnEscolherAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEscolherAcomodacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,10 +152,10 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                                         .addComponent(jLabel5)
                                         .addGap(59, 59, 59)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbAcomodacoes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(dataSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(tfValorDiaria)
-                                    .addComponent(tfMulta)))
+                                    .addComponent(tfMulta)
+                                    .addComponent(btnEscolherAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addComponent(btnAdicionarAcompanhante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnAdicionarDadosCartao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -174,8 +187,8 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbAcomodacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(btnEscolherAcomodacao))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
@@ -224,7 +237,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,11 +258,16 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
+        TelaSelecionarAcomodacao tsa = new TelaSelecionarAcomodacao(this);
+        tsa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnEscolherAcomodacaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAcompanhante;
     private javax.swing.JButton btnAdicionarDadosCartao;
-    private javax.swing.JComboBox<String> cbAcomodacoes;
+    private javax.swing.JButton btnEscolherAcomodacao;
     private com.toedter.calendar.JDateChooser dataChegada;
     private com.toedter.calendar.JDateChooser dataSaida;
     private javax.swing.JButton jButton1;
