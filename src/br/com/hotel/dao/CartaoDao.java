@@ -123,6 +123,30 @@ public class CartaoDao {
         }
     }
     
+    public Cartao buscarCartoesPorNumero(String numCartao){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM cartoes WHERE numero_cartao = ? ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, numCartao);
+            rs = ps.executeQuery();
+            Cartao c = new Cartao();
+            while(rs.next()){
+                c.setCartaoId(rs.getInt("cartao_id"));
+                c.setNumeroCartao(rs.getString("numero_cartao"));
+                c.setBandeira(rs.getString("bandeira"));
+                c.setHospedeId(rs.getInt("hospede_id"));
+            }
+            return c;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public Cartao buscarCartao(int cartaoId){
         PreparedStatement ps = null;
         ResultSet rs = null;

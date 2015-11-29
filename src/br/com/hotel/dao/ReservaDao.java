@@ -184,6 +184,39 @@ public class ReservaDao {
         }
     }
     
+    public Reserva buscarReservaPorHospede(int hospedeId){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM reservas WHERE hospede_id = ? ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, hospedeId);
+            rs = ps.executeQuery();
+                Reserva r = new Reserva();
+            while(rs.next()){
+                r.setReservaId(rs.getInt("reserva_id"));
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTime(rs.getDate("data_chegada"));
+                r.setDataChegada(gc);
+                gc.setTime(rs.getDate("data_saida"));
+                r.setDataSaida(gc);
+                r.setHospedeId(rs.getInt("hospede_id"));
+                r.setAcomodacaoId(rs.getInt("acomodacao_id"));
+                r.setValorDiaria(rs.getDouble("valor_diaria"));
+                r.setTaxaMulta(rs.getDouble("taxa_multa"));
+                r.setCartaoId(rs.getInt("cartao_id"));
+                r.setDesconto(rs.getDouble("desconto"));
+            }
+            return r;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
+    
     public void atualizarReserva(Reserva r){
         PreparedStatement ps = null;
         String sql = "UPDATE reservas SET data_chegada = ?, data_saida = ?, hospede_id =?, acomodacao_id = ?, valor_diaria = ?, taxa_multa = ?, cartao_id = ?, desconto = ? "

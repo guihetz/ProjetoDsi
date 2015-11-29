@@ -8,15 +8,22 @@ package br.com.hotel.painel;
 import br.com.hotel.apresentacao.TelaAdicionarAcompanhante;
 import br.com.hotel.apresentacao.TelaAdicionarCartao;
 import br.com.hotel.apresentacao.TelaSelecionarAcomodacao;
+import br.com.hotel.dao.AcomodacaoDao;
+import br.com.hotel.dao.AcompanhanteDao;
+import br.com.hotel.dao.CartaoDao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
+import br.com.hotel.dao.ReservaDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Acompanhante;
 import br.com.hotel.modelo.Cartao;
 import br.com.hotel.modelo.Hospede;
+import br.com.hotel.modelo.Reserva;
 import br.com.hotel.tabela.TableModelHospedes;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -291,22 +298,53 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
+        //try{
             if(h!=null && acomodacaoEscolhida!= null && c!= null){
                 Calendar chegada = dataChegada.getCalendar();
                 Calendar saida = dataSaida.getCalendar();
                 double diaria = Double.valueOf(tfValorDiaria.getText());
                 double multa = Double.valueOf(tfMulta.getText());
                 double desconto = Double.valueOf(tfDesconto.getText());
-                
+                CartaoDao cd = new CartaoDao(new ConnectionFactory().getConnection());
+                cd.inserirCartao(c);
+                cd = new CartaoDao(new ConnectionFactory().getConnection());
+                Cartao c2 = cd.buscarCartoesPorNumero(c.getNumeroCartao());
+                Reserva r = new Reserva();
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTimeInMillis(chegada.getTimeInMillis());
+                r.setDataChegada(gc);
+                gc.setTimeInMillis(saida.getTimeInMillis());
+                r.setDataSaida(gc);
+                r.setHospedeId(h.getHospedeId());
+                r.setCartaoId(c2.getCartaoId());
+                r.setDesconto(desconto);
+                r.setTaxaMulta(multa);
+                r.setValorDiaria(diaria);
+                r.setAcomodacaoId(acomodacaoEscolhida.getAcomodacaoId());
+                ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+                rd.inserirReserva(r);
+                rd = new ReservaDao(new ConnectionFactory().getConnection());
+                r = rd.buscarReservaPorHospede(h.getHospedeId());
+                for(Acompanhante a : acompanhantes){
+                    AcompanhanteDao ad = new AcompanhanteDao(new ConnectionFactory().getConnection());
+                    a.setReservaId(r.getReservaId());
+                    ad.inserirAcompanhante(a);
+                }
+                acomodacaoEscolhida.setReservado(true);
+                AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+                ad.atualizarAcomodacao(acomodacaoEscolhida);
+                JOptionPane.showMessageDialog(null, "Reserva Concluída!");
+                this.h = null;
+                this.acomodacaoEscolhida = null;
+                this.c = new Cartao();
                 
             }else{
                 JOptionPane.showMessageDialog(null, "Dados incompletos.");
             }
             
-        }catch(Exception erro){
-            JOptionPane.showMessageDialog(null, "Erro ao realizar reserva. Tente novamente.");
-        }
+        //}catch(Exception erro){
+            //JOptionPane.showMessageDialog(null, "Erro ao realizar reserva. Tente novamente.\n" + erro.getMessage());
+        //}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
