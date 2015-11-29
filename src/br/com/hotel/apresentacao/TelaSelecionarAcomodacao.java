@@ -85,6 +85,11 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         cbTipoAcomodacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipoAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoAcomodacaoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Selecionar o Tipo de Acomodação:");
 
@@ -156,6 +161,10 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Nenhum Acomodacao selecionada!");
         }
     }//GEN-LAST:event_btnEscolherAcomodacaoActionPerformed
+
+    private void cbTipoAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoAcomodacaoActionPerformed
+        preecherTabelaAcomodacoes();
+    }//GEN-LAST:event_cbTipoAcomodacaoActionPerformed
 
     /**
      * @param args the command line arguments

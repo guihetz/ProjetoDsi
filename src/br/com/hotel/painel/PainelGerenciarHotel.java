@@ -9,11 +9,14 @@ import br.com.hotel.apresentacao.TelaEditarItensConsumo;
 import br.com.hotel.apresentacao.TelaEditarTipoAcomodacao;
 import br.com.hotel.apresentacao.TelaItensConsumo;
 import br.com.hotel.apresentacao.TelaTipoAcomodacao;
+import br.com.hotel.dao.AcomodacaoDao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.dao.TipoAcomodacaoDao;
+import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.ItemConsumo;
 import br.com.hotel.modelo.TipoAcomodacao;
+import br.com.hotel.tabela.TableModelAcomodacoes;
 import br.com.hotel.tabela.TableModelItensConsumo;
 import br.com.hotel.tabela.TableModelTipoAcomodacao;
 import java.awt.Color;
@@ -35,10 +38,18 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
      */
     TableModelItensConsumo modeloItensConsumo;
     TableModelTipoAcomodacao modeloAcomodacao;
+    private TableModelAcomodacoes tma;
     public PainelGerenciarHotel() {
         initComponents();
         preencherTabelaItensConsumo();
         preencherTabelaTipoAcomodacao();
+        TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
+        if(tad.listarTipoAcomodacao().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Não existem acomodações cadastradas!");
+        }else{
+            preencherComboTipoAcomodacoes();
+            preecherTabelaAcomodacoes();
+        }
     }
 
     public void preencherMsg(String s, Color c){
@@ -46,6 +57,8 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         lbMsg.setForeground(c);      
         lbMsg1.setText(s);
         lbMsg1.setForeground(c);
+        lbMsg2.setText(s);
+        lbMsg2.setForeground(c);
     }
     
     public void preencherTabelaItensConsumo(){
@@ -95,6 +108,23 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                 
         tbAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
+    
+    public void preencherComboTipoAcomodacoes(){
+        TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
+        cbTipoAcomodacao.removeAllItems();
+        for(TipoAcomodacao ta: tad.listarTipoAcomodacao()){
+            cbTipoAcomodacao.addItem(ta.getDescricao());
+        }
+    }
+    
+    public void preecherTabelaAcomodacoes(){
+        AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+        tma = new TableModelAcomodacoes();
+        tma.preencherLista(ad.listarAcomodacoes());
+        tabelaAcomodacoes.setModel(tma);
+        tabelaAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabelaAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +152,18 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         btnExcluirAcomodacao = new javax.swing.JButton();
         lbMsg1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaAcomodacoes = new javax.swing.JTable();
+        cbTipoAcomodacao = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        tfNumeroAcomodacao = new javax.swing.JTextField();
+        tfAndarAcomodacao = new javax.swing.JTextField();
+        btnInserirAcomodacao = new javax.swing.JButton();
+        btnApagarAcomodacao = new javax.swing.JButton();
+        btnAtualizarAcomodacao = new javax.swing.JButton();
+        lbMsg2 = new javax.swing.JLabel();
 
         tbItensConsumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -207,7 +249,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(555, Short.MAX_VALUE))
+                .addContainerGap(609, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +337,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lbMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(398, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,15 +351,100 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Gerenciar Tipos de Acomodação", jPanel2);
 
+        tabelaAcomodacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(tabelaAcomodacoes);
+
+        cbTipoAcomodacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel1.setText("Tipo de Acomodação:");
+
+        jLabel2.setText("Número da Acomodação:");
+
+        jLabel3.setText("Andar da Acomodação:");
+
+        btnInserirAcomodacao.setText("Adicionar Acomodação");
+        btnInserirAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        btnApagarAcomodacao.setText("Excluir Acomodação");
+        btnApagarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        btnAtualizarAcomodacao.setText("Editar Acomodação");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1006, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(cbTipoAcomodacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfNumeroAcomodacao)
+                            .addComponent(tfAndarAcomodacao)
+                            .addComponent(btnInserirAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnApagarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAtualizarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(lbMsg2, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 525, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbTipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNumeroAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfAndarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnInserirAcomodacao))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(btnApagarAcomodacao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAtualizarAcomodacao))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30)
+                .addComponent(lbMsg2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                .addGap(27, 27, 27))
         );
 
         jTabbedPane1.addTab("Gerenciar Acomodações", jPanel3);
@@ -410,14 +537,64 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnExcluirAcomodacaoActionPerformed
 
+    private void btnInserirAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirAcomodacaoActionPerformed
+        String tipoAcomodacao = (String)cbTipoAcomodacao.getSelectedItem();
+        TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
+        TipoAcomodacao ta = tad.buscarTipoAcomodacao(tipoAcomodacao);
+        if(ta != null){
+            if(!tfNumeroAcomodacao.getText().equals("")){
+                if(!tfAndarAcomodacao.getText().equals("")){
+                    try{
+                        Acomodacao a = new Acomodacao();
+                        a.setNumAcomodacao(Integer.valueOf(tfNumeroAcomodacao.getText()));
+                        a.setAndar(Integer.valueOf(tfAndarAcomodacao.getText()));
+                        a.setReservado(false);
+                        a.setTipoAcomodacaoId(ta.getTipoAcomodacaoId());
+                        AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+                        ad.inserirAcomodacao(a);
+                        JOptionPane.showMessageDialog(null, "Acomodacao Adicionada!");
+                        preecherTabelaAcomodacoes();
+                    }catch(Exception erro){
+                        JOptionPane.showMessageDialog(null, "Não foi possível adicionar acomodação");
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnInserirAcomodacaoActionPerformed
+
+    private void btnApagarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarAcomodacaoActionPerformed
+        if(tabelaAcomodacoes.getSelectedRow() >= 0){
+            AcomodacaoDao dao = new AcomodacaoDao(new ConnectionFactory().getConnection());
+            Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
+
+            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+
+            if(r == 0){
+                dao.excluirAcomodacao(a.getAcomodacaoId());
+                preencherMsg("Acomodação Excluida!", Color.red);
+            }
+
+            preecherTabelaAcomodacoes();
+        }else{
+            preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
+        }
+    }//GEN-LAST:event_btnApagarAcomodacaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAcomodacao;
     private javax.swing.JButton btnAdicionarItem;
+    private javax.swing.JButton btnApagarAcomodacao;
+    private javax.swing.JButton btnAtualizarAcomodacao;
     private javax.swing.JButton btnEditarAcomodacao;
     private javax.swing.JButton btnEditarItem;
     private javax.swing.JButton btnExcluirAcomodacao;
     private javax.swing.JButton btnExcluirItem;
+    private javax.swing.JButton btnInserirAcomodacao;
+    private javax.swing.JComboBox<String> cbTipoAcomodacao;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -425,10 +602,15 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbMsg;
     private javax.swing.JLabel lbMsg1;
+    private javax.swing.JLabel lbMsg2;
+    private javax.swing.JTable tabelaAcomodacoes;
     private javax.swing.JTable tbAcomodacoes;
     private javax.swing.JTable tbItensConsumo;
+    private javax.swing.JTextField tfAndarAcomodacao;
+    private javax.swing.JTextField tfNumeroAcomodacao;
     // End of variables declaration//GEN-END:variables
 }

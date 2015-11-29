@@ -10,6 +10,7 @@ import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.TipoAcomodacao;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -24,6 +25,7 @@ public class TableModelAcomodacoes extends AbstractTableModel{
     
     public TableModelAcomodacoes(){
         listaAcomodacoes = new ArrayList<>();
+        
     }
     
     public void preencherLista(ArrayList<Acomodacao> listaAcomodacoes){
@@ -60,7 +62,7 @@ public class TableModelAcomodacoes extends AbstractTableModel{
                 return a.getAndar();
             case 2:
                 TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
-                TipoAcomodacao ta = tad.buscarTipoAcomodacao(a.getAcomodacaoId());
+                TipoAcomodacao ta = tad.buscarTipoAcomodacao(a.getTipoAcomodacaoId());
                 return ta.getDescricao();
             case 3:
                 if(a.isReservado()){
