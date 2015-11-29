@@ -62,7 +62,7 @@ public class TableModelHospedes extends AbstractTableModel{
             case 4:
                 return h.getEmail();
             case 5:
-                return h.getDataNascimento();
+                return new SimpleDateFormat("dd/MM/yyyy").format(h.getDataNascimento());
             default:
                 throw new UnsupportedOperationException("Operation not Suport!");    
         }

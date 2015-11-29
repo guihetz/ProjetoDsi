@@ -5,6 +5,7 @@
  */
 package br.com.hotel.painel;
 
+import br.com.hotel.apresentacao.TelaEditarHospede;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.modelo.Hospede;
@@ -106,8 +107,9 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -131,11 +133,8 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tfTelefone)
-                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(202, 202, 202)
-                        .addComponent(btnCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(347, 347, 347))
+                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(498, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,9 +163,9 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(tfDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastro)
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastrar Hóspede", jPanel1);
@@ -185,8 +184,18 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabelaHospedes);
 
         jButton1.setText("Editar Hóspede");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Excluir Hóspede");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -246,7 +255,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 865, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -280,6 +289,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                                     HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
                                     hd.inserirHospede(h);
                                     JOptionPane.showMessageDialog(null, "Hospede Cadastrado");
+                                    this.preencherTabelaHospedes();
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Erro: digite data");
                                 }
@@ -302,6 +312,33 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Erro: "  + erro.getMessage());
         }
     }//GEN-LAST:event_btnCadastroActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(tabelaHospedes.getSelectedRow() >= 0){
+            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
+            
+            TelaEditarHospede teh = new TelaEditarHospede(h, this);
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(tabelaHospedes.getSelectedRow() >= 0){
+            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
+            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            
+            if(r == 0){
+                    HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
+                    hd.excluirHospede(h.getHospedeId());
+                    JOptionPane.showMessageDialog(null, "Hóspede Excluido");
+            }
+            this.preencherTabelaHospedes();
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
