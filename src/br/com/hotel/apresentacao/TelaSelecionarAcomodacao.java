@@ -156,6 +156,7 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
              }else{
                  this.pcr.setAcomodacao(a);
                  JOptionPane.showMessageDialog(null, "Acomodação Escolhida!");
+                 this.dispose();
              }
         }else{
              JOptionPane.showMessageDialog(null, "Nenhum Acomodacao selecionada!");
