@@ -12,6 +12,7 @@ import br.com.hotel.modelo.Hospede;
 import br.com.hotel.tabela.TableModelHospedes;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -68,6 +69,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         tfDataNascimento = new javax.swing.JFormattedTextField();
         btnCadastro = new javax.swing.JButton();
+        dcDataNascimento = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHospedes = new javax.swing.JTable();
@@ -108,6 +110,9 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(dcDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -165,7 +170,9 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                     .addComponent(tfDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCadastro)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(dcDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastrar Hóspede", jPanel1);
@@ -264,28 +271,29 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
+        GregorianCalendar d = new GregorianCalendar();
         try{
             if(!tfNome.getText().equals("")){
                 if(!tfCpf.getText().equals("")){
                     if(!tfEndereco.getText().equals("")){
                         if(!tfEmail.getText().equals("")){
                             if(!tfTelefone.getText().equals("")){
-                                if(!tfDataNascimento.getText().equals("")){
+                                if(!dcDataNascimento.getDateFormatString().equals("") && dcDataNascimento.getDate().before(d.getTime())){
                                     String cpf = tfCpf.getText();
                                     String nome = tfNome.getText();
                                     String endereco = tfEndereco.getText();
                                     String email = tfEmail.getText();
                                     String telefone = tfTelefone.getText();
-                                    String dataNascimento = tfDataNascimento.getText();
-                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                    Date data = sdf.parse(dataNascimento);
+//                                    String dataNascimento = tfDataNascimento.getText();
+//                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+//                                    Date data = sdf.parse(dataNascimento);
                                     Hospede h = new Hospede();
                                     h.setCpf(cpf);
                                     h.setNome(nome);
                                     h.setEndereco(endereco);
                                     h.setEmail(email);
                                     h.setTelefone(telefone);
-                                    h.setDataNascimento(data);
+                                    h.setDataNascimento(dcDataNascimento.getDate());
                                     HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
                                     hd.inserirHospede(h);
                                     JOptionPane.showMessageDialog(null, "Hospede Cadastrado");
@@ -343,6 +351,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastro;
+    private com.toedter.calendar.JDateChooser dcDataNascimento;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

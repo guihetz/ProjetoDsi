@@ -5,7 +5,6 @@
  */
 package br.com.hotel.painel;
 
-import br.com.hotel.apresentacao.TelaEditarHospede;
 import br.com.hotel.apresentacao.TelaSelecionarAcomodacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
@@ -16,7 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.WindowConstants;
 
 /**
  *
@@ -63,9 +61,9 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        dataChegada = new com.toedter.calendar.JDateChooser();
+        dataChegada = new org.netbeans.modules.form.InvalidComponent();
         jLabel2 = new javax.swing.JLabel();
-        dataSaida = new com.toedter.calendar.JDateChooser();
+        dataSaida = new org.netbeans.modules.form.InvalidComponent();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         tfValorDiaria = new javax.swing.JTextField();
@@ -99,6 +97,11 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         jLabel5.setText("Taxa de Multa:");
 
         btnAdicionarAcompanhante.setText("Adicionar Acompanhante");
+        btnAdicionarAcompanhante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarAcompanhanteActionPerformed(evt);
+            }
+        });
 
         btnAdicionarDadosCartao.setText("Adicionar Dados Cartão de Crédito");
 
@@ -263,13 +266,17 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tsa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnEscolherAcomodacaoActionPerformed
 
+    private void btnAdicionarAcompanhanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAcompanhanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAdicionarAcompanhanteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAcompanhante;
     private javax.swing.JButton btnAdicionarDadosCartao;
     private javax.swing.JButton btnEscolherAcomodacao;
-    private com.toedter.calendar.JDateChooser dataChegada;
-    private com.toedter.calendar.JDateChooser dataSaida;
+    private org.netbeans.modules.form.InvalidComponent dataChegada;
+    private org.netbeans.modules.form.InvalidComponent dataSaida;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

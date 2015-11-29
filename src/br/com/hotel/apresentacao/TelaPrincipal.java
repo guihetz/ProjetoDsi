@@ -7,12 +7,10 @@ package br.com.hotel.apresentacao;
 
 import br.com.hotel.painel.PainelCadastroHospede;
 import br.com.hotel.painel.PainelCadastroReservas;
-import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import br.com.hotel.painel.PainelGerenciarHotel;
 import java.awt.BorderLayout;
-import java.awt.Frame;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
+
 /**
  *
  * @author daylton

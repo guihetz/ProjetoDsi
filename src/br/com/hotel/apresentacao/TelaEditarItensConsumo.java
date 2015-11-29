@@ -10,7 +10,6 @@ import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
-import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import br.com.hotel.painel.PainelGerenciarHotel;
 import java.awt.Color;
 
