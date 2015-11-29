@@ -8,7 +8,7 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.painel.JpanelGerenciarHotel;
+import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import java.awt.Color;
 
 /**
@@ -16,7 +16,7 @@ import java.awt.Color;
  * @author Guilherme e Daylton
  */ 
 public class TelaTipoAcomodacao extends javax.swing.JFrame {
-    private JpanelGerenciarHotel pnGerenciarHotel;
+    private PainelGerenciarAcomodacoes pnGerenciarHotel;
     
     /**
      * Creates new form TelaTipoAcomodacao
@@ -27,7 +27,7 @@ public class TelaTipoAcomodacao extends javax.swing.JFrame {
     
     public TelaTipoAcomodacao(javax.swing.JPanel panel){
         this();
-        pnGerenciarHotel = (JpanelGerenciarHotel) panel;
+        pnGerenciarHotel = (PainelGerenciarAcomodacoes) panel;
     }
 
     /**

@@ -28,7 +28,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author daylton
  */
-public final class JpanelGerenciarHotel extends javax.swing.JPanel {
+public final class PainelGerenciarAcomodacoes extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel
@@ -37,7 +37,7 @@ public final class JpanelGerenciarHotel extends javax.swing.JPanel {
     TableModelItensConsumo modeloItensConsumo;
     TableModelTipoAcomodacao modeloAcomodacao;
     
-    public JpanelGerenciarHotel() {
+    public PainelGerenciarAcomodacoes() {
         initComponents();
         preencherTabelaItensConsumo();
         preencherTabelaTipoAcomodacao();

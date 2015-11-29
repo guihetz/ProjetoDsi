@@ -6,7 +6,8 @@
 package br.com.hotel.apresentacao;
 
 import br.com.hotel.painel.PainelCadastroHospede;
-import br.com.hotel.painel.JpanelGerenciarHotel;
+import br.com.hotel.painel.PainelCadastroReservas;
+import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import java.awt.BorderLayout;
 import java.awt.Frame;
 import javax.swing.JFrame;
@@ -69,6 +70,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Hotel Motel", 0, 30)); // NOI18N
         jButton3.setText("Gerenciar Reservas");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Hotel Motel", 0, 30)); // NOI18N
         jButton4.setText("Gerenciar ");
@@ -109,7 +115,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JpanelGerenciarHotel p1 = new JpanelGerenciarHotel();
+        PainelGerenciarAcomodacoes p1 = new PainelGerenciarAcomodacoes();
         p1.setVisible(true);
         this.getContentPane().removeAll();
         this.add(painelLateral, BorderLayout.WEST);
@@ -125,6 +131,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.add(pch, BorderLayout.CENTER);
         this.getContentPane().revalidate();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        PainelCadastroReservas pcr = new PainelCadastroReservas();
+        pcr.setVisible(true);
+        this.getContentPane().removeAll();
+        this.add(painelLateral, BorderLayout.WEST);
+        this.add(pcr, BorderLayout.CENTER);
+        this.getContentPane().revalidate();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

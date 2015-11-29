@@ -10,7 +10,7 @@ import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
-import br.com.hotel.painel.JpanelGerenciarHotel;
+import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import java.awt.Color;
 
 /**
@@ -18,7 +18,7 @@ import java.awt.Color;
  * @author daylton
  */
 public class TelaEditarItensConsumo extends javax.swing.JFrame {
-    private JpanelGerenciarHotel pnGerenciarHotel;
+    private PainelGerenciarAcomodacoes pnGerenciarHotel;
     
     /**
      * Creates new form TelaEditarItensConsumo
@@ -32,7 +32,7 @@ public class TelaEditarItensConsumo extends javax.swing.JFrame {
     
     public TelaEditarItensConsumo(ItemConsumo itemConsumo, javax.swing.JPanel panel){
         this();
-        pnGerenciarHotel = (JpanelGerenciarHotel) panel;
+        pnGerenciarHotel = (PainelGerenciarAcomodacoes) panel;
         CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
         ic = itemConsumo;
         

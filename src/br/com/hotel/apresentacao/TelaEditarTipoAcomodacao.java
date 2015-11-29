@@ -8,7 +8,7 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.painel.JpanelGerenciarHotel;
+import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import java.awt.Color;
 
 /**
@@ -16,7 +16,7 @@ import java.awt.Color;
  * @author daylton
  */
 public class TelaEditarTipoAcomodacao extends javax.swing.JFrame {
-    private JpanelGerenciarHotel jpGerenciarHotel;
+    private PainelGerenciarAcomodacoes jpGerenciarHotel;
 
     /**
      * Creates new form TelaEditarTipoAcomodacao
@@ -29,7 +29,7 @@ public class TelaEditarTipoAcomodacao extends javax.swing.JFrame {
     
     public TelaEditarTipoAcomodacao(TipoAcomodacao tipoAcomodacao, javax.swing.JPanel panel){
         this();
-        jpGerenciarHotel = (JpanelGerenciarHotel) panel;
+        jpGerenciarHotel = (PainelGerenciarAcomodacoes) panel;
         tpa = tipoAcomodacao;
         
         tfDescricao.setText(tpa.getDescricao());
