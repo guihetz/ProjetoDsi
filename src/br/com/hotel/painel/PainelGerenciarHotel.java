@@ -556,8 +556,16 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                         a.setReservado(false);
                         a.setTipoAcomodacaoId(ta.getTipoAcomodacaoId());
                         AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-                        ad.inserirAcomodacao(a);
-                        JOptionPane.showMessageDialog(null, "Acomodacao Adicionada!");
+                        int numeroAcomodacoesDisponiveis = ta.getQtdeAcomodacoes() - (ad.listarAcomodacoesPorTipo(ta.getTipoAcomodacaoId()).size());
+                        if(numeroAcomodacoesDisponiveis > 0){
+                            ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+                            ad.inserirAcomodacao(a);
+                            JOptionPane.showMessageDialog(null, "Acomodacao Adicionada!");
+                            preencherMsg("Acomodações disponíveis para adicionar: " + (numeroAcomodacoesDisponiveis - 1) + " do Tipo: " +ta.getDescricao(), Color.red);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Número limite atingido para esse tipo de acomodação!");
+                            preencherMsg("Acomodações disponíveis para adicionar: " + (numeroAcomodacoesDisponiveis) + " do Tipo: " +ta.getDescricao(), Color.red);
+                        }
                         preecherTabelaAcomodacoes();
                     }catch(Exception erro){
                         JOptionPane.showMessageDialog(null, "Não foi possível adicionar acomodação");
