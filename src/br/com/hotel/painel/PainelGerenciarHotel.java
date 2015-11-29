@@ -45,6 +45,8 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         preencherTabelaTipoAcomodacao();
         TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
         if(tad.listarTipoAcomodacao().isEmpty()){
+            preencherComboTipoAcomodacoes();
+            preecherTabelaAcomodacoes();
             JOptionPane.showMessageDialog(null, "Não existem acomodações cadastradas!");
         }else{
             preencherComboTipoAcomodacoes();
@@ -534,6 +536,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             if(r == 0){
                 dao.excluirTipoAcomodacao(tpa.getTipoAcomodacaoId());
                 preencherMsg("Acomodação Excluida!", Color.red);
+                preencherComboTipoAcomodacoes();
             }
 
             preencherTabelaTipoAcomodacao();
@@ -546,7 +549,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         String tipoAcomodacao = (String)cbTipoAcomodacao.getSelectedItem();
         TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
         TipoAcomodacao ta = tad.buscarTipoAcomodacao(tipoAcomodacao);
-        if(ta != null){
+        if(ta.getDescricao() != null){
             if(!tfNumeroAcomodacao.getText().equals("")){
                 if(!tfAndarAcomodacao.getText().equals("")){
                     try{
@@ -572,6 +575,8 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                     }
                 }
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Você deve cadastrar um tipo de acomodação.");
         }
     }//GEN-LAST:event_btnInserirAcomodacaoActionPerformed
 
