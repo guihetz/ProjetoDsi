@@ -17,7 +17,7 @@ public class Reserva {
     private GregorianCalendar dataChegada;
     private GregorianCalendar dataSaida;
     private int hospedeId;
-    private int tipoAcomodacaoId;
+    private int AcomodacaoId;
     private double valorDiaria;
     private double taxaMulta;
     private int cartaoId;
@@ -55,12 +55,12 @@ public class Reserva {
         this.hospedeId = hospedeId;
     }
 
-    public int getTipoAcomodacaoId() {
-        return tipoAcomodacaoId;
+    public int getAcomodacaoId() {
+        return AcomodacaoId;
     }
 
-    public void setTipoAcomodacaoId(int tipoAcomodacaoId) {
-        this.tipoAcomodacaoId = tipoAcomodacaoId;
+    public void setAcomodacaoId(int tipoAcomodacaoId) {
+        this.AcomodacaoId = tipoAcomodacaoId;
     }
 
     public double getValorDiaria() {

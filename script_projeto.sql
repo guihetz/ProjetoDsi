@@ -1,7 +1,8 @@
--- MySQL Workbench Forward Engineering
-DROP DATABASE IF EXISTS HOTEL;
-CREATE DATABASE IF NOT EXISTS HOTEL;
+DROP DATABASE HOTEL;
+CREATE DATABASE HOTEL;
 USE HOTEL;
+-- MySQL Workbench Forward Engineering
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
@@ -50,11 +51,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `itens_consumo` ;
 
 CREATE TABLE IF NOT EXISTS `itens_consumo` (
-  `item_id` INT NOT NULL COMMENT '',
-  `descricao` VARCHAR(45) NOT NULL UNIQUE COMMENT '',
+  `item_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `descricao` VARCHAR(45) NOT NULL COMMENT '',
   `valor` DOUBLE NOT NULL COMMENT '',
   `categoria_id` INT NULL COMMENT '',
   PRIMARY KEY (`item_id`)  COMMENT '',
+  UNIQUE INDEX `descricao_UNIQUE` (`descricao` ASC)  COMMENT '',
   CONSTRAINT `categoria_id`
     FOREIGN KEY (`categoria_id`)
     REFERENCES `categorias` (`categoria_id`)
@@ -131,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `reservas` (
   `data_chegada` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `data_saida` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `hospede_id` INT NOT NULL COMMENT '',
-  `tipo_acomodacao_id` INT NOT NULL COMMENT '',
+  `acomodacao_id` INT NOT NULL COMMENT '',
   `valor_diaria` DOUBLE NOT NULL COMMENT '',
   `taxa_multa` DOUBLE NULL DEFAULT 0 COMMENT '',
   `cartao_id` INT NULL COMMENT '',
@@ -148,8 +150,8 @@ CREATE TABLE IF NOT EXISTS `reservas` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `tipo_acomodacao_id_fk`
-    FOREIGN KEY (`tipo_acomodacao_id`)
-    REFERENCES `tipo_acomodacao` (`tipo_acomodacao_id`)
+    FOREIGN KEY (`acomodacao_id`)
+    REFERENCES `acomodacoes` (`acomodacao_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -260,6 +262,70 @@ CREATE TABLE IF NOT EXISTS `saidas` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `reservas_encerradas`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `reservas_encerradas` ;
+
+CREATE TABLE IF NOT EXISTS `reservas_encerradas` (
+  `reserva_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `data_chegada` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+  `data_saida` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
+  `hospede_id` INT NOT NULL COMMENT '',
+  `acomodacao_id` INT NOT NULL COMMENT '',
+  `valor_diaria` DOUBLE NOT NULL COMMENT '',
+  `taxa_multa` DOUBLE NULL DEFAULT 0 COMMENT '',
+  `cartao_id` INT NULL COMMENT '',
+  `desconto` DOUBLE NULL DEFAULT 0 COMMENT '',
+  PRIMARY KEY (`reserva_id`)  COMMENT '',
+  CONSTRAINT `cartao_id_fk2`
+    FOREIGN KEY (`cartao_id`)
+    REFERENCES `cartoes` (`cartao_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `hospede_id_fk2`
+    FOREIGN KEY (`hospede_id`)
+    REFERENCES `hospedes` (`hospede_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `tipo_acomodacao_id_fk2`
+    FOREIGN KEY (`acomodacao_id`)
+    REFERENCES `acomodacoes` (`acomodacao_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+DELIMITER //
+
+CREATE TRIGGER `fechar_reservas`
+BEFORE DELETE
+   ON reservas FOR EACH ROW
+   
+BEGIN
+   -- Insert record into audit table
+   INSERT INTO reservas_encerradas
+   ( data_chegada,
+	 data_saida,
+     hospede_id,
+     acomodacao_id,
+     valor_diaria,
+     taxa_multa,
+     cartao_id,
+     desconto)
+   VALUES
+   (OLD.data_chegada,
+    OLD.data_saida,
+    OLD.hospede_id,
+    OLD.acomodacao_id,
+    OLD.valor_diaria,
+    OLD.taxa_multa,
+    OLD.cartao_id,
+    OLD.desconto);
+   
+END; //
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

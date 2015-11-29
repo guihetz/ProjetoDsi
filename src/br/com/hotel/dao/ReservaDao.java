@@ -54,7 +54,7 @@ public class ReservaDao {
     
     public void inserirReserva(Reserva r){
         PreparedStatement ps = null;
-        String sql = "INSERT INTO reservas(data_chegada, data_saida, hospede_id, tipo_acomodacao_id, valor_diaria, taxa_multa, cartao_id, desconto) "
+        String sql = "INSERT INTO reservas(data_chegada, data_saida, hospede_id, acomodacao_id, valor_diaria, taxa_multa, cartao_id, desconto) "
                    + "VALUES(?,?,?,?,?,?,?,?) ";
         
         try {
@@ -62,7 +62,7 @@ public class ReservaDao {
             ps.setDate(1, new Date(r.getDataChegada().getTimeInMillis()));
             ps.setDate(2, new Date(r.getDataSaida().getTimeInMillis()));
             ps.setInt(3, r.getHospedeId());
-            ps.setInt(4, r.getTipoAcomodacaoId());
+            ps.setInt(4, r.getAcomodacaoId());
             ps.setDouble(5, r.getValorDiaria());
             ps.setDouble(6, r.getTaxaMulta());
             ps.setInt(7, r.getCartaoId());
@@ -100,7 +100,7 @@ public class ReservaDao {
                 gc.setTime(rs.getDate("data_saida"));
                 r.setDataSaida(gc);
                 r.setHospedeId(rs.getInt("hospede_id"));
-                r.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                r.setAcomodacaoId(rs.getInt("acomodacao_id"));
                 r.setValorDiaria(rs.getDouble("valor_diaria"));
                 r.setTaxaMulta(rs.getDouble("taxa_multa"));
                 r.setCartaoId(rs.getInt("cartao_id"));
@@ -134,7 +134,7 @@ public class ReservaDao {
                 gc.setTime(rs.getDate("data_saida"));
                 r.setDataSaida(gc);
                 r.setHospedeId(rs.getInt("hospede_id"));
-                r.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                r.setAcomodacaoId(rs.getInt("acomodacao_id"));
                 r.setValorDiaria(rs.getDouble("valor_diaria"));
                 r.setTaxaMulta(rs.getDouble("taxa_multa"));
                 r.setCartaoId(rs.getInt("cartao_id"));
@@ -169,7 +169,7 @@ public class ReservaDao {
                 gc.setTime(rs.getDate("data_saida"));
                 r.setDataSaida(gc);
                 r.setHospedeId(rs.getInt("hospede_id"));
-                r.setTipoAcomodacaoId(rs.getInt("tipo_acomodacao_id"));
+                r.setAcomodacaoId(rs.getInt("acomodacao_id"));
                 r.setValorDiaria(rs.getDouble("valor_diaria"));
                 r.setTaxaMulta(rs.getDouble("taxa_multa"));
                 r.setCartaoId(rs.getInt("cartao_id"));
@@ -186,7 +186,7 @@ public class ReservaDao {
     
     public void atualizarReserva(Reserva r){
         PreparedStatement ps = null;
-        String sql = "UPDATE reservas SET data_chegada = ?, data_saida = ?, hospede_id =?, tipo_acomodacao_id = ?, valor_diaria = ?, taxa_multa = ?, cartao_id = ?, desconto = ? "
+        String sql = "UPDATE reservas SET data_chegada = ?, data_saida = ?, hospede_id =?, acomodacao_id = ?, valor_diaria = ?, taxa_multa = ?, cartao_id = ?, desconto = ? "
                    + "WHERE reserva_id = ? ";
         
         try {
@@ -194,7 +194,7 @@ public class ReservaDao {
             ps.setDate(1, new Date(r.getDataChegada().getTimeInMillis()));
             ps.setDate(2, new Date(r.getDataSaida().getTimeInMillis()));
             ps.setInt(3, r.getHospedeId());
-            ps.setInt(4, r.getTipoAcomodacaoId());
+            ps.setInt(4, r.getAcomodacaoId());
             ps.setDouble(5, r.getValorDiaria());
             ps.setDouble(6, r.getTaxaMulta());
             ps.setInt(7, r.getCartaoId());

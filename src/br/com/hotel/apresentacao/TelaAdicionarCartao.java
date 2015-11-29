@@ -7,6 +7,7 @@ package br.com.hotel.apresentacao;
 
 import br.com.hotel.modelo.Cartao;
 import br.com.hotel.modelo.Hospede;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,10 +26,12 @@ public class TelaAdicionarCartao extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    public TelaAdicionarCartao(Hospede h, Cartao c){
-        this.h = h;
+    public TelaAdicionarCartao(Hospede hospede, Cartao c){
+        this();
+        this.h = hospede;
         this.c = c;
-        
+        this.tfHospede.setText("Nome: " + h.getNome() + " CPF: " + h.getCpf());
+        this.tfNumeroCartao.setText(c.getNumeroCartao());
     }
     
 
@@ -60,6 +63,11 @@ public class TelaAdicionarCartao extends javax.swing.JFrame {
         cbBandeiras.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "VISA", "MASTERCARD", "ELO" }));
 
         jButton1.setText("Adicionar Cartão");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Hóspede:");
 
@@ -112,6 +120,18 @@ public class TelaAdicionarCartao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try{
+            c.setBandeira((String)cbBandeiras.getSelectedItem());
+            c.setHospedeId(h.getHospedeId());
+            c.setNumeroCartao(tfNumeroCartao.getText());
+            JOptionPane.showMessageDialog(null, "Cartão adicionado!");
+            this.dispose();
+        }catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Erro ao adicionar cartão");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
