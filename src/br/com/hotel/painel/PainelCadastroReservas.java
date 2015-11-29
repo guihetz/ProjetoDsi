@@ -75,9 +75,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tabelaReservas.setModel(tableModelReservas);
         tabelaReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabelaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabelaReservas.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabelaReservas.getColumnModel().getColumn(1).setPreferredWidth(50);
-        tabelaReservas.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
     
     public void setAcomodacao(Acomodacao acomodacaoEscolhida){
