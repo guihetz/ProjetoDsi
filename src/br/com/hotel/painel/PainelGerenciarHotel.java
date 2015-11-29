@@ -387,6 +387,11 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         });
 
         btnAtualizarAcomodacao.setText("Editar Acomodação");
+        btnAtualizarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarAcomodacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -579,6 +584,28 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
         }
     }//GEN-LAST:event_btnApagarAcomodacaoActionPerformed
+
+    private void btnAtualizarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAcomodacaoActionPerformed
+        if(tabelaAcomodacoes.getSelectedRow() >= 0){
+            AcomodacaoDao dao = new AcomodacaoDao(new ConnectionFactory().getConnection());
+            Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
+            preencherMsg("Altere os dados", Color.GREEN);
+            String numeroAcomodacao = JOptionPane.showInputDialog("Insira o novo Número:");
+            String andarAcomodacao = JOptionPane.showInputDialog("Insira o novo Andar:");
+            try{
+                a.setNumAcomodacao(Integer.valueOf(numeroAcomodacao));
+                a.setAndar(Integer.valueOf(andarAcomodacao));
+                dao.atualizarAcomodacao(a);
+            }catch(Exception erro){
+                JOptionPane.showMessageDialog(null, "Não foi possível realizar a edição!");
+            }
+           
+            preencherMsg("Dados Alterados", Color.GREEN);
+            preecherTabelaAcomodacoes();
+        }else{
+            preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
+        }
+    }//GEN-LAST:event_btnAtualizarAcomodacaoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
