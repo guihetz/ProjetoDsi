@@ -156,6 +156,9 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
              }else{
                  this.pcr.setAcomodacao(a);
                  JOptionPane.showMessageDialog(null, "Acomodação Escolhida!");
+                 TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
+                 TipoAcomodacao ta = tad.buscarTipoAcomodacao(a.getTipoAcomodacaoId());
+                 this.pcr.setValorDiaria(ta.getValorDiaria());
                  this.dispose();
              }
         }else{

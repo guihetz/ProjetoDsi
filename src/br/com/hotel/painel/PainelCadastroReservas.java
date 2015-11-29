@@ -14,12 +14,15 @@ import br.com.hotel.dao.CartaoDao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.dao.ReservaDao;
+import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Acompanhante;
 import br.com.hotel.modelo.Cartao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.Reserva;
+import br.com.hotel.modelo.TipoAcomodacao;
 import br.com.hotel.tabela.TableModelHospedes;
+import br.com.hotel.tabela.TableModelReservas;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,6 +42,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
      * Creates new form PainelCadastroReservas
      */
     private TableModelHospedes tableModelHospedes;
+    private TableModelReservas tableModelReservas;
     private Hospede h;
     private Acomodacao acomodacaoEscolhida;
     private ArrayList<Acompanhante> acompanhantes;
@@ -48,6 +52,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         this.acompanhantes = new ArrayList<>();
         this.c = new Cartao();
         this.preencherTabelaHospedes();
+        this.preencherTabelaReservas();
     }
     
     public void preencherTabelaHospedes(){
@@ -62,8 +67,25 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tabelaHospedes.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
 
+    public void preencherTabelaReservas(){
+        ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+        
+        tableModelReservas = new TableModelReservas();
+        tableModelReservas.preencherLista(rd.listarReservas());
+        tabelaReservas.setModel(tableModelReservas);
+        tabelaReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabelaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tabelaReservas.getColumnModel().getColumn(0).setPreferredWidth(30);
+        tabelaReservas.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tabelaReservas.getColumnModel().getColumn(3).setPreferredWidth(20);
+    }
+    
     public void setAcomodacao(Acomodacao acomodacaoEscolhida){
         this.acomodacaoEscolhida = acomodacaoEscolhida;
+    }
+    
+    public void setValorDiaria(double valor){
+        tfValorDiaria.setText(String.valueOf(valor));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,6 +119,8 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         dataChegada = new com.toedter.calendar.JDateChooser();
         dataSaida = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaReservas = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
 
         jButton1.setText("Selecionar Hóspede Para Reserva");
@@ -113,6 +137,8 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         jLabel3.setText("Selecionar Acomodação:");
 
         jLabel4.setText("Valor da Diária:");
+
+        tfValorDiaria.setEditable(false);
 
         jLabel5.setText("Taxa de Multa:");
 
@@ -259,15 +285,34 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Cadastrar Reserva", jPanel1);
 
+        tabelaReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tabelaReservas);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1052, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(251, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Visualizar Reservas", jPanel2);
@@ -298,13 +343,14 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //try{
+        try{
             if(h!=null && acomodacaoEscolhida!= null && c!= null){
                 Calendar chegada = dataChegada.getCalendar();
                 Calendar saida = dataSaida.getCalendar();
                 double diaria = Double.valueOf(tfValorDiaria.getText());
                 double multa = Double.valueOf(tfMulta.getText());
                 double desconto = Double.valueOf(tfDesconto.getText());
+                
                 CartaoDao cd = new CartaoDao(new ConnectionFactory().getConnection());
                 cd.inserirCartao(c);
                 cd = new CartaoDao(new ConnectionFactory().getConnection());
@@ -313,8 +359,9 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                 GregorianCalendar gc = new GregorianCalendar();
                 gc.setTimeInMillis(chegada.getTimeInMillis());
                 r.setDataChegada(gc);
-                gc.setTimeInMillis(saida.getTimeInMillis());
-                r.setDataSaida(gc);
+                GregorianCalendar gc2 = new GregorianCalendar();
+                gc2.setTimeInMillis(saida.getTimeInMillis());
+                r.setDataSaida(gc2);
                 r.setHospedeId(h.getHospedeId());
                 r.setCartaoId(c2.getCartaoId());
                 r.setDesconto(desconto);
@@ -337,14 +384,15 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                 this.h = null;
                 this.acomodacaoEscolhida = null;
                 this.c = new Cartao();
+                this.preencherTabelaReservas();
                 
             }else{
                 JOptionPane.showMessageDialog(null, "Dados incompletos.");
             }
             
-        //}catch(Exception erro){
-            //JOptionPane.showMessageDialog(null, "Erro ao realizar reserva. Tente novamente.\n" + erro.getMessage());
-        //}
+        }catch(Exception erro){
+            JOptionPane.showMessageDialog(null, "Erro ao realizar reserva. Dados incompletos! \n Tente novamente.\n");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
@@ -398,9 +446,11 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbNome;
     private javax.swing.JTable tabelaHospedes;
+    private javax.swing.JTable tabelaReservas;
     private javax.swing.JTextField tfDesconto;
     private javax.swing.JTextField tfMulta;
     private javax.swing.JTextField tfValorDiaria;
