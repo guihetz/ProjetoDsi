@@ -179,7 +179,6 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
          if(tabelaAcomodacoes.getSelectedRow() >= 0){
              Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
              if(quartoEstaReservado(a.getAcomodacaoId(), dataChegada, dataSaida)){
-                 System.out.println("id aco: " + a.getAcomodacaoId());
                  JOptionPane.showMessageDialog(null, "Acomodação já está reservada no momento \n Escolha outra acomodação.");
              }else{
                  this.pcr.setAcomodacao(a);
