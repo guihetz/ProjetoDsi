@@ -181,9 +181,10 @@ public final class TelaAdicionarAcomodacao extends javax.swing.JFrame {
                         int numeroAcomodacoesDisponiveis = ta.getQtdeAcomodacoes() - (ad.listarAcomodacoesPorTipo(ta.getTipoAcomodacaoId()).size());
                         if(numeroAcomodacoesDisponiveis > 0){
                             ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-                            ad.inserirAcomodacao(a);     
-                            this.dispose();
+                            ad.inserirAcomodacao(a);   
+                            pnGerenciarHotel.preecherTabelaAcomodacoes();
                             pnGerenciarHotel.preencherMsg("Acomodações do Tipo: " +  ta.getDescricao() + "adicionada. " + (numeroAcomodacoesDisponiveis - 1) + " acomodações disponiveis!", Color.GREEN);
+                            this.dispose();
                         
                         }else{
                             preencherMsg("Número limite atingido para esse tipo de acomodação!", Color.RED);

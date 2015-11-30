@@ -58,7 +58,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="cbTipoAcomodacao" pref="316" max="32767" attributes="0"/>
+                                  <Component id="cbTipoAcomodacao" max="32767" attributes="0"/>
                               </Group>
                               <Component id="lbMsg" alignment="0" min="-2" pref="489" max="-2" attributes="0"/>
                           </Group>

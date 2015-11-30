@@ -564,17 +564,18 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
 
             if(r == 0){
                 dao.excluirTipoAcomodacao(tpa.getTipoAcomodacaoId());
-                preencherMsg("Acomodação Excluida!", Color.red);
+                preencherMsg("Tipo de Acomodação Excluido!", Color.red);
             }
 
             preencherTabelaTipoAcomodacao();
+            preecherTabelaAcomodacoes();
         }else{
             preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
         }
     }//GEN-LAST:event_btnExcluirAcomodacaoActionPerformed
 
     private void btnInserirAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirAcomodacaoActionPerformed
-        TelaAdicionarAcomodacao t5 = new TelaAdicionarAcomodacao();
+        TelaAdicionarAcomodacao t5 = new TelaAdicionarAcomodacao(this);
         t5.setAlwaysOnTop(true);
         t5.setVisible(true);
         t5.setLocationRelativeTo(null);
