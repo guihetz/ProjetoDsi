@@ -520,7 +520,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarItemActionPerformed
 
     private void btnExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirItemActionPerformed
-        if(tbTipoAcomodacoes.getSelectedRow() >= 0){
+        if(tbItensConsumo.getSelectedRow() >= 0){
             ItemConsumoDao dao = new ItemConsumoDao(new ConnectionFactory().getConnection());
             ItemConsumo ic = modeloItensConsumo.retornarObjetoSelecionado(tbItensConsumo.getSelectedRow());
 

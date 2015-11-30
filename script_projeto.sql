@@ -215,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `consumos` (
     ON UPDATE NO ACTION,
   CONSTRAINT `num_acomodacao`
     FOREIGN KEY (`num_acomodacao`)
-    REFERENCES `acomodacoes` (`acomodacao_id`)
+    REFERENCES `acomodacoes` (`num_acomodacao`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
