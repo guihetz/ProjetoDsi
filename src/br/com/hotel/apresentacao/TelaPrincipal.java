@@ -78,7 +78,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
 
         jButton4.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
-        jButton4.setText("Gerenciar ");
+        jButton4.setText("Relatórios");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/hotel.png"))); // NOI18N
 

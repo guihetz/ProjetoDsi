@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `acompanhantes` (
   CONSTRAINT `fk_acompanhantes_1`
     FOREIGN KEY (`reserva_id`)
     REFERENCES `reservas` (`reserva_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -191,7 +191,7 @@ CREATE TABLE IF NOT EXISTS `entradas` (
   CONSTRAINT `reserva_id_fk`
     FOREIGN KEY (`reserva_id`)
     REFERENCES `reservas` (`reserva_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

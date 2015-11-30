@@ -63,6 +63,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
      */
     private TableModelHospedes tableModelHospedes;
     private TableModelReservas tableModelReservas;
+    private TableModelReservas tableModelReservas2;
     private TableModelAcomodacoes modeloAcomodacao;
     private TableModelItensConsumo tmic;
     private Hospede h;
@@ -110,11 +111,11 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     public void preencherTabelaReservasDoHospede(Hospede h){
         ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
         
-        tableModelReservas = new TableModelReservas();
+        tableModelReservas2 = new TableModelReservas();
         if(h != null){
-            tableModelReservas.preencherLista(rd.listarReservasPorHospede(h.getHospedeId()));
+            tableModelReservas2.preencherLista(rd.listarReservasPorHospede(h.getHospedeId()));
         }
-        tabelaBuscarReservaHospedes.setModel(tableModelReservas);
+        tabelaBuscarReservaHospedes.setModel(tableModelReservas2);
         tabelaBuscarReservaHospedes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabelaBuscarReservaHospedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
@@ -200,6 +201,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelaReservas = new javax.swing.JTable();
+        btnExcluirReserva = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         dataEntradaNoHotel = new com.toedter.calendar.JDateChooser();
         dataPrevistaSaidaDoHotel = new com.toedter.calendar.JDateChooser();
@@ -215,7 +217,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         btnRegistrarEntrada = new javax.swing.JButton();
         btnBuscarHospede = new javax.swing.JButton();
         btnVisualizarAcompanhantes = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -228,6 +229,18 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         btnAdicionarItemConsumo = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         dataConsumo = new com.toedter.calendar.JDateChooser();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        tfNumeroDoQuartoSaida = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        dataSaidaTelaSaidas = new com.toedter.calendar.JDateChooser();
+        btnCalcularDiarias = new javax.swing.JButton();
+        tfValorDiariasSaida = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        tfValorDiariaIndividualSaida = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        tfDescontoTelaSaida = new javax.swing.JTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -417,6 +430,13 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         ));
         jScrollPane2.setViewportView(tabelaReservas);
 
+        btnExcluirReserva.setText("Excluir Reserva");
+        btnExcluirReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirReservaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -424,13 +444,17 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(251, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnExcluirReserva, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExcluirReserva)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(257, Short.MAX_VALUE))
         );
 
@@ -561,19 +585,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Gerenciar entradas no Hotel", jPanel3);
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1052, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 707, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Gerenciar Saídas no Hotel", jPanel4);
-
         jLabel12.setText("Itens de Consumo");
 
         tabelaAdicionarItemConsumo.setModel(new javax.swing.table.DefaultTableModel(
@@ -661,6 +672,88 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Adicionar Consumo no Quarto", jPanel5);
+
+        jLabel16.setText("Registrar a Saída do Hóspede");
+
+        jLabel17.setText("Número do Quarto do Hóspede:");
+
+        jLabel18.setText("Data saída:");
+
+        btnCalcularDiarias.setText("Calcular Diárias");
+
+        tfValorDiariasSaida.setEditable(false);
+        tfValorDiariasSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfValorDiariasSaida.setEnabled(false);
+
+        jLabel19.setText("Valor da diária:");
+
+        tfValorDiariaIndividualSaida.setEditable(false);
+        tfValorDiariaIndividualSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfValorDiariaIndividualSaida.setEnabled(false);
+
+        jLabel20.setText("Desconto:");
+
+        tfDescontoTelaSaida.setEditable(false);
+        tfDescontoTelaSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfDescontoTelaSaida.setEnabled(false);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCalcularDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel20)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfDescontoTelaSaida))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                            .addComponent(jLabel19)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(650, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel16)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel17)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCalcularDiarias)
+                        .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel19)
+                    .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(tfDescontoTelaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(456, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Gerenciar Saídas no Hotel", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -779,16 +872,24 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
          try{
              if(tabelaBuscarReservaHospedes.getSelectedRow() >= 0){
-                Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaBuscarReservaHospedes.getSelectedRow());
+                Reserva r = tableModelReservas2.retornarObjetoSelecionado(tabelaBuscarReservaHospedes.getSelectedRow());
   
                 Calendar dataEntrada = dataEntradaNoHotel.getCalendar();
-                Calendar dataSaida = dataPrevistaSaidaDoHotel.getCalendar();
+                Calendar dataSaida2 = dataPrevistaSaidaDoHotel.getCalendar();
+                dataEntrada.set(Calendar.HOUR_OF_DAY, 0);
+                dataEntrada.set(Calendar.MINUTE, 0);
+                dataEntrada.set(Calendar.MILLISECOND, 0);
+                dataEntrada.set(Calendar.SECOND, 0);
+                dataSaida2.set(Calendar.HOUR_OF_DAY, 0);
+                dataSaida2.set(Calendar.MINUTE, 0);
+                dataSaida2.set(Calendar.MILLISECOND, 0);
+                dataSaida2.set(Calendar.SECOND, 0);
                 Date inicioReserva = r.getDataChegada().getTime();
                 Date fimReserva = r.getDataSaida().getTime();
                 Date entrada = dataEntrada.getTime();
-                Date saida = dataSaida.getTime();
-                
-                if(!((entrada.before(inicioReserva) || saida.after(fimReserva)) || (entrada.after(fimReserva)))){
+                Date saida = dataSaida2.getTime();
+                 System.out.println("entrada: "+ entrada + " inicio: " + inicioReserva + " saida: " + saida + " fim: " + fimReserva);
+                if(!(entrada.before(inicioReserva) || saida.before(inicioReserva) || entrada.after(fimReserva) || saida.after(fimReserva))){
                      int reservaId = r.getReservaId();
                      EntradaDao ed = new EntradaDao(new ConnectionFactory().getConnection());
                      Entrada e = new Entrada();
@@ -796,7 +897,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                      GregorianCalendar gc1 = new GregorianCalendar();
                      GregorianCalendar gc2 = new GregorianCalendar();
                      gc1.setTimeInMillis(dataEntrada.getTimeInMillis());
-                     gc2.setTimeInMillis(dataSaida.getTimeInMillis());
+                     gc2.setTimeInMillis(dataSaida2.getTimeInMillis());
                      e.setDataChegada(gc1);
                      e.setDataSaida(gc2);
                      ed.inserirEntrada(e);
@@ -838,7 +939,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
     private void btnVisualizarAcompanhantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarAcompanhantesActionPerformed
     if(tabelaBuscarReservaHospedes.getSelectedRow() >= 0){
-            Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaBuscarReservaHospedes.getSelectedRow());
+            Reserva r = tableModelReservas2.retornarObjetoSelecionado(tabelaBuscarReservaHospedes.getSelectedRow());
 
             preencherTabelaAcompanhantes(r);
         }else{
@@ -882,13 +983,32 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnAdicionarItemConsumoActionPerformed
 
+    private void btnExcluirReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirReservaActionPerformed
+        if(tabelaReservas.getSelectedRow() >= 0){
+            Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaReservas.getSelectedRow());
+            ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+            int res = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+
+            if(res == 0){
+                rd.excluirReserva(r.getReservaId());
+                JOptionPane.showMessageDialog(null, "Reserva excluida.");
+                preencherTabelaReservas();
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma reserva selecionada!");
+        }
+    }//GEN-LAST:event_btnExcluirReservaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAcompanhante;
     private javax.swing.JButton btnAdicionarDadosCartao;
     private javax.swing.JButton btnAdicionarItemConsumo;
     private javax.swing.JButton btnBuscarHospede;
+    private javax.swing.JButton btnCalcularDiarias;
     private javax.swing.JButton btnEscolherAcomodacao;
+    private javax.swing.JButton btnExcluirReserva;
     private javax.swing.JButton btnRegistrarEntrada;
     private javax.swing.JButton btnVisualizarAcompanhantes;
     private com.toedter.calendar.JDateChooser dataChegada;
@@ -896,6 +1016,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser dataEntradaNoHotel;
     private com.toedter.calendar.JDateChooser dataPrevistaSaidaDoHotel;
     private com.toedter.calendar.JDateChooser dataSaida;
+    private com.toedter.calendar.JDateChooser dataSaidaTelaSaidas;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -905,7 +1026,12 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -935,9 +1061,13 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JTable tabelaReservas;
     private javax.swing.JTable tabelaSelecionarAcomodacaoConsumo;
     private javax.swing.JTextField tfDesconto;
+    private javax.swing.JTextField tfDescontoTelaSaida;
     private javax.swing.JTextField tfMulta;
     private javax.swing.JTextField tfNomeBuscarHospede;
+    private javax.swing.JTextField tfNumeroDoQuartoSaida;
     private javax.swing.JTextField tfQuantidadeConsumida;
     private javax.swing.JTextField tfValorDiaria;
+    private javax.swing.JTextField tfValorDiariaIndividualSaida;
+    private javax.swing.JTextField tfValorDiariasSaida;
     // End of variables declaration//GEN-END:variables
 }
