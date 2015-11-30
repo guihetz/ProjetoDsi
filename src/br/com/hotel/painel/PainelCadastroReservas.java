@@ -24,9 +24,14 @@ import br.com.hotel.modelo.TipoAcomodacao;
 import br.com.hotel.tabela.TableModelHospedes;
 import br.com.hotel.tabela.TableModelReservas;
 import java.sql.Connection;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -344,6 +349,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
             if(h!=null && acomodacaoEscolhida!= null && c!= null){
                 Calendar chegada = dataChegada.getCalendar();
                 Calendar saida = dataSaida.getCalendar();
+                //System.out.println(chegada.getTime() + "    "+ saida.getTime());
                 double diaria = Double.valueOf(tfValorDiaria.getText());
                 double multa = Double.valueOf(tfMulta.getText());
                 double desconto = Double.valueOf(tfDesconto.getText());
