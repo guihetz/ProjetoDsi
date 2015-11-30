@@ -46,7 +46,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Categoria">
-              <Font PropertyName="font" name="Hotel Oriental" size="36" style="0"/>
+              <Font PropertyName="font" name="Hotel Oriental" size="20" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -85,7 +85,7 @@
                       <Component id="btnCadastrar" max="32767" attributes="0"/>
                       <Component id="lbMsg" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -94,7 +94,7 @@
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Hotel Oriental" size="24" style="0"/>
+              <Font name="Hotel Oriental" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nome"/>
           </Properties>
@@ -102,21 +102,21 @@
         <Component class="javax.swing.JLabel" name="lbMsg">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Hotel Oriental" size="24" style="0"/>
+              <Font name="Hotel Oriental" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfNomeCategoria">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Hotel Oriental" size="24" style="0"/>
+              <Font name="Hotel Oriental" size="18" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCadastrar">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Hotel Oriental" size="24" style="0"/>
+              <Font name="Hotel Oriental" size="20" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>

@@ -20,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
  * @author daylton
  */
 public class TableModelAcomodacoes extends AbstractTableModel{
-    private String[] nomesColunas = {"NUMERO", "ANDAR","TIPO"};
+    private String[] nomesColunas = {"Numero", "Andar","Tipo"};
     private ArrayList<Acomodacao> listaAcomodacoes;
     
     public TableModelAcomodacoes(){

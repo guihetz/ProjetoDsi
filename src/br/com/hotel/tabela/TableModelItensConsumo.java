@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  * @author daylton
  */
 public class TableModelItensConsumo extends AbstractTableModel{
-    private String[] nomesColunas = {"DESCRIÇÃO", "CATEGORIA","VALOR"};
+    private String[] nomesColunas = {"Descrição", "Categoria","Valor"};
     private ArrayList<ItemConsumo> itensConsumo;
     
     public TableModelItensConsumo(){

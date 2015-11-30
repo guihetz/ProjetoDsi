@@ -5,9 +5,11 @@
  */
 package br.com.hotel.painel;
 
+import br.com.hotel.apresentacao.TelaAdicionarAcomodacao;
+import br.com.hotel.apresentacao.TelaEditarAcomodacao;
 import br.com.hotel.apresentacao.TelaEditarItensConsumo;
 import br.com.hotel.apresentacao.TelaEditarTipoAcomodacao;
-import br.com.hotel.apresentacao.TelaItensConsumo;
+import br.com.hotel.apresentacao.TelaAdicionarItensConsumo;
 import br.com.hotel.apresentacao.TelaTipoAcomodacao;
 import br.com.hotel.dao.AcomodacaoDao;
 import br.com.hotel.dao.ConnectionFactory;
@@ -20,6 +22,7 @@ import br.com.hotel.tabela.TableModelAcomodacoes;
 import br.com.hotel.tabela.TableModelItensConsumo;
 import br.com.hotel.tabela.TableModelTipoAcomodacao;
 import java.awt.Color;
+import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -29,27 +32,27 @@ import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author guilherme
+ * @author daylton
  */
 public class PainelGerenciarHotel extends javax.swing.JPanel {
 
     /**
      * Creates new form PainelGerenciarHotel
      */
-    TableModelItensConsumo modeloItensConsumo;
-    TableModelTipoAcomodacao modeloAcomodacao;
-    private TableModelAcomodacoes tma;
+    
+    private TableModelItensConsumo modeloItensConsumo;
+    private TableModelTipoAcomodacao modeloTipoAcomodacao;
+    private TableModelAcomodacoes modeloAcomodacao;
+    
     public PainelGerenciarHotel() {
         initComponents();
         preencherTabelaItensConsumo();
         preencherTabelaTipoAcomodacao();
         TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
         if(tad.listarTipoAcomodacao().isEmpty()){
-            preencherComboTipoAcomodacoes();
             preecherTabelaAcomodacoes();
-            JOptionPane.showMessageDialog(null, "Não existem acomodações cadastradas!");
+            preencherMsg("Não existem acomodações cadastradas!", Color.red);
         }else{
-            preencherComboTipoAcomodacoes();
             preecherTabelaAcomodacoes();
         }
     }
@@ -69,63 +72,55 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         modeloItensConsumo.preencherLista(dao.listarItensConsumo());
         tbItensConsumo.setModel(modeloItensConsumo); 
                
-        tbItensConsumo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tbItensConsumo.getColumnModel().getColumn(0).setPreferredWidth(205);
-        tbItensConsumo.getColumnModel().getColumn(1).setPreferredWidth(125);
-        tbItensConsumo.getColumnModel().getColumn(2).setPreferredWidth(79);
-                
+//        tbItensConsumo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tbItensConsumo.getColumnModel().getColumn(0).setPreferredWidth(205);
+//        tbItensConsumo.getColumnModel().getColumn(1).setPreferredWidth(125);
+//        tbItensConsumo.getColumnModel().getColumn(2).setPreferredWidth(79);
+//                
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(JLabel.CENTER);
         tbItensConsumo.getColumnModel().getColumn(0).setCellRenderer(centerRender);
         tbItensConsumo.getColumnModel().getColumn(1).setCellRenderer(centerRender);
-        tbItensConsumo.getColumnModel().getColumn(2).setCellRenderer(centerRender);
-        
+        tbItensConsumo.getColumnModel().getColumn(2).setCellRenderer(centerRender);        
+        tbItensConsumo.getTableHeader().setFont(new Font("Hotel Oriental", 1, 18));                
         ((DefaultTableCellRenderer) tbItensConsumo.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
-        
         tbItensConsumo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
     public void preencherTabelaTipoAcomodacao(){
         TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());      
-        modeloAcomodacao = new TableModelTipoAcomodacao();
-        modeloAcomodacao.preencherLista(dao.listarTipoAcomodacao());
-        tbAcomodacoes.setModel(modeloAcomodacao); 
+        modeloTipoAcomodacao = new TableModelTipoAcomodacao();
+        modeloTipoAcomodacao.preencherLista(dao.listarTipoAcomodacao());
+        tbTipoAcomodacoes.setModel(modeloTipoAcomodacao); 
                
-        tbAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        tbAcomodacoes.getColumnModel().getColumn(0).setPreferredWidth(192);
-        tbAcomodacoes.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tbAcomodacoes.getColumnModel().getColumn(2).setPreferredWidth(95);
-        tbAcomodacoes.getColumnModel().getColumn(3).setPreferredWidth(70);
-        tbAcomodacoes.getColumnModel().getColumn(4).setPreferredWidth(70);
+//        tbAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//        tbAcomodacoes.getColumnModel().getColumn(0).setPreferredWidth(192);
+//        tbAcomodacoes.getColumnModel().getColumn(1).setPreferredWidth(100);
+//        tbAcomodacoes.getColumnModel().getColumn(2).setPreferredWidth(95);
+//        tbAcomodacoes.getColumnModel().getColumn(3).setPreferredWidth(70);
+//        tbAcomodacoes.getColumnModel().getColumn(4).setPreferredWidth(70);
         
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(JLabel.CENTER);
-        tbAcomodacoes.getColumnModel().getColumn(0).setCellRenderer(centerRender);
-        tbAcomodacoes.getColumnModel().getColumn(1).setCellRenderer(centerRender);
-        tbAcomodacoes.getColumnModel().getColumn(2).setCellRenderer(centerRender);
-        tbAcomodacoes.getColumnModel().getColumn(3).setCellRenderer(centerRender);
-        tbAcomodacoes.getColumnModel().getColumn(4).setCellRenderer(centerRender);
-        
-        ((DefaultTableCellRenderer) tbAcomodacoes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
-                
-        tbAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-    
-    public void preencherComboTipoAcomodacoes(){
-        TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
-        cbTipoAcomodacao.removeAllItems();
-        for(TipoAcomodacao ta: tad.listarTipoAcomodacao()){
-            cbTipoAcomodacao.addItem(ta.getDescricao());
-        }
+        tbTipoAcomodacoes.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        tbTipoAcomodacoes.getColumnModel().getColumn(1).setCellRenderer(centerRender);
+        tbTipoAcomodacoes.getColumnModel().getColumn(2).setCellRenderer(centerRender);
+        tbTipoAcomodacoes.getColumnModel().getColumn(3).setCellRenderer(centerRender);
+        tbTipoAcomodacoes.getColumnModel().getColumn(4).setCellRenderer(centerRender);        
+        tbTipoAcomodacoes.getTableHeader().setFont(new Font("Hotel Oriental", 1, 18));        
+        ((DefaultTableCellRenderer) tbTipoAcomodacoes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);        
+        tbTipoAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
     public void preecherTabelaAcomodacoes(){
         AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-        tma = new TableModelAcomodacoes();
-        tma.preencherLista(ad.listarAcomodacoes());
-        tabelaAcomodacoes.setModel(tma);
-        tabelaAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tabelaAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        modeloAcomodacao = new TableModelAcomodacoes();
+        modeloAcomodacao.preencherLista(ad.listarAcomodacoes());
+        tbAcomodacoes.setModel(modeloAcomodacao);
+        tbAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbAcomodacoes.getTableHeader().setFont(new Font("Hotel Oriental", 1, 18));
+        ((DefaultTableCellRenderer) tbAcomodacoes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);        
+        tbAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -145,28 +140,29 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         btnEditarItem = new javax.swing.JButton();
         btnExcluirItem = new javax.swing.JButton();
         lbMsg = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbAcomodacoes = new javax.swing.JTable();
+        tbTipoAcomodacoes = new javax.swing.JTable();
         btnAdicionarAcomodacao = new javax.swing.JButton();
         btnEditarAcomodacao = new javax.swing.JButton();
         btnExcluirAcomodacao = new javax.swing.JButton();
         lbMsg1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tabelaAcomodacoes = new javax.swing.JTable();
-        cbTipoAcomodacao = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        tfNumeroAcomodacao = new javax.swing.JTextField();
-        tfAndarAcomodacao = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
         btnInserirAcomodacao = new javax.swing.JButton();
+        lbMsg2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbAcomodacoes = new javax.swing.JTable();
         btnApagarAcomodacao = new javax.swing.JButton();
         btnAtualizarAcomodacao = new javax.swing.JButton();
-        lbMsg2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
+        jTabbedPane1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+
+        tbItensConsumo.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         tbItensConsumo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -188,29 +184,35 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbItensConsumo);
 
+        btnAdicionarItem.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnAdicionarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
-        btnAdicionarItem.setText("Adicionar Item");
+        btnAdicionarItem.setText("Adicionar Item de Consumo");
         btnAdicionarItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdicionarItemActionPerformed(evt);
             }
         });
 
+        btnEditarItem.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnEditarItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
-        btnEditarItem.setText("Editar");
+        btnEditarItem.setText("Editar Item de Consumo");
         btnEditarItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarItemActionPerformed(evt);
             }
         });
 
+        btnExcluirItem.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnExcluirItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
-        btnExcluirItem.setText("Excluir");
+        btnExcluirItem.setText("Excluir Item de Consumo");
         btnExcluirItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirItemActionPerformed(evt);
             }
         });
+
+        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        lbMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -219,14 +221,14 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAdicionarItem)
+                        .addComponent(btnAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEditarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnExcluirItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnExcluirItem, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -234,15 +236,17 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdicionarItem)
-                        .addComponent(btnEditarItem))
-                    .addComponent(btnExcluirItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionarItem)
+                    .addComponent(btnEditarItem)
+                    .addComponent(btnExcluirItem))
+                .addGap(18, 18, 18)
+                .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/city.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -250,19 +254,142 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(609, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gerenciar Itens de Consumo", jPanel1);
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/city.png"))); // NOI18N
+
+        tbTipoAcomodacoes.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        tbTipoAcomodacoes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tbTipoAcomodacoes);
+
+        btnAdicionarAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnAdicionarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
+        btnAdicionarAcomodacao.setText("Adicionar Tipo de Acomodação");
+        btnAdicionarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        btnEditarAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnEditarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
+        btnEditarAcomodacao.setText("Editar Tiipo de Acomodação");
+        btnEditarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        btnExcluirAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnExcluirAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
+        btnExcluirAcomodacao.setText("Excluir Tipo de Acomodação");
+        btnExcluirAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        lbMsg1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        lbMsg1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lbMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 1011, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnAdicionarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEditarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(303, 303, 303)))
+                        .addGap(0, 45, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExcluirAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionarAcomodacao)
+                    .addComponent(btnExcluirAcomodacao)
+                    .addComponent(btnEditarAcomodacao))
+                .addGap(18, 18, 18)
+                .addComponent(lbMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Gerenciar Tipos de Acomodação", jPanel2);
+
+        btnInserirAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnInserirAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
+        btnInserirAcomodacao.setText("Adicionar Acomodação");
+        btnInserirAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInserirAcomodacaoActionPerformed(evt);
+            }
+        });
+
+        lbMsg2.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        lbMsg2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        tbAcomodacoes.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         tbAcomodacoes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -274,113 +401,10 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tbAcomodacoes);
+        jScrollPane3.setViewportView(tbAcomodacoes);
 
-        btnAdicionarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
-        btnAdicionarAcomodacao.setText("Adicionar Tipo de Acomodação");
-        btnAdicionarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarAcomodacaoActionPerformed(evt);
-            }
-        });
-
-        btnEditarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
-        btnEditarAcomodacao.setText("Editar");
-        btnEditarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarAcomodacaoActionPerformed(evt);
-            }
-        });
-
-        btnExcluirAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
-        btnExcluirAcomodacao.setText("Excluir Tipo de Acomodação");
-        btnExcluirAcomodacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirAcomodacaoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnAdicionarAcomodacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnExcluirAcomodacao)
-                        .addGap(12, 12, 12)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarAcomodacao)
-                    .addComponent(btnExcluirAcomodacao)
-                    .addComponent(btnEditarAcomodacao))
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lbMsg1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(398, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbMsg1, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Gerenciar Tipos de Acomodação", jPanel2);
-
-        tabelaAcomodacoes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane3.setViewportView(tabelaAcomodacoes);
-
-        cbTipoAcomodacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel1.setText("Tipo de Acomodação:");
-
-        jLabel2.setText("Número da Acomodação:");
-
-        jLabel3.setText("Andar da Acomodação:");
-
-        btnInserirAcomodacao.setText("Adicionar Acomodação");
-        btnInserirAcomodacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInserirAcomodacaoActionPerformed(evt);
-            }
-        });
-
+        btnApagarAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnApagarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
         btnApagarAcomodacao.setText("Excluir Acomodação");
         btnApagarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -388,6 +412,8 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             }
         });
 
+        btnAtualizarAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnAtualizarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
         btnAtualizarAcomodacao.setText("Editar Acomodação");
         btnAtualizarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,63 +421,61 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             }
         });
 
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbMsg2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnInserirAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtualizarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnApagarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnApagarAcomodacao)
+                    .addComponent(btnAtualizarAcomodacao)
+                    .addComponent(btnInserirAcomodacao))
+                .addGap(18, 18, 18)
+                .addComponent(lbMsg2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/city.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(cbTipoAcomodacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfNumeroAcomodacao)
-                            .addComponent(tfAndarAcomodacao)
-                            .addComponent(btnInserirAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnApagarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAtualizarAcomodacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(lbMsg2, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbTipoAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfNumeroAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfAndarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnInserirAcomodacao))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(btnApagarAcomodacao)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAtualizarAcomodacao))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(30, 30, 30)
-                .addComponent(lbMsg2, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                .addGap(27, 27, 27))
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gerenciar Acomodações", jPanel3);
@@ -460,36 +484,42 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jTabbedPane1)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
-        TelaItensConsumo form1 = new TelaItensConsumo(this);
-        form1.setAlwaysOnTop(true);
-        form1.setVisible(true);
-        form1.setLocationRelativeTo(null);
+        TelaAdicionarItensConsumo t1 = new TelaAdicionarItensConsumo(this);
+        t1.setAlwaysOnTop(true);
+        t1.setVisible(true);
+        t1.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAdicionarItemActionPerformed
 
     private void btnEditarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarItemActionPerformed
         if(tbItensConsumo.getSelectedRow() >= 0){
             ItemConsumo ic = modeloItensConsumo.retornarObjetoSelecionado(tbItensConsumo.getSelectedRow());
 
-            TelaEditarItensConsumo form2 = new TelaEditarItensConsumo(ic, this);
-            form2.setAlwaysOnTop(true);
-            form2.setVisible(true);
-            form2.setLocationRelativeTo(null);
+            TelaEditarItensConsumo t2 = new TelaEditarItensConsumo(ic, this);
+            t2.setAlwaysOnTop(true);
+            t2.setVisible(true);
+            t2.setLocationRelativeTo(null);
         }else{
-            preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
+            preencherMsg("Nenhumo Item Selecionado", Color.RED);
         }
     }//GEN-LAST:event_btnEditarItemActionPerformed
 
     private void btnExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirItemActionPerformed
-        if(tbAcomodacoes.getSelectedRow() >= 0){
+        if(tbTipoAcomodacoes.getSelectedRow() >= 0){
             ItemConsumoDao dao = new ItemConsumoDao(new ConnectionFactory().getConnection());
             ItemConsumo ic = modeloItensConsumo.retornarObjetoSelecionado(tbItensConsumo.getSelectedRow());
 
@@ -497,46 +527,45 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
 
             if(r == 0){
                 dao.excluirItemConsumo(ic.getCategoriaId());
-                preencherMsg("Acomodação Excluida!", Color.red);
+                preencherMsg("Item Excluido!", Color.red);
             }
 
             preencherTabelaItensConsumo();
         }else{
-            preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
+            preencherMsg("Nenhumo Item Selecionado", Color.RED);
         }
     }//GEN-LAST:event_btnExcluirItemActionPerformed
 
     private void btnAdicionarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAcomodacaoActionPerformed
-        TelaTipoAcomodacao form3 = new TelaTipoAcomodacao(this);
-        form3.setAlwaysOnTop(true);
-        form3.setVisible(true);
-        form3.setLocationRelativeTo(null);
+        TelaTipoAcomodacao t3 = new TelaTipoAcomodacao(this);
+        t3.setAlwaysOnTop(true);
+        t3.setVisible(true);
+        t3.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnAdicionarAcomodacaoActionPerformed
 
     private void btnEditarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarAcomodacaoActionPerformed
-        if(tbAcomodacoes.getSelectedRow() >= 0){
-            TipoAcomodacao tpa = modeloAcomodacao.retornarObjetoSelecionado(tbAcomodacoes.getSelectedRow());
+        if(tbTipoAcomodacoes.getSelectedRow() >= 0){
+            TipoAcomodacao tpa = modeloTipoAcomodacao.retornarObjetoSelecionado(tbTipoAcomodacoes.getSelectedRow());
 
-            TelaEditarTipoAcomodacao form4 = new TelaEditarTipoAcomodacao(tpa, this);
-            form4.setAlwaysOnTop(true);
-            form4.setVisible(true);
-            form4.setLocationRelativeTo(null);
+            TelaEditarTipoAcomodacao t4 = new TelaEditarTipoAcomodacao(tpa, this);
+            t4.setAlwaysOnTop(true);
+            t4.setVisible(true);
+            t4.setLocationRelativeTo(null);
         }else{
             preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
         }
     }//GEN-LAST:event_btnEditarAcomodacaoActionPerformed
 
     private void btnExcluirAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirAcomodacaoActionPerformed
-        if(tbAcomodacoes.getSelectedRow() >= 0){
+        if(tbTipoAcomodacoes.getSelectedRow() >= 0){
             TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
-            TipoAcomodacao tpa = modeloAcomodacao.retornarObjetoSelecionado(tbAcomodacoes.getSelectedRow());
+            TipoAcomodacao tpa = modeloTipoAcomodacao.retornarObjetoSelecionado(tbTipoAcomodacoes.getSelectedRow());
 
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?? Acomodações deste tipo também serão excluidas!");
 
             if(r == 0){
                 dao.excluirTipoAcomodacao(tpa.getTipoAcomodacaoId());
                 preencherMsg("Acomodação Excluida!", Color.red);
-                preencherComboTipoAcomodacoes();
             }
 
             preencherTabelaTipoAcomodacao();
@@ -546,44 +575,16 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnExcluirAcomodacaoActionPerformed
 
     private void btnInserirAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirAcomodacaoActionPerformed
-        String tipoAcomodacao = (String)cbTipoAcomodacao.getSelectedItem();
-        TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
-        TipoAcomodacao ta = tad.buscarTipoAcomodacao(tipoAcomodacao);
-        if(ta.getDescricao() != null){
-            if(!tfNumeroAcomodacao.getText().equals("")){
-                if(!tfAndarAcomodacao.getText().equals("")){
-                    try{
-                        Acomodacao a = new Acomodacao();
-                        a.setNumAcomodacao(Integer.valueOf(tfNumeroAcomodacao.getText()));
-                        a.setAndar(Integer.valueOf(tfAndarAcomodacao.getText()));
-                        a.setReservado(false);
-                        a.setTipoAcomodacaoId(ta.getTipoAcomodacaoId());
-                        AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-                        int numeroAcomodacoesDisponiveis = ta.getQtdeAcomodacoes() - (ad.listarAcomodacoesPorTipo(ta.getTipoAcomodacaoId()).size());
-                        if(numeroAcomodacoesDisponiveis > 0){
-                            ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-                            ad.inserirAcomodacao(a);
-                            JOptionPane.showMessageDialog(null, "Acomodacao Adicionada!");
-                            preencherMsg("Acomodações disponíveis para adicionar: " + (numeroAcomodacoesDisponiveis - 1) + " do Tipo: " +ta.getDescricao(), Color.red);
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Número limite atingido para esse tipo de acomodação!");
-                            preencherMsg("Acomodações disponíveis para adicionar: " + (numeroAcomodacoesDisponiveis) + " do Tipo: " +ta.getDescricao(), Color.red);
-                        }
-                        preecherTabelaAcomodacoes();
-                    }catch(Exception erro){
-                        JOptionPane.showMessageDialog(null, "Não foi possível adicionar acomodação");
-                    }
-                }
-            }
-        }else{
-            JOptionPane.showMessageDialog(null, "Você deve cadastrar um tipo de acomodação.");
-        }
+        TelaAdicionarAcomodacao t5 = new TelaAdicionarAcomodacao();
+        t5.setAlwaysOnTop(true);
+        t5.setVisible(true);
+        t5.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnInserirAcomodacaoActionPerformed
 
     private void btnApagarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarAcomodacaoActionPerformed
-        if(tabelaAcomodacoes.getSelectedRow() >= 0){
+        if(tbAcomodacoes.getSelectedRow() >= 0){
             AcomodacaoDao dao = new AcomodacaoDao(new ConnectionFactory().getConnection());
-            Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
+            Acomodacao a = modeloAcomodacao.retornarObjetoSelecionado(tbAcomodacoes.getSelectedRow());
 
             int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
 
@@ -599,22 +600,13 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnApagarAcomodacaoActionPerformed
 
     private void btnAtualizarAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarAcomodacaoActionPerformed
-        if(tabelaAcomodacoes.getSelectedRow() >= 0){
-            AcomodacaoDao dao = new AcomodacaoDao(new ConnectionFactory().getConnection());
-            Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
-            preencherMsg("Altere os dados", Color.GREEN);
-            String numeroAcomodacao = JOptionPane.showInputDialog("Insira o novo Número:");
-            String andarAcomodacao = JOptionPane.showInputDialog("Insira o novo Andar:");
-            try{
-                a.setNumAcomodacao(Integer.valueOf(numeroAcomodacao));
-                a.setAndar(Integer.valueOf(andarAcomodacao));
-                dao.atualizarAcomodacao(a);
-            }catch(Exception erro){
-                JOptionPane.showMessageDialog(null, "Não foi possível realizar a edição!");
-            }
-           
-            preencherMsg("Dados Alterados", Color.GREEN);
-            preecherTabelaAcomodacoes();
+        if(tbAcomodacoes.getSelectedRow() >= 0){
+            Acomodacao ac = modeloAcomodacao.retornarObjetoSelecionado(tbTipoAcomodacoes.getSelectedRow());
+            
+            TelaEditarAcomodacao t5 = new TelaEditarAcomodacao();
+            t5.setAlwaysOnTop(true);
+            t5.setVisible(true);
+            t5.setLocationRelativeTo(null);
         }else{
             preencherMsg("Nenhuma Acomodação Selecionada", Color.RED);
         }
@@ -631,15 +623,15 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     private javax.swing.JButton btnExcluirAcomodacao;
     private javax.swing.JButton btnExcluirItem;
     private javax.swing.JButton btnInserirAcomodacao;
-    private javax.swing.JComboBox<String> cbTipoAcomodacao;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -647,10 +639,8 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
     private javax.swing.JLabel lbMsg;
     private javax.swing.JLabel lbMsg1;
     private javax.swing.JLabel lbMsg2;
-    private javax.swing.JTable tabelaAcomodacoes;
     private javax.swing.JTable tbAcomodacoes;
     private javax.swing.JTable tbItensConsumo;
-    private javax.swing.JTextField tfAndarAcomodacao;
-    private javax.swing.JTextField tfNumeroAcomodacao;
+    private javax.swing.JTable tbTipoAcomodacoes;
     // End of variables declaration//GEN-END:variables
 }

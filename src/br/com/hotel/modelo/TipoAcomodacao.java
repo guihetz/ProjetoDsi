@@ -69,6 +69,4 @@ public class TipoAcomodacao {
     public String toString() {
         return this.descricao;
     }
-    
-    
 }

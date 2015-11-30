@@ -7,7 +7,7 @@ package br.com.hotel.painel;
 
 import br.com.hotel.apresentacao.TelaEditarItensConsumo;
 import br.com.hotel.apresentacao.TelaEditarTipoAcomodacao;
-import br.com.hotel.apresentacao.TelaItensConsumo;
+import br.com.hotel.apresentacao.TelaAdicionarItensConsumo;
 import br.com.hotel.apresentacao.TelaTipoAcomodacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ItemConsumoDao;
@@ -292,7 +292,7 @@ public final class PainelGerenciarAcomodacoes extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarItemActionPerformed
-        TelaItensConsumo form1 = new TelaItensConsumo(this);
+        TelaAdicionarItensConsumo form1 = new TelaAdicionarItensConsumo(this);
         form1.setAlwaysOnTop(true);
         form1.setVisible(true);
         form1.setLocationRelativeTo(null);

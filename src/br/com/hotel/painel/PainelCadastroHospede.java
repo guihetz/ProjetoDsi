@@ -78,16 +78,22 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
+        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
 
+        jLabel2.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel2.setText("CPF:");
 
+        jLabel3.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel3.setText("Endereço:");
 
+        jLabel4.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel4.setText("Telefone:");
 
+        jLabel5.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel5.setText("Email:");
 
+        jLabel6.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel6.setText("Data de Nascimento:");
 
         try {
@@ -139,7 +145,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(tfTelefone)
                                 .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(498, Short.MAX_VALUE))
+                .addContainerGap(476, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +178,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                 .addComponent(btnCadastro)
                 .addGap(18, 18, 18)
                 .addComponent(dcDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Cadastrar Hóspede", jPanel1);

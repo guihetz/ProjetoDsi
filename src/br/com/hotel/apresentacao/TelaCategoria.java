@@ -15,7 +15,7 @@ import java.awt.Color;
  * @author daylton
  */
 public class TelaCategoria extends javax.swing.JFrame {
-    private TelaItensConsumo tic;
+    private TelaAdicionarItensConsumo telaItemConsumo;
     /**
      * Creates new form TelaCategoria
      */
@@ -25,7 +25,7 @@ public class TelaCategoria extends javax.swing.JFrame {
     
     public TelaCategoria(javax.swing.JFrame form){
         this();
-        tic = (TelaItensConsumo) form;
+        telaItemConsumo = (TelaAdicionarItensConsumo) form;
     }
 
     /**
@@ -43,16 +43,16 @@ public class TelaCategoria extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 36))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 20))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel1.setText("Nome");
 
-        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        tfNomeCategoria.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfNomeCategoria.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        btnCadastrar.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        btnCadastrar.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,7 +87,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lbMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -118,7 +118,7 @@ public class TelaCategoria extends javax.swing.JFrame {
                 
                 CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
                 dao.inserirCategoria(c); 
-                tic.preencherComboCategorias();
+                telaItemConsumo.preencherComboCategorias();
                 this.dispose();
             }else{
                 lbMsg.setText("Nome da Categoria Invalida!");

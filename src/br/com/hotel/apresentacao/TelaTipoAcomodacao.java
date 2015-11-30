@@ -8,7 +8,6 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.painel.PainelGerenciarAcomodacoes;
 import br.com.hotel.painel.PainelGerenciarHotel;
 import java.awt.Color;
 
@@ -54,42 +53,43 @@ public class TelaTipoAcomodacao extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Acomodação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 36))); // NOI18N
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Acomodação", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Hotel Oriental", 0, 20))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel1.setText("Descrição");
 
-        tfDescricao.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfDescricao.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        jLabel2.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel2.setText("Quantidade");
 
-        jLabel3.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel3.setText("Valor Diaria");
 
-        tfQuantidade.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfQuantidade.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        tfValorDiaria.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfValorDiaria.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        tfNumAdulto.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfNumAdulto.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        tfNunCrianca.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        tfNunCrianca.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel4.setText("Num Adultos");
 
-        jLabel5.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel5.setText("Num Crianças");
 
-        btnCadastrar.setFont(new java.awt.Font("Hotel Oriental", 0, 26)); // NOI18N
-        btnCadastrar.setText("Cadastrar Acomodação");
+        btnCadastrar.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
+        btnCadastrar.setText("Adicionar Tipo Acomodação");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
 
-        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -97,36 +97,34 @@ public class TelaTipoAcomodacao extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCadastrar))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfNumAdulto, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(59, 59, 59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addComponent(tfNunCrianca, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(tfNunCrianca, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(btnCadastrar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,10 +140,9 @@ public class TelaTipoAcomodacao extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(tfNunCrianca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5)
-                        .addComponent(tfNumAdulto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(tfNumAdulto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfNunCrianca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -185,14 +182,13 @@ public class TelaTipoAcomodacao extends javax.swing.JFrame {
                                 tpa.setQtdeAcomodacoes(Integer.valueOf(tfQuantidade.getText()));
                                 tpa.setValorDiaria(Double.valueOf(tfValorDiaria.getText()));
                                 tpa.setNumAdultos(Integer.valueOf(tfNumAdulto.getText()));
-                                tpa.setNumAdultos(Integer.valueOf(tfNumAdulto.getText()));
+                                tpa.setNumCriancas(Integer.valueOf(tfNunCrianca.getText()));
 
                                 TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
                                 dao.inserirTipoAcomodacao(tpa);
 
                                 pnGerenciarHotel.preencherMsg("Tipo de Acomodação Adicionado", Color.green);
                                 pnGerenciarHotel.preencherTabelaTipoAcomodacao();
-                                pnGerenciarHotel.preencherComboTipoAcomodacoes();
                                 this.dispose();
 
                             }else{

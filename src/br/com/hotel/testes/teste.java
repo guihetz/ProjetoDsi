@@ -35,9 +35,12 @@ public class teste extends javax.swing.JFrame {
 
         painelLateral = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,8 +50,6 @@ public class teste extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Menu");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/hotel.png"))); // NOI18N
-
         jLabel3.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel3.setText("Gerenciar Hotel");
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -57,8 +58,19 @@ public class teste extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/hotel.png"))); // NOI18N
+
         jLabel4.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel4.setText("Gerenciar Hospedes");
+        jLabel4.setText("Gerenciar Reserva");
+
+        jLabel5.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel5.setText("Gereciar Hospedes");
+
+        jLabel6.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel6.setText("Gereciar Hospedes");
+
+        jLabel7.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
+        jLabel7.setText("Gerenciar Reserva");
 
         javax.swing.GroupLayout painelLateralLayout = new javax.swing.GroupLayout(painelLateral);
         painelLateral.setLayout(painelLateralLayout);
@@ -67,15 +79,14 @@ public class teste extends javax.swing.JFrame {
             .addGroup(painelLateralLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(painelLateralLayout.createSequentialGroup()
-                        .addGroup(painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
-                            .addGroup(painelLateralLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelLateralLayout.setVerticalGroup(
             painelLateralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,11 +95,17 @@ public class teste extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
-                .addGap(136, 136, 136)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         getContentPane().add(painelLateral, java.awt.BorderLayout.WEST);
@@ -145,6 +162,9 @@ public class teste extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel painelLateral;
     // End of variables declaration//GEN-END:variables
 }
