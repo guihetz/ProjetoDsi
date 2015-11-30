@@ -75,8 +75,6 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         tabelaHospedes = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
 
         jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
         jLabel1.setText("Nome:");
@@ -238,32 +236,6 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Hóspedes Cadastrados", jPanel2);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 857, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Registrar Entrada de Hóspede", jPanel3);
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 857, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 491, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Registrar Saída de Hóspedes", jPanel4);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -275,6 +247,33 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
             .addComponent(jTabbedPane1)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(tabelaHospedes.getSelectedRow() >= 0){
+            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
+            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+
+            if(r == 0){
+                HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
+                hd.excluirHospede(h.getHospedeId());
+                JOptionPane.showMessageDialog(null, "Hóspede Excluido");
+            }
+            this.preencherTabelaHospedes();
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(tabelaHospedes.getSelectedRow() >= 0){
+            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
+
+            TelaEditarHospede teh = new TelaEditarHospede(h, this);
+
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         GregorianCalendar d = new GregorianCalendar();
@@ -290,9 +289,9 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
                                     String endereco = tfEndereco.getText();
                                     String email = tfEmail.getText();
                                     String telefone = tfTelefone.getText();
-//                                    String dataNascimento = tfDataNascimento.getText();
-//                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-//                                    Date data = sdf.parse(dataNascimento);
+                                    //                                    String dataNascimento = tfDataNascimento.getText();
+                                    //                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                                    //                                    Date data = sdf.parse(dataNascimento);
                                     Hospede h = new Hospede();
                                     h.setCpf(cpf);
                                     h.setNome(nome);
@@ -327,33 +326,6 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnCadastroActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(tabelaHospedes.getSelectedRow() >= 0){
-            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
-            
-            TelaEditarHospede teh = new TelaEditarHospede(h, this);
-
-        }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(tabelaHospedes.getSelectedRow() >= 0){
-            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
-            
-            if(r == 0){
-                    HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
-                    hd.excluirHospede(h.getHospedeId());
-                    JOptionPane.showMessageDialog(null, "Hóspede Excluido");
-            }
-            this.preencherTabelaHospedes();
-        }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastro;
@@ -368,8 +340,6 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tabelaHospedes;
