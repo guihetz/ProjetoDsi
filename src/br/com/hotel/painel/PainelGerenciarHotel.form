@@ -340,7 +340,7 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/br/com/hotel/imagem/edit.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Editar Tiipo de Acomoda&#xe7;&#xe3;o"/>
+                    <Property name="text" type="java.lang.String" value="Editar Tipo de Acomoda&#xe7;&#xe3;o"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditarAcomodacaoActionPerformed"/>
@@ -421,7 +421,6 @@
                                   <Component id="btnInserirAcomodacao" min="-2" pref="326" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btnAtualizarAcomodacao" min="-2" pref="350" max="-2" attributes="0"/>
-                                  <EmptySpace min="87" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

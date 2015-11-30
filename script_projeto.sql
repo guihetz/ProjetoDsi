@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `itens_consumo` (
   CONSTRAINT `categoria_id`
     FOREIGN KEY (`categoria_id`)
     REFERENCES `categorias` (`categoria_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `acomodacoes` (
   CONSTRAINT `tipo_acomodacao_id`
     FOREIGN KEY (`tipo_acomodacao_id`)
     REFERENCES `tipo_acomodacao` (`tipo_acomodacao_id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 

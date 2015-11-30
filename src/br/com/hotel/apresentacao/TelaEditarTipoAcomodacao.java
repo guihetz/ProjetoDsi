@@ -194,7 +194,7 @@ public class TelaEditarTipoAcomodacao extends javax.swing.JFrame {
                                 tpa.setQtdeAcomodacoes(Integer.valueOf(tfQuantidade.getText()));
                                 tpa.setValorDiaria(Double.valueOf(tfValorDiaria.getText()));
                                 tpa.setNumAdultos(Integer.valueOf(tfNumAdulto.getText()));
-                                tpa.setNumAdultos(Integer.valueOf(tfNumAdulto.getText()));
+                                tpa.setNumCriancas(Integer.valueOf(tfNunCrianca.getText()));
 
                                 TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
                                 dao.atualizarTipoAcomodacao(tpa, tpa.getTipoAcomodacaoId());

@@ -224,7 +224,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1)
                     .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(btnAdicionarItem, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                        .addComponent(btnAdicionarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 320, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEditarItem, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -298,7 +298,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
 
         btnEditarAcomodacao.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnEditarAcomodacao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
-        btnEditarAcomodacao.setText("Editar Tiipo de Acomodação");
+        btnEditarAcomodacao.setText("Editar Tipo de Acomodação");
         btnEditarAcomodacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarAcomodacaoActionPerformed(evt);
@@ -433,8 +433,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(btnInserirAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAtualizarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnAtualizarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnApagarAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
