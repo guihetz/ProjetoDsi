@@ -77,19 +77,30 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
     public boolean quartoEstaReservado(int acomodacaoId, Date dataChegada, Date dataSaida){
         ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
         ArrayList<Reserva> reservas = rd.listarReservasPorQuarto(acomodacaoId);
+        System.out.println("reser: " + reservas.size());
         boolean reservado = false;
         for(Reserva r: reservas){
             Date dataInicio = r.getDataChegada().getTime();
             Date dataFim = r.getDataSaida().getTime();
-            //System.out.println(dataChegada.toString() + dataSaida + dataInicio + dataFim);
-            if((dataChegada.after(dataInicio) || dataChegada.before(dataFim)) || (dataSaida.after(dataInicio) || dataSaida.before(dataFim))){
+            System.out.println(dataChegada.toString() + dataSaida + dataInicio + dataFim);
+            if(dataChegada.equals(dataInicio)){
                 reservado = true;
-            }else if((dataChegada.compareTo(dataInicio) == 0) || (dataChegada.compareTo(dataFim) == 0)){
+            }else if(dataSaida.equals(dataFim)){
                 reservado = true;
-            }else if((dataSaida.compareTo(dataInicio) == 0) || (dataSaida.compareTo(dataFim) == 0)){
+            }else if(dataChegada.after(dataInicio) && dataChegada.before(dataFim)){
+                reservado = true;
+            }else if(dataSaida.after(dataInicio) && dataSaida.before(dataFim)){
+                reservado = true;
+            }else if(dataChegada.before(dataInicio)&&dataSaida.after(dataInicio)){
+                reservado = true;
+            }else if(dataChegada.before(dataFim)&&dataSaida.after(dataFim)){
+                reservado = true;
+            }else if(dataChegada.before(dataInicio)&&dataSaida.after(dataFim)){
+                reservado = true;
+            }else if(dataChegada.after(dataInicio)&&dataSaida.after(dataFim)){
                 reservado = true;
             }
-            //System.out.println(reservado);
+            System.out.println(reservado);
         }
         return reservado;
     }
