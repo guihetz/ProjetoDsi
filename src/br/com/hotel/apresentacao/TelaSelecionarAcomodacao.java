@@ -7,11 +7,15 @@ package br.com.hotel.apresentacao;
 
 import br.com.hotel.dao.AcomodacaoDao;
 import br.com.hotel.dao.ConnectionFactory;
+import br.com.hotel.dao.ReservaDao;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
+import br.com.hotel.modelo.Reserva;
 import br.com.hotel.modelo.TipoAcomodacao;
 import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.tabela.TableModelAcomodacoes;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
@@ -27,6 +31,8 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
      */
     private PainelCadastroReservas pcr;
     private TableModelAcomodacoes tma;
+    private Date dataChegada;
+    private Date dataSaida;
     public TelaSelecionarAcomodacao() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -34,9 +40,11 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    public TelaSelecionarAcomodacao(PainelCadastroReservas pcr){
+    public TelaSelecionarAcomodacao(PainelCadastroReservas pcr, Date dataChegada, Date dataSaida){
         this();
         this.pcr = pcr;
+        this.dataChegada = dataChegada;
+        this.dataSaida = dataSaida;
         TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
         if(tad.listarTipoAcomodacao().isEmpty()){
             JOptionPane.showMessageDialog(null, "Não existem acomodações cadastradas!");
@@ -66,6 +74,25 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
         tabelaAcomodacoes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
+    public boolean quartoEstaReservado(int acomodacaoId, Date dataChegada, Date dataSaida){
+        ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+        ArrayList<Reserva> reservas = rd.listarReservasPorQuarto(acomodacaoId);
+        boolean reservado = false;
+        for(Reserva r: reservas){
+            Date dataInicio = r.getDataChegada().getTime();
+            Date dataFim = r.getDataSaida().getTime();
+            //System.out.println(dataChegada.toString() + dataSaida + dataInicio + dataFim);
+            if((dataChegada.after(dataInicio) || dataChegada.before(dataFim)) || (dataSaida.after(dataInicio) || dataSaida.before(dataFim))){
+                reservado = true;
+            }else if((dataChegada.compareTo(dataInicio) == 0) || (dataChegada.compareTo(dataFim) == 0)){
+                reservado = true;
+            }else if((dataSaida.compareTo(dataInicio) == 0) || (dataSaida.compareTo(dataFim) == 0)){
+                reservado = true;
+            }
+            //System.out.println(reservado);
+        }
+        return reservado;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,7 +178,8 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
     private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
          if(tabelaAcomodacoes.getSelectedRow() >= 0){
              Acomodacao a = tma.retornarObjetoSelecionado(tabelaAcomodacoes.getSelectedRow());
-             if(a.isReservado()){
+             if(quartoEstaReservado(a.getAcomodacaoId(), dataChegada, dataSaida)){
+                 System.out.println("id aco: " + a.getAcomodacaoId());
                  JOptionPane.showMessageDialog(null, "Acomodação já está reservada no momento \n Escolha outra acomodação.");
              }else{
                  this.pcr.setAcomodacao(a);

@@ -184,6 +184,41 @@ public class ReservaDao {
         }
     }
     
+    public ArrayList<Reserva> listarReservasPorQuarto(int acomodacaoId){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        ArrayList<Reserva> reservas = null;
+        String sql = "SELECT * FROM reservas WHERE acomodacao_id = ? ";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, acomodacaoId);
+            rs = ps.executeQuery();
+            reservas = new ArrayList<>();
+            while(rs.next()){
+                Reserva r = new Reserva();
+                r.setReservaId(rs.getInt("reserva_id"));
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTime(rs.getDate("data_chegada"));
+                r.setDataChegada(gc);
+                gc.setTime(rs.getDate("data_saida"));
+                r.setDataSaida(gc);
+                r.setHospedeId(rs.getInt("hospede_id"));
+                r.setAcomodacaoId(rs.getInt("acomodacao_id"));
+                r.setValorDiaria(rs.getDouble("valor_diaria"));
+                r.setTaxaMulta(rs.getDouble("taxa_multa"));
+                r.setCartaoId(rs.getInt("cartao_id"));
+                r.setDesconto(rs.getDouble("desconto"));
+                reservas.add(r);
+            }
+            return reservas;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public Reserva buscarReservaPorHospede(int hospedeId){
         PreparedStatement ps = null;
         ResultSet rs = null;

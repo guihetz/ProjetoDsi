@@ -20,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
  * @author daylton
  */
 public class TableModelAcomodacoes extends AbstractTableModel{
-    private String[] nomesColunas = {"NUMERO", "ANDAR","TIPO", "ESTÁ RESERVADA"};
+    private String[] nomesColunas = {"NUMERO", "ANDAR","TIPO"};
     private ArrayList<Acomodacao> listaAcomodacoes;
     
     public TableModelAcomodacoes(){
@@ -64,12 +64,6 @@ public class TableModelAcomodacoes extends AbstractTableModel{
                 TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
                 TipoAcomodacao ta = tad.buscarTipoAcomodacao(a.getTipoAcomodacaoId());
                 return ta.getDescricao();
-            case 3:
-                if(a.isReservado()){
-                    return "Reservado";
-                }else{
-                    return "Não Reservado";
-                }
             default:
                 throw new UnsupportedOperationException("Operation not Suport!");    
         }

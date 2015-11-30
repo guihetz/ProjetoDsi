@@ -393,8 +393,16 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
-        TelaSelecionarAcomodacao tsa = new TelaSelecionarAcomodacao(this);
-        tsa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       try{
+           if(dataChegada.getDate()!= null && dataSaida.getDate()!= null){
+                TelaSelecionarAcomodacao tsa = new TelaSelecionarAcomodacao(this, dataChegada.getDate(), dataSaida.getDate());
+                tsa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+           }else{
+               JOptionPane.showMessageDialog(null, "Data de chegada e saída devem ser escolhidas!");
+           }
+       }catch(Exception erro){
+           JOptionPane.showMessageDialog(null, "Data de chegada e saída devem ser escolhidas!");
+       }
     }//GEN-LAST:event_btnEscolherAcomodacaoActionPerformed
 
     private void btnAdicionarDadosCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDadosCartaoActionPerformed
