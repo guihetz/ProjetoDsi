@@ -6,6 +6,8 @@
 package br.com.hotel.apresentacao;
 
 import br.com.hotel.modelo.Acompanhante;
+import br.com.hotel.modelo.TipoAcomodacao;
+import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.tabela.TableModelAcompanhantes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -23,16 +25,26 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
      */
     private TableModelAcompanhantes tma;
     private ArrayList<Acompanhante> acompanhantes;
+    private TipoAcomodacao tipoAcomodacao;
+    private PainelCadastroReservas pcr;
+    private int numeroAdultos;
+    private int numeroCriancas;
     public TelaAdicionarAcompanhante() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     
-    public TelaAdicionarAcompanhante(ArrayList<Acompanhante> acompanhantes){
+    public TelaAdicionarAcompanhante(ArrayList<Acompanhante> acompanhantes, TipoAcomodacao tipo, PainelCadastroReservas pcr){
         this();
+        this.tipoAcomodacao = tipo;
         this.acompanhantes = acompanhantes;
+        this.pcr = pcr;
         preencherTabelaAcompanhantes(acompanhantes);
+        numeroAdultos = pcr.na;
+        numeroCriancas = pcr.nc;
+        lbNumAdultos.setText(String.valueOf(numeroAdultos));
+        lbNumCriancas.setText(String.valueOf(numeroCriancas));
     }
     
     public void preencherTabelaAcompanhantes(ArrayList<Acompanhante> acompanhantes){
@@ -60,6 +72,10 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
         tabelaAcompanhantes = new javax.swing.JTable();
         btnAdicionarAcompanhante = new javax.swing.JButton();
         btnExcluirAcompanhante = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        lbNumCriancas = new javax.swing.JLabel();
+        lbNumAdultos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Acompanhantes");
@@ -90,6 +106,21 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
         });
 
         btnExcluirAcompanhante.setText("Excluir Acompanhante Selecionado");
+        btnExcluirAcompanhante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirAcompanhanteActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Crianças no Quarto:");
+
+        jLabel4.setText("Adultos no Quarto:");
+
+        lbNumCriancas.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        lbNumCriancas.setText("0");
+
+        lbNumAdultos.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        lbNumAdultos.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,14 +136,26 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAdicionarAcompanhante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNomeAcompanhante))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnExcluirAcompanhante)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfNomeAcompanhante, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnExcluirAcompanhante))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addComponent(lbNumCriancas)
+                                            .addGap(65, 65, 65)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(lbNumAdultos)
+                                        .addGap(66, 66, 66)))))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -128,7 +171,16 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                     .addComponent(tfIdadeAcompanhante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdicionarAcompanhante))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbNumCriancas)
+                        .addGap(11, 11, 11)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbNumAdultos)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(btnExcluirAcompanhante)
                 .addContainerGap())
@@ -143,17 +195,61 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                 if(!"".equals(tfIdadeAcompanhante.getText())){
                     String nome = tfNomeAcompanhante.getText();
                     int idade = Integer.valueOf(tfIdadeAcompanhante.getText());
-                    Acompanhante a = new Acompanhante();
-                    a.setNome(nome);
-                    a.setIdade(idade);
-                    this.acompanhantes.add(a);
-                    preencherTabelaAcompanhantes(acompanhantes);
+                    if(idade>18){
+                        if(numeroAdultos<tipoAcomodacao.getNumAdultos()){
+                            Acompanhante a = new Acompanhante();
+                            a.setNome(nome);
+                            a.setIdade(idade);
+                            this.acompanhantes.add(a);
+                            numeroAdultos++;
+                            lbNumAdultos.setText(String.valueOf(numeroAdultos));
+                            preencherTabelaAcompanhantes(acompanhantes);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Não é possível adicionar mais adultos.");
+                        }
+                    }else{
+                        if(numeroCriancas<tipoAcomodacao.getNumCriancas()){
+                            Acompanhante a = new Acompanhante();
+                            a.setNome(nome);
+                            a.setIdade(idade);
+                            this.acompanhantes.add(a);
+                            numeroCriancas++;
+                            lbNumCriancas.setText(String.valueOf(numeroCriancas));
+                            preencherTabelaAcompanhantes(acompanhantes);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Não é possível adicionar mais crianças.");
+                        }
+                    }
+                    
+                    pcr.na = numeroAdultos;
+                    pcr.nc = numeroCriancas;
                 }
             }
         }catch(Exception erro){
             JOptionPane.showMessageDialog(null, "Erro ao adicionar acompanhante!");
         }
     }//GEN-LAST:event_btnAdicionarAcompanhanteActionPerformed
+
+    private void btnExcluirAcompanhanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirAcompanhanteActionPerformed
+        if(tabelaAcompanhantes.getSelectedRow() >= 0){
+            Acompanhante a = tma.retornarObjetoSelecionado(tabelaAcompanhantes.getSelectedRow());
+            
+            this.acompanhantes.remove(a);
+            if(a.getIdade() > 18){
+                numeroAdultos--;
+                pcr.na = numeroAdultos;
+                lbNumAdultos.setText(String.valueOf(numeroAdultos));
+            }else{
+                numeroCriancas--;
+                pcr.nc = numeroCriancas;
+                lbNumCriancas.setText(String.valueOf(numeroCriancas));
+            }
+            JOptionPane.showMessageDialog(null, "Acompanhante: " + a.getNome() + "Excluído com sucesso");
+            this.preencherTabelaAcompanhantes(acompanhantes);
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhum acompanhante selecionado.");
+        }
+    }//GEN-LAST:event_btnExcluirAcompanhanteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,7 +291,11 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
     private javax.swing.JButton btnExcluirAcompanhante;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbNumAdultos;
+    private javax.swing.JLabel lbNumCriancas;
     private javax.swing.JTable tabelaAcompanhantes;
     private javax.swing.JTextField tfIdadeAcompanhante;
     private javax.swing.JTextField tfNomeAcompanhante;

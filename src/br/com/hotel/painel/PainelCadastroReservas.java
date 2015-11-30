@@ -55,10 +55,14 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private Acomodacao acomodacaoEscolhida;
     private ArrayList<Acompanhante> acompanhantes;
     private Cartao c;
+    public int na;
+    public int nc;
     public PainelCadastroReservas() {
         initComponents();
         this.acompanhantes = new ArrayList<>();
         this.c = new Cartao();
+        this.na = 1;
+        this.nc = 0;
         this.preencherTabelaHospedes();
         this.preencherTabelaReservas();
         this.preencherTabelaReservasDoHospede(null);
@@ -571,6 +575,9 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
                 this.h = null;
                 this.acomodacaoEscolhida = null;
                 this.c = new Cartao();
+                this.na = 1;
+                this.nc = 0;
+                lbNome.setText("");
                 this.preencherTabelaReservas();
                 
             }else{
@@ -605,7 +612,13 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAdicionarDadosCartaoActionPerformed
 
     private void btnAdicionarAcompanhanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAcompanhanteActionPerformed
-        TelaAdicionarAcompanhante taa = new TelaAdicionarAcompanhante(acompanhantes);
+        if(acomodacaoEscolhida!= null){
+            TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
+            TipoAcomodacao tipo = tad.buscarTipoAcomodacao(acomodacaoEscolhida.getTipoAcomodacaoId());
+            TelaAdicionarAcompanhante taa = new TelaAdicionarAcompanhante(acompanhantes, tipo, this);
+        }else{
+            JOptionPane.showMessageDialog(null, "Deve ser escolhida uma acomodação.");
+        }
     }//GEN-LAST:event_btnAdicionarAcompanhanteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
