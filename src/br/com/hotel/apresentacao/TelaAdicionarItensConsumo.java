@@ -12,6 +12,9 @@ import br.com.hotel.modelo.Categoria;
 import br.com.hotel.modelo.ItemConsumo;
 import br.com.hotel.painel.PainelGerenciarHotel;
 import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -235,7 +238,13 @@ public class TelaAdicionarItensConsumo extends javax.swing.JFrame {
             CategoriaDao dao = new CategoriaDao(new ConnectionFactory().getConnection());
             Categoria c = (Categoria) cbCategoria.getSelectedItem();
             
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            JLabel msg = new JLabel();
+            msg.setFont(new Font("Hotel Oriental", 1, 18));
+            msg.setForeground(Color.RED);
+            msg.setText("Voce tem certeza disso? Itens desta categoria também serão excluidos!");
+            
+            int r = JOptionPane.showConfirmDialog(this, msg, "ATENÇÃO",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon());
             
             if(r == 0){
                     dao.excluirCategoria(c.getCategoriaId());

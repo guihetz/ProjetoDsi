@@ -23,6 +23,7 @@ import br.com.hotel.tabela.TableModelItensConsumo;
 import br.com.hotel.tabela.TableModelTipoAcomodacao;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -524,7 +525,13 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             ItemConsumoDao dao = new ItemConsumoDao(new ConnectionFactory().getConnection());
             ItemConsumo ic = modeloItensConsumo.retornarObjetoSelecionado(tbItensConsumo.getSelectedRow());
 
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            JLabel msg = new JLabel();
+            msg.setFont(new Font("Hotel Oriental", 1, 18));
+            msg.setForeground(Color.RED);
+            msg.setText("Voce tem certeza disso?");
+            
+            int r = JOptionPane.showConfirmDialog(this, msg, "ATENÇÃO",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon());
 
             if(r == 0){
                 dao.excluirItemConsumo(ic.getCategoriaId());
@@ -562,8 +569,13 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
             TipoAcomodacao tpa = modeloTipoAcomodacao.retornarObjetoSelecionado(tbTipoAcomodacoes.getSelectedRow());
 
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?? Acomodações deste tipo também serão excluidas!");
-
+            JLabel msg = new JLabel();
+            msg.setFont(new Font("Hotel Oriental", 1, 18));
+            msg.setForeground(Color.RED);
+            msg.setText("Voce tem certeza disso?? Acomodações deste tipo também serão excluidas!");
+            
+            int r = JOptionPane.showConfirmDialog(this, msg, "ATENÇÃO",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon());
             if(r == 0){
                 dao.excluirTipoAcomodacao(tpa.getTipoAcomodacaoId());
                 preencherMsg("Tipo de Acomodação Excluido!", Color.red);
@@ -588,7 +600,13 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
             AcomodacaoDao dao = new AcomodacaoDao(new ConnectionFactory().getConnection());
             Acomodacao a = modeloAcomodacao.retornarObjetoSelecionado(tbAcomodacoes.getSelectedRow());
 
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+            JLabel msg = new JLabel();
+            msg.setFont(new Font("Hotel Oriental", 1, 18));
+            msg.setForeground(Color.RED);
+            msg.setText("Voce tem certeza disso?");
+            
+            int r = JOptionPane.showConfirmDialog(this, msg, "ATENÇÃO",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon());
 
             if(r == 0){
                 dao.excluirAcomodacao(a.getAcomodacaoId());
