@@ -5,17 +5,21 @@
  */
 package br.com.hotel.painel;
 
+import br.com.hotel.apresentacao.TelaAdicionarHospede;
 import br.com.hotel.apresentacao.TelaEditarHospede;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.tabela.TableModelHospedes;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import static javax.swing.SwingConstants.CENTER;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -33,16 +37,26 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
          preencherTabelaHospedes();
     }
     
+     public void preencherMsg(String s, Color c){
+        lbMsg.setText(s);
+        lbMsg.setForeground(c); 
+    }
+    
     public void preencherTabelaHospedes(){
         HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
         tableModelHospedes = new TableModelHospedes();
         tableModelHospedes.preencherLista(hd.listarHospedes());
         tabelaHospedes.setModel(tableModelHospedes);
-        tabelaHospedes.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        
+        DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
+        centerRender.setHorizontalAlignment(JLabel.CENTER);
+        tabelaHospedes.getColumnModel().getColumn(0).setCellRenderer(centerRender);
+        tabelaHospedes.getColumnModel().getColumn(1).setCellRenderer(centerRender);
+        tabelaHospedes.getColumnModel().getColumn(2).setCellRenderer(centerRender);        
+        tabelaHospedes.getTableHeader().setFont(new Font("Hotel Oriental", 1, 18));                
+        ((DefaultTableCellRenderer) tabelaHospedes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
+        
         tabelaHospedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tabelaHospedes.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tabelaHospedes.getColumnModel().getColumn(1).setPreferredWidth(50);
-        tabelaHospedes.getColumnModel().getColumn(3).setPreferredWidth(20);
     }
 
     /**
@@ -54,132 +68,44 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        tfNome = new javax.swing.JTextField();
-        tfCpf = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        tfEndereco = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        tfTelefone = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        tfEmail = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfDataNascimento = new javax.swing.JFormattedTextField();
-        btnCadastro = new javax.swing.JButton();
-        dcDataNascimento = new com.toedter.calendar.JDateChooser();
-        jPanel2 = new javax.swing.JPanel();
+        lbMsg = new javax.swing.JLabel();
+        btnAdicionarHospede = new javax.swing.JButton();
+        btnEditarHospede = new javax.swing.JButton();
+        btnExcluirHospede = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHospedes = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel1.setText("Nome:");
+        lbMsg.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        lbMsg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel2.setText("CPF:");
-
-        jLabel3.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel3.setText("Endereço:");
-
-        jLabel4.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel4.setText("Telefone:");
-
-        jLabel5.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel5.setText("Email:");
-
-        jLabel6.setFont(new java.awt.Font("Hotel Oriental", 0, 24)); // NOI18N
-        jLabel6.setText("Data de Nascimento:");
-
-        try {
-            tfDataNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        btnCadastro.setText("Cadastrar Hospede");
-        btnCadastro.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionarHospede.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnAdicionarHospede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
+        btnAdicionarHospede.setText("Adicionar Hospede");
+        btnAdicionarHospede.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastroActionPerformed(evt);
+                btnAdicionarHospedeActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(dcDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnCadastro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfDataNascimento))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfEndereco))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfNome)
-                                .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel5))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(tfTelefone)
-                                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(476, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(tfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCadastro)
-                .addGap(18, 18, 18)
-                .addComponent(dcDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(125, Short.MAX_VALUE))
-        );
+        btnEditarHospede.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnEditarHospede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/edit.png"))); // NOI18N
+        btnEditarHospede.setText("Editar Hospede");
+        btnEditarHospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarHospedeActionPerformed(evt);
+            }
+        });
 
-        jTabbedPane1.addTab("Cadastrar Hóspede", jPanel1);
+        btnExcluirHospede.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnExcluirHospede.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/delete.png"))); // NOI18N
+        btnExcluirHospede.setText("Excluir Hospede");
+        btnExcluirHospede.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirHospedeActionPerformed(evt);
+            }
+        });
 
         tabelaHospedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -194,160 +120,116 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tabelaHospedes);
 
-        jButton1.setText("Editar Hóspede");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Excluir Hóspede");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAdicionarHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEditarHospede, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnExcluirHospede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionarHospede)
+                    .addComponent(btnEditarHospede)
+                    .addComponent(btnExcluirHospede))
+                .addGap(18, 18, 18)
+                .addComponent(lbMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
 
-        jTabbedPane1.addTab("Hóspedes Cadastrados", jPanel2);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/city.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel4))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAdicionarHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarHospedeActionPerformed
+        TelaAdicionarHospede t1 = new TelaAdicionarHospede();
+        t1.setAlwaysOnTop(true);
+        t1.setVisible(true);
+        t1.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnAdicionarHospedeActionPerformed
+
+    private void btnEditarHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarHospedeActionPerformed
         if(tabelaHospedes.getSelectedRow() >= 0){
             Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
-            int r = JOptionPane.showConfirmDialog(this, "Voce tem certeza disso?");
+
+            TelaEditarHospede t2 = new TelaEditarHospede(h, this);
+            t2.setAlwaysOnTop(true);
+            t2.setVisible(true);
+            t2.setLocationRelativeTo(null);
+
+        }else{
+            preencherMsg("Nenhum hospede Selecionado!", Color.red);
+        }
+    }//GEN-LAST:event_btnEditarHospedeActionPerformed
+
+    private void btnExcluirHospedeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirHospedeActionPerformed
+        if(tabelaHospedes.getSelectedRow() >= 0){
+            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
+            JLabel msg = new JLabel();
+            msg.setFont(new Font("Hotel Oriental", 1, 18));
+            msg.setForeground(Color.RED);
+            msg.setText("Voce tem certeza disso?");
+            
+            int r = JOptionPane.showConfirmDialog(this, msg, "ATENÇÃO",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, new ImageIcon());
 
             if(r == 0){
                 HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
                 hd.excluirHospede(h.getHospedeId());
-                JOptionPane.showMessageDialog(null, "Hóspede Excluido");
+                preencherMsg("Nenhum hospede Selecionado!", Color.red);
             }
             this.preencherTabelaHospedes();
         }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+            preencherMsg("Nenhum hospede Selecionado!", Color.red);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(tabelaHospedes.getSelectedRow() >= 0){
-            Hospede h = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
-
-            TelaEditarHospede teh = new TelaEditarHospede(h, this);
-
-        }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
-        GregorianCalendar d = new GregorianCalendar();
-        try{
-            if(!tfNome.getText().equals("")){
-                if(!tfCpf.getText().equals("")){
-                    if(!tfEndereco.getText().equals("")){
-                        if(!tfEmail.getText().equals("")){
-                            if(!tfTelefone.getText().equals("")){
-                                if(!dcDataNascimento.getDateFormatString().equals("") && dcDataNascimento.getDate().before(d.getTime())){
-                                    String cpf = tfCpf.getText();
-                                    String nome = tfNome.getText();
-                                    String endereco = tfEndereco.getText();
-                                    String email = tfEmail.getText();
-                                    String telefone = tfTelefone.getText();
-                                    //                                    String dataNascimento = tfDataNascimento.getText();
-                                    //                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                                    //                                    Date data = sdf.parse(dataNascimento);
-                                    Hospede h = new Hospede();
-                                    h.setCpf(cpf);
-                                    h.setNome(nome);
-                                    h.setEndereco(endereco);
-                                    h.setEmail(email);
-                                    h.setTelefone(telefone);
-                                    h.setDataNascimento(dcDataNascimento.getDate());
-                                    HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
-                                    hd.inserirHospede(h);
-                                    JOptionPane.showMessageDialog(null, "Hospede Cadastrado");
-                                    this.preencherTabelaHospedes();
-                                }else{
-                                    JOptionPane.showMessageDialog(null, "Erro: digite data");
-                                }
-                            }else{
-                                JOptionPane.showMessageDialog(null, "Erro: digite telefone");
-                            }
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Erro: digite email");
-                        }
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Erro: digite endereço");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Erro: digite cpf");
-                }
-            }else{
-                JOptionPane.showMessageDialog(null, "Erro: digite nome");
-            }
-        }catch(Exception erro){
-            JOptionPane.showMessageDialog(null, "Erro: "  + erro.getMessage());
-        }
-    }//GEN-LAST:event_btnCadastroActionPerformed
+    }//GEN-LAST:event_btnExcluirHospedeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastro;
-    private com.toedter.calendar.JDateChooser dcDataNascimento;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnAdicionarHospede;
+    private javax.swing.JButton btnEditarHospede;
+    private javax.swing.JButton btnExcluirHospede;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbMsg;
     private javax.swing.JTable tabelaHospedes;
-    private javax.swing.JTextField tfCpf;
-    private javax.swing.JFormattedTextField tfDataNascimento;
-    private javax.swing.JTextField tfEmail;
-    private javax.swing.JTextField tfEndereco;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfTelefone;
     // End of variables declaration//GEN-END:variables
 }

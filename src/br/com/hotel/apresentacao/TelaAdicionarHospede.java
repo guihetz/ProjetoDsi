@@ -8,7 +8,7 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.modelo.Hospede;
-import br.com.hotel.painel.PainelCadastroHospede12;
+import br.com.hotel.painel.PainelCadastroHospede;
 import java.awt.Color;
 import java.util.GregorianCalendar;
 
@@ -22,7 +22,7 @@ public class TelaAdicionarHospede extends javax.swing.JFrame {
      * Creates new form TelaAdicionarHospede
      */
     
-    private PainelCadastroHospede12 pnCadastroHospede;
+    private PainelCadastroHospede pnCadastroHospede;
     
     public TelaAdicionarHospede() {
         initComponents();
@@ -30,7 +30,7 @@ public class TelaAdicionarHospede extends javax.swing.JFrame {
     
     public TelaAdicionarHospede(javax.swing.JPanel panel){
         this();
-        pnCadastroHospede = (PainelCadastroHospede12) panel;
+        pnCadastroHospede = (PainelCadastroHospede) panel;
     }
 
     /**

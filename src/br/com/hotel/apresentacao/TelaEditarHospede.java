@@ -9,7 +9,7 @@ import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.painel.PainelCadastroHospede;
-import br.com.hotel.painel.PainelCadastroHospede12;
+import br.com.hotel.painel.PainelCadastroHospede;
 import java.awt.Color;
 import javax.swing.JFrame;
 
@@ -23,7 +23,7 @@ public class TelaEditarHospede extends javax.swing.JFrame {
      * Creates new form TelaEditarHospede
      */
     private Hospede h;
-    private PainelCadastroHospede12 pnCadastroHospede12;
+    private PainelCadastroHospede pnCadastroHospede12;
     
     public TelaEditarHospede() {
         initComponents();
@@ -36,7 +36,7 @@ public class TelaEditarHospede extends javax.swing.JFrame {
     public TelaEditarHospede(Hospede h, javax.swing.JPanel p){
         this();
         this.h = h;
-        this.pnCadastroHospede12 = (PainelCadastroHospede12) p;
+        this.pnCadastroHospede12 = (PainelCadastroHospede) p;
         
         tfNome.setText(h.getNome());
         ftCpf.setText(h.getCpf());

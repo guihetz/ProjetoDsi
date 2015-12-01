@@ -6,7 +6,7 @@
 package br.com.hotel.apresentacao;
 
 import br.com.hotel.painel.PainelCadastroHospede;
-import br.com.hotel.painel.PainelCadastroHospede12;
+import br.com.hotel.painel.PainelCadastroHospede;
 import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.painel.PainelGerenciarHotel;
 import br.com.hotel.painel.PainelGerenciarRelatorios;
@@ -139,7 +139,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        PainelCadastroHospede12 pch = new PainelCadastroHospede12();
+        PainelCadastroHospede pch = new PainelCadastroHospede();
         pch.setVisible(true);
         this.getContentPane().removeAll();
         this.add(painelLateral, BorderLayout.WEST);
