@@ -72,11 +72,6 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         modeloItensConsumo = new TableModelItensConsumo();
         modeloItensConsumo.preencherLista(dao.listarItensConsumo());
         tbItensConsumo.setModel(modeloItensConsumo); 
-               
-//        tbItensConsumo.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        tbItensConsumo.getColumnModel().getColumn(0).setPreferredWidth(205);
-//        tbItensConsumo.getColumnModel().getColumn(1).setPreferredWidth(125);
-//        tbItensConsumo.getColumnModel().getColumn(2).setPreferredWidth(79);
 //                
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(JLabel.CENTER);
@@ -92,14 +87,7 @@ public class PainelGerenciarHotel extends javax.swing.JPanel {
         TipoAcomodacaoDao dao = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());      
         modeloTipoAcomodacao = new TableModelTipoAcomodacao();
         modeloTipoAcomodacao.preencherLista(dao.listarTipoAcomodacao());
-        tbTipoAcomodacoes.setModel(modeloTipoAcomodacao); 
-               
-//        tbAcomodacoes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        tbAcomodacoes.getColumnModel().getColumn(0).setPreferredWidth(192);
-//        tbAcomodacoes.getColumnModel().getColumn(1).setPreferredWidth(100);
-//        tbAcomodacoes.getColumnModel().getColumn(2).setPreferredWidth(95);
-//        tbAcomodacoes.getColumnModel().getColumn(3).setPreferredWidth(70);
-//        tbAcomodacoes.getColumnModel().getColumn(4).setPreferredWidth(70);
+        tbTipoAcomodacoes.setModel(modeloTipoAcomodacao);                
         
         DefaultTableCellRenderer centerRender = new DefaultTableCellRenderer();
         centerRender.setHorizontalAlignment(JLabel.CENTER);
