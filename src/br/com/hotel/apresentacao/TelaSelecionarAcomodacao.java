@@ -12,7 +12,6 @@ import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Reserva;
 import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.tabela.TableModelAcomodacoes;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +28,8 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
     /**
      * Creates new form TelaSelecionarAcomodacao
      */
-    private PainelCadastroReservas pcr;
+           
+    private TelaRegistrarReserva telaRegistrarReserva;
     private TableModelAcomodacoes tma;
     private Date dataChegada;
     private Date dataSaida;
@@ -40,9 +40,9 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
         this.setVisible(true);
     }
     
-    public TelaSelecionarAcomodacao(PainelCadastroReservas pcr, Date dataChegada, Date dataSaida){
+    public TelaSelecionarAcomodacao(TelaRegistrarReserva trr, Date dataChegada, Date dataSaida){
         this();
-        this.pcr = pcr;
+        this.telaRegistrarReserva = trr;
         this.dataChegada = dataChegada;
         this.dataSaida = dataSaida;
         TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
@@ -192,11 +192,11 @@ public class TelaSelecionarAcomodacao extends javax.swing.JFrame {
              if(quartoEstaReservado(a.getAcomodacaoId(), dataChegada, dataSaida)){
                  JOptionPane.showMessageDialog(null, "Acomodação já está reservada no momento \n Escolha outra acomodação.");
              }else{
-                 this.pcr.setAcomodacao(a);
+                 this.telaRegistrarReserva.setAcomodacao(a);
                  JOptionPane.showMessageDialog(null, "Acomodação Escolhida!");
                  TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
                  TipoAcomodacao ta = tad.buscarTipoAcomodacao(a.getTipoAcomodacaoId());
-                 this.pcr.setValorDiaria(ta.getValorDiaria());
+                 this.telaRegistrarReserva.setValorDiaria(ta.getValorDiaria());
                  this.dispose();
              }
         }else{

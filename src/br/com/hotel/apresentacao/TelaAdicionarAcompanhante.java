@@ -7,7 +7,6 @@ package br.com.hotel.apresentacao;
 
 import br.com.hotel.modelo.Acompanhante;
 import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.tabela.TableModelAcompanhantes;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -26,23 +25,25 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
     private TableModelAcompanhantes tma;
     private ArrayList<Acompanhante> acompanhantes;
     private TipoAcomodacao tipoAcomodacao;
-    private PainelCadastroReservas pcr;
+    private TelaRegistrarReserva telaRegistrarReserva;
     private int numeroAdultos;
     private int numeroCriancas;
+    
+    
     public TelaAdicionarAcompanhante() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     
-    public TelaAdicionarAcompanhante(ArrayList<Acompanhante> acompanhantes, TipoAcomodacao tipo, PainelCadastroReservas pcr){
+    public TelaAdicionarAcompanhante(ArrayList<Acompanhante> acompanhantes, TipoAcomodacao tipo, TelaRegistrarReserva trr){
         this();
         this.tipoAcomodacao = tipo;
         this.acompanhantes = acompanhantes;
-        this.pcr = pcr;
+        this.telaRegistrarReserva = trr;
         preencherTabelaAcompanhantes(acompanhantes);
-        numeroAdultos = pcr.na;
-        numeroCriancas = pcr.nc;
+        numeroAdultos = telaRegistrarReserva.na;
+        numeroCriancas = telaRegistrarReserva.nc;
         lbNumAdultos.setText(String.valueOf(numeroAdultos));
         lbNumCriancas.setText(String.valueOf(numeroCriancas));
     }
@@ -81,10 +82,17 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
         setTitle("Acompanhantes");
         setResizable(false);
 
+        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel1.setText("Nome do Acompanhante: ");
 
+        tfNomeAcompanhante.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel2.setText("Idade do Acompanhante:");
 
+        tfIdadeAcompanhante.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+
+        tabelaAcompanhantes.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         tabelaAcompanhantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -98,6 +106,7 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabelaAcompanhantes);
 
+        btnAdicionarAcompanhante.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         btnAdicionarAcompanhante.setText("Adicionar");
         btnAdicionarAcompanhante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,6 +114,7 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
             }
         });
 
+        btnExcluirAcompanhante.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         btnExcluirAcompanhante.setText("Excluir Acompanhante Selecionado");
         btnExcluirAcompanhante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,14 +122,16 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Hotel Oriental", 1, 18)); // NOI18N
         jLabel3.setText("Crianças no Quarto:");
 
+        jLabel4.setFont(new java.awt.Font("Hotel Oriental", 1, 18)); // NOI18N
         jLabel4.setText("Adultos no Quarto:");
 
-        lbNumCriancas.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        lbNumCriancas.setFont(new java.awt.Font("Hotel Oriental", 1, 24)); // NOI18N
         lbNumCriancas.setText("0");
 
-        lbNumAdultos.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        lbNumAdultos.setFont(new java.awt.Font("Hotel Oriental", 1, 24)); // NOI18N
         lbNumAdultos.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -140,22 +152,21 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfNomeAcompanhante))
                     .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnExcluirAcompanhante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnExcluirAcompanhante)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(lbNumCriancas)
-                                            .addGap(65, 65, 65)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(lbNumAdultos)
-                                        .addGap(66, 66, 66)))))
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(lbNumCriancas)
+                                    .addGap(65, 65, 65)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lbNumAdultos)
+                                .addGap(66, 66, 66)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -181,7 +192,7 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbNumAdultos)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnExcluirAcompanhante)
                 .addContainerGap())
         );
@@ -221,8 +232,8 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
                         }
                     }
                     
-                    pcr.na = numeroAdultos;
-                    pcr.nc = numeroCriancas;
+                    telaRegistrarReserva.na = numeroAdultos;
+                    telaRegistrarReserva.nc = numeroCriancas;
                 }
             }
         }catch(Exception erro){
@@ -237,11 +248,11 @@ public class TelaAdicionarAcompanhante extends javax.swing.JFrame {
             this.acompanhantes.remove(a);
             if(a.getIdade() > 18){
                 numeroAdultos--;
-                pcr.na = numeroAdultos;
+                telaRegistrarReserva.na = numeroAdultos;
                 lbNumAdultos.setText(String.valueOf(numeroAdultos));
             }else{
                 numeroCriancas--;
-                pcr.nc = numeroCriancas;
+                telaRegistrarReserva.nc = numeroCriancas;
                 lbNumCriancas.setText(String.valueOf(numeroCriancas));
             }
             JOptionPane.showMessageDialog(null, "Acompanhante: " + a.getNome() + "Excluído com sucesso");

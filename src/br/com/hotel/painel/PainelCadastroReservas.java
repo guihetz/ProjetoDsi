@@ -5,22 +5,16 @@
  */
 package br.com.hotel.painel;
 
-import br.com.hotel.apresentacao.TelaAdicionarAcompanhante;
-import br.com.hotel.apresentacao.TelaAdicionarCartao;
+import br.com.hotel.apresentacao.TelaRegistrarReserva;
 import br.com.hotel.apresentacao.TelaRegistrarSaida;
-import br.com.hotel.apresentacao.TelaSelecionarAcomodacao;
 import br.com.hotel.dao.AcomodacaoDao;
 import br.com.hotel.dao.AcompanhanteDao;
-import br.com.hotel.dao.CartaoDao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.ConsumoDao;
 import br.com.hotel.dao.EntradaDao;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.dao.ReservaDao;
-import br.com.hotel.dao.SaidaDao;
-import br.com.hotel.dao.TipoAcomodacaoDao;
-import br.com.hotel.dao.TipoPagamentoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Acompanhante;
 import br.com.hotel.modelo.Cartao;
@@ -29,9 +23,6 @@ import br.com.hotel.modelo.Entrada;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.ItemConsumo;
 import br.com.hotel.modelo.Reserva;
-import br.com.hotel.modelo.Saida;
-import br.com.hotel.modelo.TipoAcomodacao;
-import br.com.hotel.modelo.TipoPagamento;
 import br.com.hotel.tabela.TableModelAcomodacoes;
 import br.com.hotel.tabela.TableModelAcompanhantes;
 import br.com.hotel.tabela.TableModelHospedes;
@@ -45,7 +36,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -73,15 +63,11 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private Acomodacao acomodacaoEscolhida;
     private ArrayList<Acompanhante> acompanhantes;
     private Cartao c;
-    public int na;
-    public int nc;
     
     public PainelCadastroReservas() {
         initComponents();
         this.acompanhantes = new ArrayList<>();
         this.c = new Cartao();
-        this.na = 1;
-        this.nc = 0;
         this.preencherTabelaHospedes();
         this.preencherTabelaReservas();
         this.preencherTabelaReservasDoHospede(null);
@@ -245,9 +231,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         this.acomodacaoEscolhida = acomodacaoEscolhida;
     }
     
-    public void setValorDiaria(double valor){
-        tfValorDiaria.setText(String.valueOf(valor));
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -306,26 +289,12 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         lbMsg4 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        tfValorDiaria = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        tfMulta = new javax.swing.JTextField();
-        btnAdicionarAcompanhante = new javax.swing.JButton();
-        btnAdicionarDadosCartao = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        lbNome = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaHospedes = new javax.swing.JTable();
-        btnEscolherAcomodacao = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        tfDesconto = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        dataChegada = new com.toedter.calendar.JDateChooser();
-        dataSaida = new com.toedter.calendar.JDateChooser();
+        btnAdicionarReserva = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -767,41 +736,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Gerenciar Saídas no Hotel", jPanel4);
 
-        jButton1.setText("Selecionar Hóspede Para Reserva");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Data Chegada: ");
-
-        jLabel2.setText("Data Saída:");
-
-        jLabel3.setText("Selecionar Acomodação:");
-
-        jLabel4.setText("Valor da Diária:");
-
-        tfValorDiaria.setEditable(false);
-
-        jLabel5.setText("Taxa de Multa:");
-
-        btnAdicionarAcompanhante.setText("Adicionar Acompanhante");
-        btnAdicionarAcompanhante.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarAcompanhanteActionPerformed(evt);
-            }
-        });
-
-        btnAdicionarDadosCartao.setText("Adicionar Dados Cartão de Crédito");
-        btnAdicionarDadosCartao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarDadosCartaoActionPerformed(evt);
-            }
-        });
-
-        jLabel6.setText("Nome:");
-
         tabelaHospedes.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         tabelaHospedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -816,116 +750,64 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tabelaHospedes);
 
-        btnEscolherAcomodacao.setText("Escolher");
-        btnEscolherAcomodacao.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionarReserva.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
+        btnAdicionarReserva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/add.png"))); // NOI18N
+        btnAdicionarReserva.setText("Adicionar Reserva");
+        btnAdicionarReserva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEscolherAcomodacaoActionPerformed(evt);
+                btnAdicionarReservaActionPerformed(evt);
             }
         });
 
-        jLabel7.setText("Desconto: ");
+        jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jButton2.setText("Realizar Reserva");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAdicionarReserva)))
+                .addContainerGap())
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAdicionarReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/city.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnAdicionarDadosCartao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnAdicionarAcompanhante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfMulta, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnEscolherAcomodacao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jLabel2))
-                                    .addGap(30, 30, 30)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(dataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(dataChegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel6))
-                            .addComponent(jButton2))
-                        .addGap(0, 225, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel6)
-                            .addComponent(lbNome, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(dataChegada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jLabel2))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(dataSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(btnEscolherAcomodacao))
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(tfValorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(tfMulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(tfDesconto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdicionarAcompanhante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAdicionarDadosCartao)
-                        .addGap(23, 23, 23)
-                        .addComponent(jButton2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel29)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Cadastrar Reserva", jPanel1);
@@ -947,107 +829,20 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try{
-            if(h!=null && acomodacaoEscolhida!= null && c!= null){
-                Calendar chegada = dataChegada.getCalendar();
-                Calendar saida = dataSaida.getCalendar();
-                //System.out.println(chegada.getTime() + "    "+ saida.getTime());
-                double diaria = Double.valueOf(tfValorDiaria.getText());
-                double multa = Double.valueOf(tfMulta.getText());
-                double desconto = Double.valueOf(tfDesconto.getText());
-                
-                CartaoDao cd = new CartaoDao(new ConnectionFactory().getConnection());
-                cd.inserirCartao(c);
-                cd = new CartaoDao(new ConnectionFactory().getConnection());
-                Cartao c2 = cd.buscarCartoesPorNumero(c.getNumeroCartao());
-                Reserva r = new Reserva();
-                GregorianCalendar gc = new GregorianCalendar();
-                gc.setTimeInMillis(chegada.getTimeInMillis());
-                r.setDataChegada(gc);
-                GregorianCalendar gc2 = new GregorianCalendar();
-                gc2.setTimeInMillis(saida.getTimeInMillis());
-                r.setDataSaida(gc2);
-                r.setHospedeId(h.getHospedeId());
-                r.setCartaoId(c2.getCartaoId());
-                r.setDesconto(desconto);
-                r.setTaxaMulta(multa);
-                r.setValorDiaria(diaria);
-                r.setAcomodacaoId(acomodacaoEscolhida.getAcomodacaoId());
-                ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
-                rd.inserirReserva(r);
-                rd = new ReservaDao(new ConnectionFactory().getConnection());
-                r = rd.buscarReservaPorHospede(h.getHospedeId());
-                for(Acompanhante a : acompanhantes){
-                    AcompanhanteDao ad = new AcompanhanteDao(new ConnectionFactory().getConnection());
-                    a.setReservaId(r.getReservaId());
-                    ad.inserirAcompanhante(a);
-                }
-                acomodacaoEscolhida.setReservado(true);
-                AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
-                ad.atualizarAcomodacao(acomodacaoEscolhida);
-                JOptionPane.showMessageDialog(null, "Reserva Concluída!");
-                this.h = null;
-                this.acomodacaoEscolhida = null;
-                this.c = new Cartao();
-                this.na = 1;
-                this.nc = 0;
-                lbNome.setText("");
-                this.preencherTabelaReservas();
-                
-            }else{
-                JOptionPane.showMessageDialog(null, "Dados incompletos.");
-            }
-            
-        }catch(Exception erro){
-            JOptionPane.showMessageDialog(null, "Erro ao realizar reserva. Dados incompletos! \n Tente novamente.\n");
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void btnEscolherAcomodacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEscolherAcomodacaoActionPerformed
-       try{
-           if(dataChegada.getDate()!= null && dataSaida.getDate()!= null){
-                TelaSelecionarAcomodacao tsa = new TelaSelecionarAcomodacao(this, dataChegada.getDate(), dataSaida.getDate());
-                tsa.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-           }else{
-               JOptionPane.showMessageDialog(null, "Data de chegada e saída devem ser escolhidas!");
-           }
-       }catch(Exception erro){
-           JOptionPane.showMessageDialog(null, "Data de chegada e saída devem ser escolhidas!");
-       }
-    }//GEN-LAST:event_btnEscolherAcomodacaoActionPerformed
-
-    private void btnAdicionarDadosCartaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDadosCartaoActionPerformed
-        if(this.h != null){
-            TelaAdicionarCartao tac = new TelaAdicionarCartao(this.h, this.c);
-
-        }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede foi selecionado!");
-        }
-    }//GEN-LAST:event_btnAdicionarDadosCartaoActionPerformed
-
-    private void btnAdicionarAcompanhanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAcompanhanteActionPerformed
-        if(acomodacaoEscolhida!= null){
-            TipoAcomodacaoDao tad = new TipoAcomodacaoDao(new ConnectionFactory().getConnection());
-            TipoAcomodacao tipo = tad.buscarTipoAcomodacao(acomodacaoEscolhida.getTipoAcomodacaoId());
-            TelaAdicionarAcompanhante taa = new TelaAdicionarAcompanhante(acompanhantes, tipo, this);
-        }else{
-            JOptionPane.showMessageDialog(null, "Deve ser escolhida uma acomodação.");
-        }
-    }//GEN-LAST:event_btnAdicionarAcompanhanteActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarReservaActionPerformed
         if(tabelaHospedes.getSelectedRow() >= 0){
             Hospede hospede = tableModelHospedes.retornarObjetoSelecionado(tabelaHospedes.getSelectedRow());
 
-            this.h = hospede;
-            JOptionPane.showMessageDialog(null, "Hóspede Selecionado \n" + hospede);
-            lbNome.setText(h.getNome());
-
+            TelaRegistrarReserva t2 = new TelaRegistrarReserva(hospede, this);
+            t2.setAlwaysOnTop(true);
+            t2.setVisible(true);
+            t2.setLocationRelativeTo(null);
+            
         }else{
-            JOptionPane.showMessageDialog(null, "Nenhum hóspede selecionado!");
+            lbMsg4.setText("Nenhuma reserva selecionada!");
+            lbMsg4.setForeground(Color.red);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAdicionarReservaActionPerformed
 
     private void btnRegistrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEntradaActionPerformed
          try{
@@ -1193,22 +988,16 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarAcompanhante;
-    private javax.swing.JButton btnAdicionarDadosCartao;
     private javax.swing.JButton btnAdicionarItemConsumo;
+    private javax.swing.JButton btnAdicionarReserva;
     private javax.swing.JButton btnBuscarHospede;
-    private javax.swing.JButton btnEscolherAcomodacao;
     private javax.swing.JButton btnExcluirReserva;
     private javax.swing.JButton btnRegistrarEntrada;
     private javax.swing.JButton btnSelecionarReservaSaida;
     private javax.swing.JButton btnVisualizarAcompanhantes;
-    private com.toedter.calendar.JDateChooser dataChegada;
     private com.toedter.calendar.JDateChooser dataConsumo;
     private com.toedter.calendar.JDateChooser dataEntradaNoHotel;
     private com.toedter.calendar.JDateChooser dataPrevistaSaidaDoHotel;
-    private com.toedter.calendar.JDateChooser dataSaida;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1216,19 +1005,15 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -1249,7 +1034,6 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbMsg1;
     private javax.swing.JLabel lbMsg4;
-    private javax.swing.JLabel lbNome;
     private javax.swing.JTable tabelaAcompanhantes;
     private javax.swing.JTable tabelaAdicionarItemConsumo;
     private javax.swing.JTable tabelaBuscarReservaHospedes;
@@ -1257,10 +1041,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JTable tabelaReservas;
     private javax.swing.JTable tabelaReservasSaida;
     private javax.swing.JTable tabelaSelecionarAcomodacaoConsumo;
-    private javax.swing.JTextField tfDesconto;
-    private javax.swing.JTextField tfMulta;
     private javax.swing.JTextField tfNomeBuscarHospede;
     private javax.swing.JTextField tfQuantidadeConsumida;
-    private javax.swing.JTextField tfValorDiaria;
     // End of variables declaration//GEN-END:variables
 }
