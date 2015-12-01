@@ -13,9 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import sun.util.calendar.Gregorian;
+
 
 /**
  *
@@ -54,14 +52,14 @@ public class SaidaDao {
     
     public void inserirSaida(Saida s){
         PreparedStatement ps = null;
-        String sql = "insert into saidas(saida_id, num_acomodacao, data_saida, num_diarias, valor_servicos, desconto, estadia_paga, tipo_pagamento_id, reserva_id) values(?,?,?,?,?,?,?,?);";
+        String sql = "insert into saidas(num_acomodacao, data_saida, num_diarias, valor_servicos, desconto, estadia_paga, tipo_pagamento_id, reserva_id) values(?,?,?,?,?,?,?,?);";
         
         try {
             ps = conn.prepareStatement(sql);
-            ps.setInt(1, s.getSaidaId());
-            ps.setInt(2, s.getNumAcomodacao());
-            ps.setDate(3, new Date(s.getDataSaida().getTimeInMillis()));
-            ps.setInt(4, s.getNumDiarias());
+            ps.setInt(1, s.getNumAcomodacao());
+            ps.setDate(2, new Date(s.getDataSaida().getTimeInMillis()));
+            ps.setInt(3, s.getNumDiarias());
+            ps.setDouble(4, s.getValorServicos());
             ps.setDouble(5, s.getDesconto());
             ps.setBoolean(6, s.isEstadiaPaga());
             ps.setInt(7, s.getTipoPagamentoId());

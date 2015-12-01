@@ -233,7 +233,9 @@ CREATE TABLE IF NOT EXISTS `tipos_pagamento` (
   UNIQUE INDEX `tipo_UNIQUE` (`tipo` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
-
+insert into tipos_pagamento(tipo) value('á vista');
+insert into tipos_pagamento(tipo) value('cheque');
+insert into tipos_pagamento(tipo) value('cartão');
 -- -----------------------------------------------------
 -- Table `saidas`
 -- -----------------------------------------------------
@@ -254,11 +256,6 @@ CREATE TABLE IF NOT EXISTS `saidas` (
     FOREIGN KEY (`tipo_pagamento_id`)
     REFERENCES `tipos_pagamento` (`tipo_pagamento_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_saidas_1`
-    FOREIGN KEY (`reserva_id`)
-    REFERENCES `reservas` (`reserva_id`)
-    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -269,7 +266,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `reservas_encerradas` ;
 
 CREATE TABLE IF NOT EXISTS `reservas_encerradas` (
-  `reserva_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
+  `reserva_id` INT NOT NULL COMMENT '',
   `data_chegada` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `data_saida` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '',
   `hospede_id` INT NOT NULL COMMENT '',
@@ -296,8 +293,9 @@ CREATE TABLE IF NOT EXISTS `reservas_encerradas` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-DELIMITER //
 
+DROP TRIGGER IF EXISTS `fechar_reservas`;
+DELIMITER //
 CREATE TRIGGER `fechar_reservas`
 BEFORE DELETE
    ON reservas FOR EACH ROW
@@ -305,7 +303,8 @@ BEFORE DELETE
 BEGIN
    -- Insert record into audit table
    INSERT INTO reservas_encerradas
-   ( data_chegada,
+   ( reserva_id,
+	 data_chegada,
 	 data_saida,
      hospede_id,
      acomodacao_id,
@@ -314,7 +313,8 @@ BEGIN
      cartao_id,
      desconto)
    VALUES
-   (OLD.data_chegada,
+   (OLD.reserva_id,
+    OLD.data_chegada,
     OLD.data_saida,
     OLD.hospede_id,
     OLD.acomodacao_id,

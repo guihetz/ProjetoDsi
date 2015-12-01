@@ -117,6 +117,29 @@ public class TipoPagamentoDao {
         }
     }
     
+    public TipoPagamento buscarTipoPagamentoPorNome(String tipo){
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        TipoPagamento tp = null;
+        String sql = "select * from tipos_pagamento where tipo = ?;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, tipo);
+            rs = ps.executeQuery();
+            tp = new TipoPagamento();
+            while(rs.next()){
+                tp.setTipoPagamentoId(rs.getInt("tipo_pagamento_id"));
+                tp.setTipo(rs.getString("tipo"));
+            }
+            return tp;
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }finally{
+            liberarRecursos(conn, ps, rs);
+        }
+    }
+    
     public void atualizarTipoPagamento(TipoPagamento tp){
         PreparedStatement ps = null;
         String sql = "update tipos_pagamento set tipo = ? where tipo_pagamento_id = ?;";

@@ -17,7 +17,9 @@ import br.com.hotel.dao.EntradaDao;
 import br.com.hotel.dao.HospedeDao;
 import br.com.hotel.dao.ItemConsumoDao;
 import br.com.hotel.dao.ReservaDao;
+import br.com.hotel.dao.SaidaDao;
 import br.com.hotel.dao.TipoAcomodacaoDao;
+import br.com.hotel.dao.TipoPagamentoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Acompanhante;
 import br.com.hotel.modelo.Cartao;
@@ -26,7 +28,9 @@ import br.com.hotel.modelo.Entrada;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.ItemConsumo;
 import br.com.hotel.modelo.Reserva;
+import br.com.hotel.modelo.Saida;
 import br.com.hotel.modelo.TipoAcomodacao;
+import br.com.hotel.modelo.TipoPagamento;
 import br.com.hotel.tabela.TableModelAcomodacoes;
 import br.com.hotel.tabela.TableModelAcompanhantes;
 import br.com.hotel.tabela.TableModelHospedes;
@@ -64,6 +68,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private TableModelHospedes tableModelHospedes;
     private TableModelReservas tableModelReservas;
     private TableModelReservas tableModelReservas2;
+    private TableModelReservas tableModelReservas3;
     private TableModelAcomodacoes modeloAcomodacao;
     private TableModelItensConsumo tmic;
     private Hospede h;
@@ -84,7 +89,18 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         this.preencherTabelaAcompanhantes(null);
         this.preencherTabelaItensConsumo();
         this.preecherTabelaAcomodacoes();
+        this.preencherTabelaReservasSaida();
+        this.preencherComboTipoPagamento();
     }
+    
+    public void preencherComboTipoPagamento(){
+        TipoPagamentoDao tpd = new TipoPagamentoDao(new ConnectionFactory().getConnection());
+        cbTipoPagamentos.removeAllItems();
+        for(TipoPagamento tp : tpd.listarTiposPagamento()){
+            cbTipoPagamentos.addItem(tp.getTipo());
+        }
+    }
+    
     
     public void preencherTabelaHospedes(){
         HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
@@ -106,6 +122,16 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tabelaReservas.setModel(tableModelReservas);
         tabelaReservas.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         tabelaReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+    
+    public void preencherTabelaReservasSaida(){
+        ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+        
+        tableModelReservas3 = new TableModelReservas();
+        tableModelReservas3.preencherLista(rd.listarReservas());
+        tabelaReservasSaida.setModel(tableModelReservas3);
+        tabelaReservasSaida.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabelaReservasSaida.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
     
     public void preencherTabelaReservasDoHospede(Hospede h){
@@ -241,6 +267,18 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tfValorDiariaIndividualSaida = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         tfDescontoTelaSaida = new javax.swing.JTextField();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tabelaReservasSaida = new javax.swing.JTable();
+        jLabel21 = new javax.swing.JLabel();
+        tfValorItensConsumidos = new javax.swing.JTextField();
+        btnSelecionarReservaSaida = new javax.swing.JButton();
+        btnRegistrarSaida = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        tfValorMultaSaida = new javax.swing.JTextField();
+        jLabel23 = new javax.swing.JLabel();
+        lblDias = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        cbTipoPagamentos = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -677,9 +715,17 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
 
         jLabel17.setText("Número do Quarto do Hóspede:");
 
+        tfNumeroDoQuartoSaida.setEditable(false);
+        tfNumeroDoQuartoSaida.setEnabled(false);
+
         jLabel18.setText("Data saída:");
 
         btnCalcularDiarias.setText("Calcular Diárias");
+        btnCalcularDiarias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularDiariasActionPerformed(evt);
+            }
+        });
 
         tfValorDiariasSaida.setEditable(false);
         tfValorDiariasSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -697,60 +743,157 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         tfDescontoTelaSaida.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tfDescontoTelaSaida.setEnabled(false);
 
+        tabelaReservasSaida.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane8.setViewportView(tabelaReservasSaida);
+
+        jLabel21.setText("Valor dos Itens Consumidos:");
+
+        tfValorItensConsumidos.setEditable(false);
+        tfValorItensConsumidos.setEnabled(false);
+
+        btnSelecionarReservaSaida.setText("Selecionar Reserva");
+        btnSelecionarReservaSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecionarReservaSaidaActionPerformed(evt);
+            }
+        });
+
+        btnRegistrarSaida.setText("Registrar Saída do Hotel");
+        btnRegistrarSaida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarSaidaActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("Multa por Sair antes do Término da Reserva:");
+
+        tfValorMultaSaida.setEditable(false);
+        tfValorMultaSaida.setEnabled(false);
+
+        jLabel23.setText("DIAS NO HOTEL: ");
+
+        lblDias.setText("________");
+
+        jLabel24.setText("Selecionar Tipo de Pagamento:");
+
+        cbTipoPagamentos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17)
-                    .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCalcularDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel20)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfDescontoTelaSaida))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel19)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(650, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRegistrarSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnSelecionarReservaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel17)
+                                    .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                            .addComponent(jLabel20)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tfDescontoTelaSaida))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                                            .addComponent(jLabel19)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel18))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel23)
+                                            .addComponent(btnCalcularDiarias, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblDias)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel21)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfValorItensConsumidos, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel22)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfValorMultaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel24)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbTipoPagamentos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel16)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCalcularDiarias)
-                        .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel19)
-                    .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(tfDescontoTelaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(456, Short.MAX_VALUE))
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfNumeroDoQuartoSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel23)
+                            .addComponent(lblDias))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dataSaidaTelaSaidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCalcularDiarias)
+                                .addComponent(tfValorDiariasSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel19)
+                            .addComponent(tfValorDiariaIndividualSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel20)
+                            .addComponent(tfDescontoTelaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel22)
+                            .addComponent(tfValorMultaSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(tfValorItensConsumidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel24)
+                            .addComponent(cbTipoPagamentos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSelecionarReservaSaida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRegistrarSaida)
+                .addContainerGap(192, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Gerenciar Saídas no Hotel", jPanel4);
@@ -1000,6 +1143,131 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnExcluirReservaActionPerformed
 
+    private void btnSelecionarReservaSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecionarReservaSaidaActionPerformed
+        if(tabelaReservasSaida.getSelectedRow() >= 0){
+            Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaReservasSaida.getSelectedRow());
+            AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+            Acomodacao a = ad.buscarAcomodacao(r.getAcomodacaoId());
+            ConsumoDao cd = new ConsumoDao(new ConnectionFactory().getConnection());
+            ArrayList<Consumo> consumosDoQuarto = cd.listarConsumoPorAcomodacao(a.getNumAcomodacao());
+            Date inicioEstadia = r.getDataChegada().getTime();
+            Date fimEstadia = r.getDataSaida().getTime();
+            ArrayList<Consumo> consumosHospede = new ArrayList<>();
+            for(Consumo c : consumosDoQuarto){
+                Date dataConsumo = c.getDataConsumo();
+                if((dataConsumo.equals(inicioEstadia) || dataConsumo.equals(fimEstadia)) || (dataConsumo.after(inicioEstadia) && dataConsumo.before(fimEstadia))  ){
+                    consumosHospede.add(c);
+                }
+            }
+            double valorTotalItens = 0;
+            
+            for(Consumo c: consumosHospede){
+                ItemConsumoDao icd = new ItemConsumoDao(new ConnectionFactory().getConnection());
+                ItemConsumo ic = icd.buscarItemConsumo(c.getItemId());
+                valorTotalItens += (ic.getValor() * c.getQtdeConsumida());
+            }
+            
+            tfNumeroDoQuartoSaida.setText(String.valueOf(a.getNumAcomodacao()));
+            tfValorItensConsumidos.setText(String.valueOf(valorTotalItens));
+            tfValorDiariaIndividualSaida.setText(String.valueOf(r.getValorDiaria()));
+            tfDescontoTelaSaida.setText(String.valueOf(r.getDesconto()));
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma reserva selecionada!");
+        }
+    }//GEN-LAST:event_btnSelecionarReservaSaidaActionPerformed
+
+    private void btnCalcularDiariasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularDiariasActionPerformed
+        if(tabelaReservasSaida.getSelectedRow() >= 0){
+            Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaReservasSaida.getSelectedRow());
+            Date inicioEstadia = r.getDataChegada().getTime();
+            Date fimEstadia = r.getDataSaida().getTime();
+
+            Calendar dataEscolhidaSaida = dataSaidaTelaSaidas.getCalendar();
+            dataEscolhidaSaida.set(Calendar.HOUR_OF_DAY, 0);
+            dataEscolhidaSaida.set(Calendar.MINUTE, 0);
+            dataEscolhidaSaida.set(Calendar.MILLISECOND, 0);
+            dataEscolhidaSaida.set(Calendar.SECOND, 0);
+            Date dataSaida2 = dataEscolhidaSaida.getTime();
+            if(!(dataSaida2.before(inicioEstadia)||dataSaida2.after(fimEstadia))){
+                long dias = (dataSaida2.getTime() - inicioEstadia.getTime()) / 86400000L;
+                lblDias.setText(String.valueOf(dias));
+                tfValorDiariasSaida.setText(String.valueOf(dias * r.getValorDiaria()));
+                if(dataSaida2.before(fimEstadia)){
+                    tfValorMultaSaida.setText(String.valueOf(r.getTaxaMulta()));
+                }else{
+                    tfValorMultaSaida.setText("Sem multa.");
+                } 
+            }else{
+                JOptionPane.showMessageDialog(null, "Data de Saída está fora do período da reserva.");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma reserva selecionada!");
+        }
+    }//GEN-LAST:event_btnCalcularDiariasActionPerformed
+
+    private void btnRegistrarSaidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarSaidaActionPerformed
+        if(tabelaReservasSaida.getSelectedRow() >= 0){
+            Reserva r = tableModelReservas.retornarObjetoSelecionado(tabelaReservasSaida.getSelectedRow());
+            AcomodacaoDao ad = new AcomodacaoDao(new ConnectionFactory().getConnection());
+            Acomodacao a = ad.buscarAcomodacao(r.getAcomodacaoId());
+            ConsumoDao cd = new ConsumoDao(new ConnectionFactory().getConnection());
+            ArrayList<Consumo> consumosDoQuarto = cd.listarConsumoPorAcomodacao(a.getNumAcomodacao());
+            Date inicioEstadia = r.getDataChegada().getTime();
+            Date fimEstadia = r.getDataSaida().getTime();
+            ArrayList<Consumo> consumosHospede = new ArrayList<>();
+            for(Consumo c : consumosDoQuarto){
+                Date dataConsumo = c.getDataConsumo();
+                if((dataConsumo.equals(inicioEstadia) || dataConsumo.equals(fimEstadia)) || (dataConsumo.after(inicioEstadia) && dataConsumo.before(fimEstadia))  ){
+                    consumosHospede.add(c);
+                }
+            }
+            double valorTotalItens = 0;
+            
+            for(Consumo c: consumosHospede){
+                ItemConsumoDao icd = new ItemConsumoDao(new ConnectionFactory().getConnection());
+                ItemConsumo ic = icd.buscarItemConsumo(c.getItemId());
+                valorTotalItens += (ic.getValor() * c.getQtdeConsumida());
+            }
+            
+            tfNumeroDoQuartoSaida.setText(String.valueOf(a.getNumAcomodacao()));
+            tfValorItensConsumidos.setText(String.valueOf(valorTotalItens));
+            tfValorDiariaIndividualSaida.setText(String.valueOf(r.getValorDiaria()));
+            tfDescontoTelaSaida.setText(String.valueOf(r.getDesconto()));
+            Calendar dataEscolhidaSaida = dataSaidaTelaSaidas.getCalendar();
+            dataEscolhidaSaida.set(Calendar.HOUR_OF_DAY, 0);
+            dataEscolhidaSaida.set(Calendar.MINUTE, 0);
+            dataEscolhidaSaida.set(Calendar.MILLISECOND, 0);
+            dataEscolhidaSaida.set(Calendar.SECOND, 0);
+            Date dataSaida2 = dataEscolhidaSaida.getTime();
+            long dias = (dataSaida2.getTime() - inicioEstadia.getTime()) / 86400000L;
+            SaidaDao sd = new SaidaDao(new ConnectionFactory().getConnection());
+            Saida s = new Saida();
+            s.setReservaId(r.getReservaId());
+            s.setValorServicos(valorTotalItens);
+            s.setNumAcomodacao(a.getNumAcomodacao());
+            s.setNumDiarias((int)dias);
+            s.setDesconto(r.getDesconto());
+            s.setEstadiaPaga(true);
+            GregorianCalendar gc = new GregorianCalendar();
+            gc.setTime(dataSaida2);
+            s.setDataSaida(gc);
+            TipoPagamentoDao tpd = new TipoPagamentoDao(new ConnectionFactory().getConnection());
+            TipoPagamento tp = tpd.buscarTipoPagamentoPorNome((String)cbTipoPagamentos.getSelectedItem());
+            s.setTipoPagamentoId(tp.getTipoPagamentoId());
+            sd.inserirSaida(s);
+            
+            ReservaDao rd = new ReservaDao(new ConnectionFactory().getConnection());
+            rd.excluirReserva(r.getReservaId());
+            JOptionPane.showMessageDialog(null, "Saída do Hotel Concluida");
+            preencherTabelaReservasSaida();
+            
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Nenhuma reserva selecionada!");
+        }
+    }//GEN-LAST:event_btnRegistrarSaidaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAcompanhante;
@@ -1010,7 +1278,10 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JButton btnEscolherAcomodacao;
     private javax.swing.JButton btnExcluirReserva;
     private javax.swing.JButton btnRegistrarEntrada;
+    private javax.swing.JButton btnRegistrarSaida;
+    private javax.swing.JButton btnSelecionarReservaSaida;
     private javax.swing.JButton btnVisualizarAcompanhantes;
+    private javax.swing.JComboBox<String> cbTipoPagamentos;
     private com.toedter.calendar.JDateChooser dataChegada;
     private com.toedter.calendar.JDateChooser dataConsumo;
     private com.toedter.calendar.JDateChooser dataEntradaNoHotel;
@@ -1032,6 +1303,10 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1051,14 +1326,17 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lblDias;
     private javax.swing.JTable tabelaAcompanhantes;
     private javax.swing.JTable tabelaAdicionarItemConsumo;
     private javax.swing.JTable tabelaBuscarReservaHospedes;
     private javax.swing.JTable tabelaHospedes;
     private javax.swing.JTable tabelaReservas;
+    private javax.swing.JTable tabelaReservasSaida;
     private javax.swing.JTable tabelaSelecionarAcomodacaoConsumo;
     private javax.swing.JTextField tfDesconto;
     private javax.swing.JTextField tfDescontoTelaSaida;
@@ -1069,5 +1347,7 @@ public class PainelCadastroReservas extends javax.swing.JPanel {
     private javax.swing.JTextField tfValorDiaria;
     private javax.swing.JTextField tfValorDiariaIndividualSaida;
     private javax.swing.JTextField tfValorDiariasSaida;
+    private javax.swing.JTextField tfValorItensConsumidos;
+    private javax.swing.JTextField tfValorMultaSaida;
     // End of variables declaration//GEN-END:variables
 }

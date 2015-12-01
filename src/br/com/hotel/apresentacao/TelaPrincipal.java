@@ -8,6 +8,7 @@ package br.com.hotel.apresentacao;
 import br.com.hotel.painel.PainelCadastroHospede;
 import br.com.hotel.painel.PainelCadastroReservas;
 import br.com.hotel.painel.PainelGerenciarHotel;
+import br.com.hotel.painel.PainelGerenciarRelatorios;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
@@ -79,6 +80,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jButton4.setFont(new java.awt.Font("Hotel Oriental", 0, 20)); // NOI18N
         jButton4.setText("Relatórios");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/hotel/imagem/hotel.png"))); // NOI18N
 
@@ -148,6 +154,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.add(pcr, BorderLayout.CENTER);
         this.getContentPane().revalidate();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        PainelGerenciarRelatorios pgr = new PainelGerenciarRelatorios();
+        pgr.setVisible(true);
+        this.getContentPane().removeAll();
+        this.add(painelLateral, BorderLayout.WEST);
+        this.add(pgr, BorderLayout.CENTER);
+        this.getContentPane().revalidate();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
