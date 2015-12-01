@@ -16,7 +16,6 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -107,6 +106,7 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
             }
         });
 
+        tabelaHospedes.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         tabelaHospedes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
