@@ -56,7 +56,7 @@ public class TelaAdicionarHospede extends javax.swing.JFrame {
         ftTelefone = new javax.swing.JFormattedTextField();
         lbMsg = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Hotel Oriental", 0, 18)); // NOI18N
         jLabel1.setText("Nome");
@@ -219,9 +219,10 @@ public class TelaAdicionarHospede extends javax.swing.JFrame {
                                     h.setDataNascimento(dcDataNascimento.getDate());
                                     HospedeDao hd = new HospedeDao(new ConnectionFactory().getConnection());
                                     hd.inserirHospede(h);
+                                    this.dispose();
                                     pnCadastroHospede.preencherTabelaHospedes();
                                     pnCadastroHospede.preencherMsg("Hospede Cadastrado!", Color.GREEN);                                    
-                                    this.dispose();
+                                    
                                     
                                 }else{
                                     lbMsg.setText("Erro: digite data");
