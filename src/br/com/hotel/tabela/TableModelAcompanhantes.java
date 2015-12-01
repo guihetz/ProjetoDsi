@@ -5,14 +5,7 @@
  */
 package br.com.hotel.tabela;
 
-import br.com.hotel.dao.ConnectionFactory;
-import br.com.hotel.dao.TipoAcomodacaoDao;
-import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Acompanhante;
-import br.com.hotel.modelo.Hospede;
-import br.com.hotel.modelo.TipoAcomodacao;
-import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 
@@ -21,7 +14,7 @@ import javax.swing.table.AbstractTableModel;
  * @author daylton
  */
 public class TableModelAcompanhantes extends AbstractTableModel{
-    private String[] nomesColunas = {"NOME", "IDADE"};
+    private String[] nomesColunas = {"Nome", "Idade"};
     private ArrayList<Acompanhante> listaAcompanhantes;
     
     public TableModelAcompanhantes(){

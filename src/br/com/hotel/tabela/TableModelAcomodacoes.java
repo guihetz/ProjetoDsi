@@ -8,10 +8,7 @@ package br.com.hotel.tabela;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
-import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.TipoAcomodacao;
-import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 

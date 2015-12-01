@@ -8,12 +8,9 @@ package br.com.hotel.tabela;
 import br.com.hotel.dao.AcomodacaoDao;
 import br.com.hotel.dao.ConnectionFactory;
 import br.com.hotel.dao.HospedeDao;
-import br.com.hotel.dao.TipoAcomodacaoDao;
 import br.com.hotel.modelo.Acomodacao;
 import br.com.hotel.modelo.Hospede;
 import br.com.hotel.modelo.Reserva;
-import br.com.hotel.modelo.TipoAcomodacao;
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -23,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
  * @author daylton
  */
 public class TableModelReservas extends AbstractTableModel{
-    private String[] nomesColunas = {"DATA CHEGADA", "DATA SAÍDA","HOSPEDE", "NÚMERO QUARTO", "ANDAR", "VALOR DIÁRIA", "TAXA MULTA", "DESCONTO"};
+    private String[] nomesColunas = {"Chegada", "Sáida", "Hospede", "Quarto", "Andar", "Diária", "Multa", "Desconto"};
     private ArrayList<Reserva> listaReservas;
     
     public TableModelReservas(){

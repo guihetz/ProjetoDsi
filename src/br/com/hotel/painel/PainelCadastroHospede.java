@@ -51,7 +51,10 @@ public class PainelCadastroHospede extends javax.swing.JPanel {
         centerRender.setHorizontalAlignment(JLabel.CENTER);
         tabelaHospedes.getColumnModel().getColumn(0).setCellRenderer(centerRender);
         tabelaHospedes.getColumnModel().getColumn(1).setCellRenderer(centerRender);
-        tabelaHospedes.getColumnModel().getColumn(2).setCellRenderer(centerRender);        
+        tabelaHospedes.getColumnModel().getColumn(2).setCellRenderer(centerRender);
+        tabelaHospedes.getColumnModel().getColumn(3).setCellRenderer(centerRender);
+        tabelaHospedes.getColumnModel().getColumn(4).setCellRenderer(centerRender);
+        tabelaHospedes.getColumnModel().getColumn(5).setCellRenderer(centerRender);
         tabelaHospedes.getTableHeader().setFont(new Font("Hotel Oriental", 1, 18));                
         ((DefaultTableCellRenderer) tabelaHospedes.getTableHeader().getDefaultRenderer()).setHorizontalAlignment(CENTER);
         
